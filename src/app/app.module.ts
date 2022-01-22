@@ -9,11 +9,19 @@ import {CHANNEL_URL_TOKEN} from "./data/implementation/ChannelService";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {ReactiveFormsModule} from "@angular/forms";
+import { ServersComponent } from './views/servers/servers.component';
+import {SERVER_URL_TOKEN} from "./data/implementation/ServerService";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatDividerModule} from "@angular/material/divider";
 
 @NgModule({
   declarations: [
     AppComponent,
-    CamerasComponent
+    CamerasComponent,
+    ServersComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +29,12 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatPaginatorModule,
     MatTableModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule
   ],
   providers: [
     // { //todo добавить позже
@@ -32,6 +45,10 @@ import {ReactiveFormsModule} from "@angular/forms";
     {
       provide: CHANNEL_URL_TOKEN,
       useValue: 'http://localhost:8080/common'
+    },
+    {
+      provide: SERVER_URL_TOKEN,
+      useValue: 'http://localhost:8080/server'
     },
   ],
   bootstrap: [AppComponent]

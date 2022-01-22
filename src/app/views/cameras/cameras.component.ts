@@ -10,8 +10,8 @@ import {MatPaginator} from "@angular/material/paginator";
 })
 export class CamerasComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['guidChannel', 'guidServer',
-    'name', 'signal', 'guidIpDevice', 'ip',
+  displayedColumns: string[] = ['guidServer',
+    'name', 'signal', 'ip',
     'model', 'lastUpdate', // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
     'switchId', 'poeInjector'];
   dataSource: MatTableDataSource<CommonChannel>; // контейнер - источник данных для таблицы

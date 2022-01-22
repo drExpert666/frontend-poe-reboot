@@ -2,14 +2,9 @@
   <table mat-table [dataSource]="dataSource">
 
 
-    <ng-container matColumnDef="guidChannel">
-      <th mat-header-cell *matHeaderCellDef>ID канала</th>
-      <td mat-cell *matCellDef="let channel"> {{channel.guidChannel ? channel.guidChannel : 'Нет информации'}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="guidServer">
       <th mat-header-cell *matHeaderCellDef>Имя сервера</th>
-      <td mat-cell *matCellDef="let channel"> {{channel.guidServer && channel.guidServer.name ? channel.guidServer.name : 'Нет информации'}} </td>
+      <td mat-cell *matCellDef="let channel"> {{channel.guidServer && channel.guidServer.serverName ? channel.guidServer.serverName : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
@@ -23,15 +18,9 @@
       <td mat-cell *matCellDef="let channel"> {{channel.signal ? channel.signal : 'Нет информации'}} </td>
     </ng-container>
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="guidIpDevice">
-      <th mat-header-cell *matHeaderCellDef>ID девайса</th>
-      <td mat-cell *matCellDef="let channel"> {{channel.guidIpDevice ? channel.guidIpDevice : 'Нет информации'}} </td>
-    </ng-container>
-
     <!-- Name Column -->
     <ng-container matColumnDef="ip">
-      <th mat-header-cell *matHeaderCellDef>IP камеры</th>
+      <th mat-header-cell *matHeaderCellDef>IP адрес камеры</th>
       <td mat-cell *matCellDef="let channel"> {{channel.ip ? channel.ip : 'Нет информации'}} </td>
     </ng-container>
 
@@ -43,7 +32,7 @@
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="lastUpdate">
-      <th mat-header-cell *matHeaderCellDef>Боследнее обновление</th>
+      <th mat-header-cell *matHeaderCellDef>Последнее обновление</th>
       <td mat-cell *matCellDef="let channel"> {{channel.lustUpdate ? channel.lustUpdate : 'Нет информации'}} </td>
     </ng-container>
 
@@ -55,7 +44,7 @@
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="poeInjector">
-      <th mat-header-cell *matHeaderCellDef>Есть ли пое инжектор</th>
+      <th mat-header-cell *matHeaderCellDef>Есть ли пое инжектор?</th>
       <td mat-cell *matCellDef="let channel"> {{channel.poeInjector ? channel.poeInjector : 'Нет информации'}} </td>
     </ng-container>
 
@@ -63,7 +52,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+  <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
   </mat-paginator>

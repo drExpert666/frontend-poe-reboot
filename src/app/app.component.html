@@ -1,6 +1,41 @@
-<app-cameras [channels]="channels"
+<!--не забудь перенести тулбар в отдельный компонент!-->
+<mat-toolbar>
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+  </button>
+  <p class="mat-menu-panel pointer text-menu" *ngIf="sidenav.opened"
+     (click)="sidenav.toggle()"
+  >Скрыть меню</p>
+  <p class="mat-menu-panel pointer text-menu" *ngIf="!sidenav.opened"
+     (click)="sidenav.toggle()"
+  >Показать меню</p>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav">
+    <app-servers [servers]="servers">
+
+    </app-servers>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="content">
+      <app-cameras [channels]="channels"
+
+      >
+
+      </app-cameras>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
 
 
->
 
-</app-cameras>
+

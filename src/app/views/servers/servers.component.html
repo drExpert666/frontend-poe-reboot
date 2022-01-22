@@ -1,0 +1,13 @@
+<li class="sidenav-list"
+
+    [class.on-server-click]="server === selectedServer"
+    *ngFor="let server of servers; let index = index"
+>
+  <a class="pointer">
+    <span
+      (click)="showSelectedServer(server)"
+    [class.on-server-click]="server === selectedServer"
+    >{{server.serverName? server.serverName : 'Имя неизвестно'}}</span>
+
+  </a>
+</li>
