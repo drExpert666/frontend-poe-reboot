@@ -1,4 +1,4 @@
-export class TrassirServer {
+export class Server {
 
   guid: string;
 

@@ -19,7 +19,9 @@
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav">
-    <app-servers [servers]="servers">
+    <app-servers [servers]="servers"
+                 (onSelectedServer)="onSelectedServer($event)"
+    >
 
     </app-servers>
   </mat-sidenav>

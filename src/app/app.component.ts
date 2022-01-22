@@ -1,10 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ChannelService} from "./data/implementation/ChannelService";
-import {CommonChannel} from "../models/CommonChannel";
+import {Channel} from "../models/Channel";
 import {ServerService} from "./data/implementation/ServerService";
-import {TrassirServer} from "../models/TrassirServer";
+import {Server} from "../models/Server";
 import {MatSidenav} from "@angular/material/sidenav";
 import {BreakpointObserver} from "@angular/cdk/layout";
+import {ChannelSearchValues} from "./data/search/search";
 
 @Component({
   selector: 'app-root',
@@ -18,8 +19,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   sidenav!: MatSidenav;
 
   /** передаваемые параметры через Input декораторы */
-  channels: CommonChannel[];
-  servers: TrassirServer[];
+  channels: Channel[];
+  servers: Server[];
+  channelSearchValues: ChannelSearchValues;
+
+  selectedServer: Server;
 
   constructor(private channelService: ChannelService,
               private serverService: ServerService,
@@ -61,4 +65,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     console.log(this.channels);
   }
 
+  onSelectedServer(server: Server) {
+    this.selectedServer = server;
+    this.channelService.findByParams(new ChannelSearchValues(server.guid, '', ''))
+      .subscribe(c => this.channels = c);
+  }
 }

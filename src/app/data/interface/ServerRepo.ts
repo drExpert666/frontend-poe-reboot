@@ -1,6 +1,6 @@
 import {CommonRepo} from "./CommonRepo";
-import {TrassirServer} from "../../../models/TrassirServer";
+import {Server} from "../../../models/Server";
 
-export interface ServerRepo extends CommonRepo<TrassirServer> {
+export interface ServerRepo extends CommonRepo<Server> {
 
 }

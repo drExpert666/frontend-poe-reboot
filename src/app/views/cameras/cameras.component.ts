@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {CommonChannel} from "../../../models/CommonChannel";
+import {Channel} from "../../../models/Channel";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 
@@ -14,7 +14,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     'name', 'signal', 'ip',
     'model', 'lastUpdate', // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
     'switchId', 'poeInjector'];
-  dataSource: MatTableDataSource<CommonChannel>; // контейнер - источник данных для таблицы
+  dataSource: MatTableDataSource<Channel>; // контейнер - источник данных для таблицы
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -30,10 +30,10 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource();
   }
 
-  channels: CommonChannel[];
+  channels: Channel[];
 
   @Input("channels")
-  set setChannels(value: CommonChannel[]) {
+  set setChannels(value: Channel[]) {
     this.channels = value;
     this.fillTable();
   }

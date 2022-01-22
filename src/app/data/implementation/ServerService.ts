@@ -1,6 +1,6 @@
 import {Inject, Injectable, InjectionToken} from '@angular/core';
 import {CommonService} from "./CommonService";
-import {TrassirServer} from "../../../models/TrassirServer";
+import {Server} from "../../../models/Server";
 import {HttpClient} from "@angular/common/http";
 import {ServerRepo} from "../interface/ServerRepo";
 
@@ -14,7 +14,7 @@ export const SERVER_URL_TOKEN = new InjectionToken<string>('url')
 })
 
 
-export class ServerService extends CommonService<TrassirServer> implements ServerRepo{
+export class ServerService extends CommonService<Server> implements ServerRepo{
 
   constructor(@Inject(SERVER_URL_TOKEN) baseUrl: string, httpClient: HttpClient) {
 

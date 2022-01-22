@@ -1,9 +1,9 @@
 import {Switch} from "./Switch";
-import {TrassirServer} from "./TrassirServer";
+import {Server} from "./Server";
 
-export class CommonChannel {
+export class Channel {
 
-  guidServer: TrassirServer | null; // id канала
+  guidServer: Server | null; // id канала
 
   guidChannel: string | null; // id канала
 
@@ -24,7 +24,7 @@ export class CommonChannel {
   switchId: Switch | null;
 
 
-  constructor(guidServer: TrassirServer | null, guidChannel: string | null, name: string | null, signal: number | null, guidIpDevice: string | null, ip: string | null, model: string | null, lustUpdate: Date | null, poeInjector: boolean | null, switchId: Switch | null) {
+  constructor(guidServer: Server | null, guidChannel: string | null, name: string | null, signal: number | null, guidIpDevice: string | null, ip: string | null, model: string | null, lustUpdate: Date | null, poeInjector: boolean | null, switchId: Switch | null) {
     this.guidServer = guidServer;
     this.guidChannel = guidChannel;
     this.name = name;

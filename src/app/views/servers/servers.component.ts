@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TrassirServer} from "../../../models/TrassirServer";
+import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
+import {Server} from "../../../models/Server";
 
 @Component({
   selector: 'app-servers',
@@ -10,21 +10,29 @@ export class ServersComponent implements OnInit {
 
   constructor() { }
 
-  servers: TrassirServer[];
+  /** инпут декораторы */
 
-  selectedServer: TrassirServer;
-
+  servers: Server[];
   @Input("servers")
-  set setServers(value: TrassirServer[]) {
+  set setServers(value: Server[]) {
     this.servers = value;
     console.log(this.servers);
   }
+
+  selectedServer: Server;
+
+  /** аутпут декораторы */
+
+  @Output()
+  onSelectedServer = new EventEmitter<Server>();
+
 
   ngOnInit(): void {
 
   }
 
-  showSelectedServer(server: TrassirServer) {
+  showSelectedServer(server: Server) {
     this.selectedServer = server;
+    this.onSelectedServer.emit(server);
   }
 }
