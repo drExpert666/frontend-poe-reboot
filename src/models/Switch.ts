@@ -1,18 +1,19 @@
 export class Switch {
 
-  id: Number;
+  id: number;
 
-  name: String;
+  name: string;
 
-  ip: String;
+  ip: string;
 
-  ports: String;
+  ports: string;
 
-  numbersOfPorts: Number;
+  numbersOfPorts: number;
 
-  description: String;
+  description: string;
 
-  constructor(id: Number, name: String, ip: String, ports: String, numbersOfPorts: Number, description: String) {
+
+  constructor(id: number, name: string, ip: string, ports: string, numbersOfPorts: number, description: string) {
     this.id = id;
     this.name = name;
     this.ip = ip;

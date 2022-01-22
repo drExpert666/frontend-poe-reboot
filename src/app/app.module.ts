@@ -4,8 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CamerasComponent } from './views/cameras/cameras.component';
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CHANNEL_URL_TOKEN} from "./data/implementation/ChannelService";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatTableModule} from "@angular/material/table";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -14,7 +17,11 @@ import {CHANNEL_URL_TOKEN} from "./data/implementation/ChannelService";
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatPaginatorModule,
+    MatTableModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     // { //todo добавить позже

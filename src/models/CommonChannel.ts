@@ -3,28 +3,28 @@ import {TrassirServer} from "./TrassirServer";
 
 export class CommonChannel {
 
-  guidServer: TrassirServer; // id канала
+  guidServer: TrassirServer | null; // id канала
 
-  guidChannel: String | null; // id канала
+  guidChannel: string | null; // id канала
 
-  name: String | null; // имя канала
+  name: string | null; // имя канала
 
-  signal: Number; // состояние канала
+  signal: number | null; // состояние канала
 
-  guidIpDevice: String | null; // id ip девайса
+  guidIpDevice: string | null; // id ip девайса
 
-  ip: String | null; // ip адрес девайса
+  ip: string | null; // ip адрес девайса
 
-  model: String | null; // модель устройства
+  model: string | null; // модель устройства
 
   lustUpdate: Date | null; // последнее обновление информации (когда был последний запрос);    @Basic
 
-  poeInjector: Boolean;
+  poeInjector: boolean | null;
 
-  switchId:  Switch;
+  switchId: Switch | null;
 
 
-  constructor(guidServer: TrassirServer, guidChannel: String | null, name: String | null, signal: Number, guidIpDevice: String | null, ip: String | null, model: String | null, lustUpdate: Date | null, poeInjector: Boolean, switchId: Switch) {
+  constructor(guidServer: TrassirServer | null, guidChannel: string | null, name: string | null, signal: number | null, guidIpDevice: string | null, ip: string | null, model: string | null, lustUpdate: Date | null, poeInjector: boolean | null, switchId: Switch | null) {
     this.guidServer = guidServer;
     this.guidChannel = guidChannel;
     this.name = name;

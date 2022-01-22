@@ -1,32 +1,33 @@
 export class TrassirServer {
 
-  guid: String;
+  guid: string;
 
-  serverName: String;
+  serverName: string;
 
-  serverIP: String;
+  serverIP: string;
 
-  channels_total: Number;
+  channelsTotal: number;
 
-  channels_online: Number;
+  channelsOnline: number;
 
-  serverStatus: Number;
+  serverStatus: number;
 
-  sessionId: String;
+  sessionId: string;
 
   lustUpdate: Date;
 
-  error_code: String;
+  errorCode: string;
 
-  constructor(guid: String, serverName: String, serverIP: String, channels_total: Number, channels_online: Number, serverStatus: Number, sessionId: String, lustUpdate: Date, error_code: String) {
+
+  constructor(guid: string, serverName: string, serverIP: string, channelsTotal: number, channelsOnline: number, serverStatus: number, sessionId: string, lustUpdate: Date, errorCode: string) {
     this.guid = guid;
     this.serverName = serverName;
     this.serverIP = serverIP;
-    this.channels_total = channels_total;
-    this.channels_online = channels_online;
+    this.channelsTotal = channelsTotal;
+    this.channelsOnline = channelsOnline;
     this.serverStatus = serverStatus;
     this.sessionId = sessionId;
     this.lustUpdate = lustUpdate;
-    this.error_code = error_code;
+    this.errorCode = errorCode;
   }
 }
