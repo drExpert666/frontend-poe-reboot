@@ -3,9 +3,10 @@
   text-align-all: center;
   padding-top: 12px;
   padding-bottom: 12px;
-  padding-left: 32px;
+  padding-left: 26px;
+  font: bold;
   display: flex;
-  font-size: 14px;
+  font-size: 15px;
   font-style: inherit;
   background-color: aliceblue;
   margin-top: 12px;
@@ -20,7 +21,7 @@
 
 
 .on-server-click {
-  background: #cd179c;
+  background: #4fbdbd;
 
 }
 
@@ -36,5 +37,5 @@
 }
 
 mat-form-field {
-  width: 180px !important;
+  width: 170px !important;
 }
