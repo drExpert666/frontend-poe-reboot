@@ -1,6 +1,6 @@
 <div class="row">
 
-  <div class="col-3 col-md-12">
+  <div class="col-3 col-md-3 col-sm-12 text-left-2">
 
     <mat-form-field class="example-form-field" appearance="fill">
       <mat-label>Поиск по названию</mat-label>
@@ -15,6 +15,24 @@
 
   </div>
 
+  <div class="col-3 col-md-3 col-sm-12">
+
+  </div>
+
+  <div class="col-3 col-md-3 col-sm-12">
+
+  </div>
+
+  <div class="col-3 col-md-3 col-sm-12 text-right-2">
+
+    <div mat-dialog-actions appearance="fill">
+      <button mat-raised-button color="warn"
+        (click)="openAddDialog()"
+
+      >Добавить коммутатор</button>
+    </div>
+
+  </div>
 
 
 </div>
@@ -33,37 +51,41 @@
       <td mat-cell *matCellDef="let channel"> {{channel.name ? channel.name : 'Нет информации'}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
     <ng-container matColumnDef="signal">
       <th mat-header-cell *matHeaderCellDef>Состояние</th>
-      <td mat-cell *matCellDef="let channel"> {{channel.signal ? channel.signal : 'Нет информации'}} </td>
+      <td mat-cell *matCellDef="let channel"
+      [class.no-info]="channel.signal  == undefined || null"
+      > {{channel.signal ? channel.signal : 'Нет информации'}} </td>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="ip">
       <th mat-header-cell *matHeaderCellDef>IP адрес камеры</th>
-      <td mat-cell *matCellDef="let channel"> {{channel.ip ? channel.ip : 'Нет информации'}} </td>
+      <td mat-cell *matCellDef="let channel"
+          [class.no-info]="channel.ip  == undefined || null"
+      > {{channel.ip ? channel.ip : 'Нет информации'}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="model">
       <th mat-header-cell *matHeaderCellDef>Модель</th>
       <td mat-cell *matCellDef="let channel"> {{channel.model ? channel.model : 'Нет информации'}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
     <ng-container matColumnDef="lastUpdate">
       <th mat-header-cell *matHeaderCellDef>Последнее обновление</th>
       <td mat-cell *matCellDef="let channel"> {{channel.lustUpdate ? (channel.lustUpdate | date:'medium')  : 'Нет информации'}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="switchId">
       <th mat-header-cell *matHeaderCellDef>IP адресс свитча</th>
       <td mat-cell *matCellDef="let channel"> {{channel.switchId && channel.switchId.ip ? channel.switchId.ip : 'Нет информации'}} </td>
     </ng-container>
 
-    <!-- Symbol Column -->
+    <ng-container matColumnDef="port">
+      <th mat-header-cell *matHeaderCellDef>Номер порта</th>
+      <td mat-cell *matCellDef="let channel"> {{channel.port ? channel.port : 'Нет информации'}} </td>
+    </ng-container>
+
+
     <ng-container matColumnDef="poeInjector">
       <th mat-header-cell *matHeaderCellDef>Есть ли пое инжектор?</th>
       <td mat-cell *matCellDef="let channel"> {{channel.poeInjector ? channel.poeInjector : 'Нет информации'}} </td>
@@ -75,6 +97,6 @@
 
   <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"
                  showFirstLastButtons
-                 aria-label="Select page of periodic elements">
+                 aria-label="Select page of channels">
   </mat-paginator>
 </div>

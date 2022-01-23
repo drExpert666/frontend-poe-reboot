@@ -5,3 +5,19 @@ table {
 .example-form-field {
   margin-right: 14px;
 }
+
+.no-info {
+  color: #d76666 !important;
+}
+
+.text-left-2 {
+  text-align: left !important;
+  width: 100px !important;
+}
+
+
+.text-right-2 {
+  text-align: right !important;
+  /*width: 100px !important;*/
+  padding-top: 20px;
+}

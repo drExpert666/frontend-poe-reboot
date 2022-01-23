@@ -18,12 +18,16 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import { EditChannelDialogComponent } from './dialog/edit-channel-dialog/edit-channel-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {SWITCH_URL_TOKEN} from "./data/implementation/SwitchService";
 
 @NgModule({
   declarations: [
     AppComponent,
     CamerasComponent,
-    ServersComponent
+    ServersComponent,
+    EditChannelDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +43,11 @@ import {MatInputModule} from "@angular/material/input";
     MatDividerModule,
     MatFormFieldModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [
+    EditChannelDialogComponent,
     // { //todo добавить позже
     //   provide: HTTP_INTERCEPTORS, // все Http запросы будут выполняться с отображением индикатора загрузки
     //   useClass: CustomHttpInterceptor,
@@ -54,6 +60,10 @@ import {MatInputModule} from "@angular/material/input";
     {
       provide: SERVER_URL_TOKEN,
       useValue: 'http://localhost:8080/server'
+    },
+    {
+      provide: SWITCH_URL_TOKEN,
+      useValue: 'http://localhost:8080/switch'
     },
   ],
   bootstrap: [AppComponent]

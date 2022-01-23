@@ -5,11 +5,11 @@ mat-toolbar {
 
 mat-sidenav {
   margin: 16px;
-  width: 220px;
+  width: 280px;
   border-right: none;
   /*background: #a6adc4;*/
   color: #261111;
-  border-radius: 55px;
+  border-radius: 4px;
   padding: 18px;
   text-align: center;
 }

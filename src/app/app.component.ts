@@ -6,6 +6,8 @@ import {Server} from "../models/Server";
 import {MatSidenav} from "@angular/material/sidenav";
 import {BreakpointObserver} from "@angular/cdk/layout";
 import {ChannelSearchValues, ServerSearchValues} from "./data/search/search";
+import {Switch} from "../models/Switch";
+import {SwitchService} from "./data/implementation/SwitchService";
 
 @Component({
   selector: 'app-root',
@@ -21,6 +23,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   /** передаваемые параметры через Input декораторы */
   channels: Channel[];
   servers: Server[];
+  switches: Switch[];
   channelSearchValues: ChannelSearchValues;
   serverSearchValues :ServerSearchValues;
 
@@ -28,12 +31,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   constructor(private channelService: ChannelService,
               private serverService: ServerService,
-              private observer: BreakpointObserver) {
+              private switchService: SwitchService,
+              private observer: BreakpointObserver) { // обсервер, необходим для отслеживания изменений в сайдбаре
 
     this.channelSearchValues = new ChannelSearchValues();
     this.serverSearchValues = new ServerSearchValues();
     this.findAllChannels();
     this.findAllServers();
+    this.findAllSwitches();
 
   }
 
@@ -85,4 +90,20 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.serverSearchValues = searchValues;
     this.serverService.findByParams(searchValues).subscribe(s => this.servers = s);
   }
+
+
+  /** методы работы с коммутаторами */
+
+  findAllSwitches() {
+    this.switchService.findAll().subscribe(sw => this.switches = sw);
+  }
+
+
+  addSwitch(switch1: Switch) {
+    this.switchService.add(switch1).subscribe(res => {
+      this.findAllSwitches();
+    })
+  }
+
+
 }

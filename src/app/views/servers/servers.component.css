@@ -1,18 +1,18 @@
 .sidenav-list {
   cursor: pointer;
-  text-align-all: center;
+  text-align-all: right;
   padding-top: 12px;
   padding-bottom: 12px;
   padding-left: 26px;
-  font: bold;
   display: flex;
   font-size: 15px;
   font-style: inherit;
-  background-color: aliceblue;
+  background-color: #977a7a;
   margin-top: 12px;
   margin-bottom: 12px;
-  border-radius: 18px;
+  border-radius: 4px;
   text-transform: uppercase;
+  width: 90%;
 }
 
 .test{
@@ -38,4 +38,32 @@
 
 mat-form-field {
   width: 170px !important;
+}
+
+.channels-count-good {
+  background-color: #44cd5e;
+  border-radius: 9px;
+  color: black;
+  border-color: #0f542b;
+  width: 15%;
+  border-style: groove;
+  /*display: ;*/
+  text-align: right !important;
+}
+
+.channels-count-bad {
+  background-color: #d91414;
+  border-radius: 9px;
+  border-style: groove;
+  border-color: #4a0808;
+  color: black;
+  width: 15%;
+  /*display: inline-flex;*/
+  text-align: right !important;
+}
+
+.server-list {
+  text-align: left;
+  width: 85%;
+  /*display: flex;*/
 }

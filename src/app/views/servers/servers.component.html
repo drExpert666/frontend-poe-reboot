@@ -19,18 +19,24 @@
 <div class="line"></div>
 
 
-
-<li class="sidenav-list"
-
-
+<div class="sidenav-list"
     [class.on-server-click]="server === selectedServer"
     *ngFor="let server of servers; let index = index"
+     (click)="showSelectedServer(server)"
 >
-  <a class="pointer">
-    <span class="pointer"
-      (click)="showSelectedServer(server)"
-      [class.on-server-click]="server === selectedServer"
+  <div class="">
+    <span class=""
+          [class.on-server-click]="server === selectedServer"
     >{{server.serverName ? server.serverName : 'Имя неизвестно'}}</span>
 
-  </a>
-</li>
+  </div>
+
+  <div *ngIf="(server.channelsOnline == server.channelsTotal) &&  (server.channelsTotal != null || undefined)"
+        class=""> -
+     {{server.channelsOnline ? server.channelsOnline : 0}}/{{server.channelsTotal ? server.channelsTotal : 0}}</div>
+
+  <div *ngIf="(server.channelsOnline != server.channelsTotal) ||  (server.channelsTotal == null || undefined)"
+        class=""> -
+     {{server.channelsOnline ? server.channelsOnline : 0}}/{{server.channelsTotal ? server.channelsTotal : 0}}</div>
+
+</div>

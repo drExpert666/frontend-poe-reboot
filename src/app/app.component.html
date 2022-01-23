@@ -32,8 +32,10 @@
     <div class="content">
       <app-cameras [channels]="channels"
                    [channelSearchValues]="channelSearchValues"
+                   [switches]="switches"
 
                    (searchParams)="searchingByParams($event)"
+                   (addSwitch)="addSwitch($event)"
 
       >
 

@@ -1,0 +1,88 @@
+
+<div mat-dialog-content class="row">
+  <p class="title">{{tmpTitle}}</p>
+  <mat-form-field class="col-12">
+    <mat-label>Название (обязательно)</mat-label>
+    <input
+      #inputName
+      matInput
+      [(ngModel)]="newName"
+      (keydown.enter)="confirm()"
+      maxlength="20"
+    >
+
+    <button
+      *ngIf="newName && newName.trim().length > 0"
+
+      mat-button matSuffix mat-icon-button aria-label="Clear"
+
+      (click)="newName=''">
+
+      <mat-icon>clear</mat-icon>
+    </button>
+
+  </mat-form-field >
+
+  <mat-form-field class="col-12">
+    <mat-label>IP адрес (обязательно)</mat-label>
+    <input
+      #inputIP
+      matInput
+      [(ngModel)]="newIP"
+      (keydown.enter)="confirm()"
+      maxlength="15"
+    >
+
+    <button
+      *ngIf="newIP && newIP.trim().length > 0"
+
+      mat-button matSuffix mat-icon-button aria-label="Clear"
+
+      (click)="newIP=''">
+
+      <mat-icon>clear</mat-icon>
+    </button>
+
+  </mat-form-field>
+
+  <mat-form-field class="col-12">
+    <mat-label>Описание</mat-label>
+    <input
+      #inputDescription
+      maxlength="35"
+      matInput
+      [(ngModel)]="newDescription"
+      (keydown.enter)="confirm()"
+    >
+
+    <button
+      *ngIf="newDescription && newDescription.trim().length > 0"
+
+      mat-button matSuffix mat-icon-button aria-label="Clear"
+
+      (click)="newDescription=''">
+
+      <mat-icon>clear</mat-icon>
+    </button>
+
+  </mat-form-field>
+</div>
+
+<!--возможные операции над задачей-->
+<div mat-dialog-actions>
+
+  <div >
+
+    <button
+      mat-raised-button color="primary"
+      (click)="confirm()"
+      [disabled]="inputName.value.trim().length==0 || inputIP.value.trim().length==0"> <!-- если пустой текст, то кнопка неактивна-->
+      Сохранить
+    </button>
+    <button mat-raised-button (click)="cancel()">Отмена</button>
+
+  </div>
+
+
+
+</div>
