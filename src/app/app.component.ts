@@ -5,7 +5,7 @@ import {ServerService} from "./data/implementation/ServerService";
 import {Server} from "../models/Server";
 import {MatSidenav} from "@angular/material/sidenav";
 import {BreakpointObserver} from "@angular/cdk/layout";
-import {ChannelSearchValues} from "./data/search/search";
+import {ChannelSearchValues, ServerSearchValues} from "./data/search/search";
 
 @Component({
   selector: 'app-root',
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   channels: Channel[];
   servers: Server[];
   channelSearchValues: ChannelSearchValues;
+  serverSearchValues :ServerSearchValues;
 
   selectedServer: Server;
 
@@ -29,6 +30,8 @@ export class AppComponent implements OnInit, AfterViewInit {
               private serverService: ServerService,
               private observer: BreakpointObserver) {
 
+    this.channelSearchValues = new ChannelSearchValues();
+    this.serverSearchValues = new ServerSearchValues();
     this.findAllChannels();
     this.findAllServers();
 
@@ -67,7 +70,19 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   onSelectedServer(server: Server) {
     this.selectedServer = server;
-    this.channelService.findByParams(new ChannelSearchValues(server.guid, '', ''))
+    this.channelSearchValues.guidServer = server.guid;
+    this.channelService.findByParams(this.channelSearchValues)
       .subscribe(c => this.channels = c);
+  }
+
+  searchingByParams(searchValues: ChannelSearchValues) {
+    this.channelSearchValues.name = searchValues.name;
+    this.channelService.findByParams(this.channelSearchValues)
+      .subscribe(c => this.channels = c);
+  }
+
+  searchingByServer(searchValues: ServerSearchValues) {
+    this.serverSearchValues = searchValues;
+    this.serverService.findByParams(searchValues).subscribe(s => this.servers = s);
   }
 }

@@ -8,7 +8,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CHANNEL_URL_TOKEN} from "./data/implementation/ChannelService";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ServersComponent } from './views/servers/servers.component';
 import {SERVER_URL_TOKEN} from "./data/implementation/ServerService";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -16,6 +16,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatDividerModule} from "@angular/material/divider";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,10 @@ import {MatDividerModule} from "@angular/material/divider";
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule
   ],
   providers: [
     // { //todo добавить позже

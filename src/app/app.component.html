@@ -20,7 +20,9 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav">
     <app-servers [servers]="servers"
+                 [serverSearchValues]="serverSearchValues"
                  (onSelectedServer)="onSelectedServer($event)"
+                 (searchParams)="searchingByServer($event)"
     >
 
     </app-servers>
@@ -29,6 +31,9 @@
   <mat-sidenav-content>
     <div class="content">
       <app-cameras [channels]="channels"
+                   [channelSearchValues]="channelSearchValues"
+
+                   (searchParams)="searchingByParams($event)"
 
       >
 

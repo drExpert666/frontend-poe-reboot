@@ -1,7 +1,9 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild, EventEmitter, Output} from '@angular/core';
 import {Channel} from "../../../models/Channel";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
+import {Server} from "../../../models/Server";
+import {ChannelSearchValues} from "../../data/search/search";
 
 @Component({
   selector: 'app-cameras',
@@ -18,6 +20,8 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  tmpChannelName: string;
+
   constructor() {
 
   }
@@ -30,13 +34,34 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource();
   }
 
-  channels: Channel[];
 
+  /** инпут декораторы */
+
+  channels: Channel[];
   @Input("channels")
   set setChannels(value: Channel[]) {
     this.channels = value;
     this.fillTable();
   }
+
+  servers: Server[];
+  @Input("servers")
+  set setServers(value: Server[]) {
+    this.servers = value;
+    console.log(this.servers);
+  }
+
+  @Input('channelSearchValues')
+  channelSearchValues: ChannelSearchValues;
+  set setChannelSearchValues(value: ChannelSearchValues) {
+    this.channelSearchValues = value;
+    this.initSearchValues();
+  }
+
+  /** аутпут декораторы */
+
+  @Output('searchParams')
+  searchParams = new EventEmitter<ChannelSearchValues>();
 
   private fillTable() {
     if (!this.dataSource) {
@@ -46,6 +71,25 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.dataSource.data = this.channels;
     this.dataSource.paginator = this.paginator;
     console.log(this.channels);
+
+  }
+
+
+  private initSearchValues() {
+    this.channelSearchValues.name =this.tmpChannelName;
+  }
+
+  dropFilters() {
+    this.channelSearchValues.name = this.tmpChannelName;
+    this.searchParams.emit(this.channelSearchValues);
+  }
+
+
+  findByTitle() {
+    if (this.tmpChannelName != null && this.tmpChannelName.trim().length > 0) {
+      this.channelSearchValues.name = this.tmpChannelName;
+      this.searchParams.emit(this.channelSearchValues);
+    }
 
   }
 }

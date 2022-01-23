@@ -1,13 +1,36 @@
+<mat-form-field class="example-form-field-2">
+  <mat-label>Поиск по названию</mat-label>
+  <input matInput type="text" [(ngModel)]="tmpServerName"
+         (keyup)="startSearch()"
+         (keydown.escape)="tmpServerName=''; dropFilters()"
+  >
+  <button *ngIf="tmpServerName" matSuffix mat-icon-button aria-label="Clear" (click)="tmpServerName=''; dropFilters()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
 <li class="sidenav-list"
+
+    (click)="showSelectedServer(null)"
+    [class.on-server-click]="selectedServer === undefined || null || selectedServer.guid == ''"
+>Все
+</li>
+
+<div class="line"></div>
+
+
+
+<li class="sidenav-list"
+
 
     [class.on-server-click]="server === selectedServer"
     *ngFor="let server of servers; let index = index"
 >
   <a class="pointer">
-    <span
+    <span class="pointer"
       (click)="showSelectedServer(server)"
-    [class.on-server-click]="server === selectedServer"
-    >{{server.serverName? server.serverName : 'Имя неизвестно'}}</span>
+      [class.on-server-click]="server === selectedServer"
+    >{{server.serverName ? server.serverName : 'Имя неизвестно'}}</span>
 
   </a>
 </li>

@@ -1,12 +1,17 @@
 .sidenav-list {
   cursor: pointer;
-  text-align: left;
-  padding: 10px;
+  text-align-all: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 32px;
   display: flex;
-  font-size: 18px;
+  font-size: 14px;
+  font-style: inherit;
   background-color: aliceblue;
-  margin: 10px;
-  border-radius: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  border-radius: 18px;
+  text-transform: uppercase;
 }
 
 .test{
@@ -17,4 +22,19 @@
 .on-server-click {
   background: #cd179c;
 
+}
+
+.line  {
+  border-bottom: 1px solid #dadada;
+  padding-top: 10px;
+}
+
+
+.example-form-field-2 {
+  margin: 4px !important;
+  margin-bottom: 4px !important;
+}
+
+mat-form-field {
+  width: 180px !important;
 }

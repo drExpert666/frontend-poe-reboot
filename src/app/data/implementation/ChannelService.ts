@@ -20,6 +20,7 @@ export class ChannelService extends CommonService<Channel> implements ChannelRep
   }
 
   findByParams(channelSearchValues: ChannelSearchValues): Observable<Channel[]> {
+    console.log(channelSearchValues);
     return this.http.post<Channel[]>(this.baseUrl + '/search', channelSearchValues);
   }
 
