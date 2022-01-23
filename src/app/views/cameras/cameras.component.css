@@ -17,7 +17,56 @@ table {
 
 
 .text-right-2 {
-  text-align: right !important;
+  /*text-align: right !important;*/
   /*width: 100px !important;*/
-  padding-top: 20px;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-top: 16px;
+  margin-left: 16px;
+  text-align: right;
+  font-size: 14px;
+}
+
+.mat-expansion-panel-header-description {
+  display: flex;
+  flex-grow: 44;
+  margin-right: 16px;
+}
+
+.server-title {
+  width: 6%;
+}
+
+.channel-title {
+  width: 10%;
+}
+
+.signal-title {
+  width: 5%;
+}
+
+.ip-title {
+  width: 20%;
+}
+
+.model-title {
+  width: 10%;
+}
+
+.update-title {
+  width: 10%;
+}
+
+.port-title {
+  width: 5%;
+}
+
+.switch-title {
+  width: 5%;
+}
+.injector-title {
+  width: 5%;
 }

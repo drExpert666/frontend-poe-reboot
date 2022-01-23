@@ -26,6 +26,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   tmpChannelName: string;
+  tmpChannelStatus: number | null;
 
   constructor(private dialog: MatDialog) {
 
@@ -132,5 +133,12 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
     });
 
+  }
+
+  onFilterByStatus() {
+
+    this.channelSearchValues.signal = this.tmpChannelStatus;
+    this.searchParams.emit(this.channelSearchValues)
+    console.log(this.tmpChannelStatus);
   }
 }

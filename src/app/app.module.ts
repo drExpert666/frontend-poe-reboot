@@ -21,6 +21,8 @@ import {MatInputModule} from "@angular/material/input";
 import { EditChannelDialogComponent } from './dialog/edit-channel-dialog/edit-channel-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {SWITCH_URL_TOKEN} from "./data/implementation/SwitchService";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import {SWITCH_URL_TOKEN} from "./data/implementation/SwitchService";
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule,
+    MatRadioModule
   ],
   providers: [
     EditChannelDialogComponent,

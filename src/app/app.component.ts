@@ -82,6 +82,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   searchingByParams(searchValues: ChannelSearchValues) {
     this.channelSearchValues.name = searchValues.name;
+    this.channelSearchValues.signal = searchValues.signal;
     this.channelService.findByParams(this.channelSearchValues)
       .subscribe(c => this.channels = c);
   }
