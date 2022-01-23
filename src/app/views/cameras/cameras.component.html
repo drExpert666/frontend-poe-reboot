@@ -34,8 +34,8 @@
                          [(ngModel)]="tmpChannelStatus"
         (change)="onFilterByStatus()">
 
-          <mat-radio-button [value]="1">В сети</mat-radio-button>
-          <mat-radio-button [value]="-1">Вне сети</mat-radio-button>
+          <mat-radio-button class="green" [value]="1">В сети</mat-radio-button>
+          <mat-radio-button class="red" [value]="-1">Вне сети</mat-radio-button>
           <mat-radio-button [value]="null">Все</mat-radio-button>
         </mat-radio-group>
 
@@ -55,9 +55,32 @@
 
 <div class="row">
 
-  <div class="col-12 col-md-12 col-sm-12 text-right-2">
+  <div class="col-4 col-sm-4 text-right-2"
+
+
+       *ngIf="channelSearchValues != undefined">
 
     <div mat-dialog-actions appearance="fill">
+      <button mat-raised-button color="accent"
+              (click)="dropAllFilters()"
+
+      >Сбросить фильтры</button>
+    </div>
+
+  </div>
+
+  <div class="col-2 col-sm-2 text-right-2">
+
+  </div>
+
+  <div class="col-2 col-sm-2 text-right-2">
+
+  </div>
+
+  <div class="col-4 col-sm-4 text-right-3">
+
+    <div mat-dialog-actions appearance="fill"
+    >
       <button mat-raised-button color="warn"
               (click)="openAddDialog()"
 
@@ -65,6 +88,7 @@
     </div>
 
   </div>
+
 
 
 </div>
@@ -109,7 +133,9 @@
 
     <ng-container matColumnDef="switchId">
       <th mat-header-cell *matHeaderCellDef>IP адресс свитча</th>
-      <td mat-cell class="switch-title" *matCellDef="let channel"> {{channel.switchId && channel.switchId.ip ? channel.switchId.ip : 'Нет информации'}} </td>
+      <td mat-cell class="switch-title link" *matCellDef="let channel"
+          (click)="onFilterBySwitch(channel)"
+      >{{channel.switchId && channel.switchId.ip ? channel.switchId.ip : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="port">

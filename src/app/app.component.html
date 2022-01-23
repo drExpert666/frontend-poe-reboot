@@ -21,6 +21,8 @@
   <mat-sidenav #sidenav="matSidenav">
     <app-servers [servers]="servers"
                  [serverSearchValues]="serverSearchValues"
+                 [selectedServer]="selectedServer"
+
                  (onSelectedServer)="onSelectedServer($event)"
                  (searchParams)="searchingByServer($event)"
     >
@@ -36,6 +38,7 @@
 
                    (searchParams)="searchingByParams($event)"
                    (addSwitch)="addSwitch($event)"
+                   (changeSelectedServer)="changeSelectedServer($event)"
 
       >
 

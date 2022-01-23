@@ -27,6 +27,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   tmpChannelName: string;
   tmpChannelStatus: number | null;
+  tmpSwitch: Switch | null;
 
   constructor(private dialog: MatDialog) {
 
@@ -44,7 +45,6 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   /** инпут декораторы */
 
   channels: Channel[];
-
   @Input('channels')
   set setChannels(value: Channel[]) {
     this.channels = value;
@@ -52,27 +52,23 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   }
 
   servers: Server[];
-
   @Input('servers')
   set setServers(value: Server[]) {
     this.servers = value;
-    console.log(this.servers);
   }
 
   switches: Switch[];
-
   @Input('switches')
   set setSwitches(value: Switch[]) {
     this.switches = value;
-    console.log(this.switches);
   }
 
   @Input('channelSearchValues')
   channelSearchValues: ChannelSearchValues;
-
   set setChannelSearchValues(value: ChannelSearchValues) {
+    console.log(this.channelSearchValues);
     this.channelSearchValues = value;
-    this.initSearchValues();
+    this.initSearchValues()
   }
 
   /** аутпут декораторы */
@@ -84,6 +80,9 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   @Output('searchParams')
   searchParams = new EventEmitter<ChannelSearchValues>();
+
+  @Output()
+  changeSelectedServer = new EventEmitter<Server>();
 
   private fillTable() {
     if (!this.dataSource) {
@@ -99,6 +98,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   private initSearchValues() {
     this.channelSearchValues.name = this.tmpChannelName;
+    console.log(this.channelSearchValues);
   }
 
   dropFilters() {
@@ -136,9 +136,22 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   }
 
   onFilterByStatus() {
-
     this.channelSearchValues.signal = this.tmpChannelStatus;
     this.searchParams.emit(this.channelSearchValues)
     console.log(this.tmpChannelStatus);
+  }
+
+  onFilterBySwitch(channel: Channel) {
+    this.tmpSwitch = channel.switchId;
+    this.channelSearchValues.switchId = this.tmpSwitch?.id;
+    this.searchParams.emit(this.channelSearchValues);
+  }
+
+  dropAllFilters() {
+    this.changeSelectedServer.emit(undefined);
+    this.tmpChannelStatus = null;
+    this.tmpChannelName = '';
+    this.channelSearchValues = new ChannelSearchValues();
+    this.searchParams.emit(this.channelSearchValues);
   }
 }

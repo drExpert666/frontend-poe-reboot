@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   servers: Server[];
   switches: Switch[];
   channelSearchValues: ChannelSearchValues;
-  serverSearchValues :ServerSearchValues;
+  serverSearchValues: ServerSearchValues;
 
   selectedServer: Server;
 
@@ -83,6 +83,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   searchingByParams(searchValues: ChannelSearchValues) {
     this.channelSearchValues.name = searchValues.name;
     this.channelSearchValues.signal = searchValues.signal;
+    this.channelSearchValues.switchId = searchValues.switchId;
     this.channelService.findByParams(this.channelSearchValues)
       .subscribe(c => this.channels = c);
   }
@@ -107,4 +108,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
 
+  changeSelectedServer(server: Server) {
+    this.selectedServer = server;
+    this.findAllServers();
+    this.findAllSwitches();
+    this.findAllChannels();
+  }
 }

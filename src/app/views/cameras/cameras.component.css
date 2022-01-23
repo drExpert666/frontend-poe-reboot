@@ -70,3 +70,22 @@ table {
 .injector-title {
   width: 5%;
 }
+
+.link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.text-right-3 {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  text-align: right;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
