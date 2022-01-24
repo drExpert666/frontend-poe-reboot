@@ -1,4 +1,3 @@
-
 <mat-accordion class="example-headers-align" multi>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -20,7 +19,8 @@
                  (keyup)="findByTitle()"
                  (keydown.escape)="tmpChannelName=''; dropFilters();"
           >
-          <button *ngIf="tmpChannelName" matSuffix mat-icon-button aria-label="Clear" (click)="tmpChannelName=''; dropFilters()">
+          <button *ngIf="tmpChannelName" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="tmpChannelName=''; dropFilters()">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -31,7 +31,7 @@
 
         <mat-radio-group aria-label="Select an option"
                          [(ngModel)]="tmpChannelStatus"
-        (change)="onFilterByStatus()">
+                         (change)="onFilterByStatus()">
 
           <mat-radio-button class="green" [value]="1">В сети</mat-radio-button>
           <mat-radio-button class="red" [value]="-1">Вне сети</mat-radio-button>
@@ -48,8 +48,7 @@
     </div>
 
 
-
-    </mat-expansion-panel>
+  </mat-expansion-panel>
 </mat-accordion>
 
 <div class="row">
@@ -63,7 +62,8 @@
       <button mat-raised-button color="accent"
               (click)="dropAllFilters()"
 
-      >Сбросить фильтры</button>
+      >Сбросить фильтры
+      </button>
     </div>
 
   </div>
@@ -83,11 +83,11 @@
       <button mat-raised-button color="warn"
               (click)="openAddDialog()"
 
-      >Добавить коммутатор</button>
+      >Добавить коммутатор
+      </button>
     </div>
 
   </div>
-
 
 
 </div>
@@ -98,19 +98,27 @@
 
     <ng-container matColumnDef="guidServer">
       <th mat-header-cell *matHeaderCellDef>Имя сервера</th>
-      <td mat-cell class="server-title" *matCellDef="let channel"> {{channel.guidServer && channel.guidServer.serverName ? channel.guidServer.serverName : 'Нет информации'}} </td>
+      <td mat-cell class="server-title"
+          *matCellDef="let channel"> {{channel.guidServer && channel.guidServer.serverName ? channel.guidServer.serverName : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Имя канала</th>
-      <td mat-cell class="channel-title" *matCellDef="let channel"> {{channel.name ? channel.name : 'Нет информации'}} </td>
+      <td mat-cell class="channel-title"
+          *matCellDef="let channel"> {{channel.name ? channel.name : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="signal">
       <th mat-header-cell *matHeaderCellDef>Состояние</th>
       <td mat-cell class="signal-title" *matCellDef="let channel"
-      [class.no-info]="channel.signal  == undefined || null"
-      > {{channel.signal ? channel.signal : 'Нет информации'}} </td>
+          [class.no-info]="channel.signal  == undefined || null"
+          [class.green]="channel.signal && channel.signal == 1"
+      > {{channel.signal && channel.signal == 1 ? 'В сети' : 'Вне сети'}}
+
+        <button [disabled]="!canReboot(channel)"
+                (click)="cameraReboot(channel)"
+                class="reset-button" mat-mini-fab color="warn">reset</button>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="ip">
@@ -118,16 +126,19 @@
       <td mat-cell class="ip-title" *matCellDef="let channel"
           [class.no-info]="channel.ip  == undefined || null"
       > {{channel.ip ? channel.ip : 'Нет информации'}} </td>
+
     </ng-container>
 
     <ng-container matColumnDef="model">
       <th mat-header-cell *matHeaderCellDef>Модель</th>
-      <td mat-cell class="model-title" *matCellDef="let channel"> {{channel.model ? channel.model : 'Нет информации'}} </td>
+      <td mat-cell class="model-title"
+          *matCellDef="let channel"> {{channel.model ? channel.model : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="lastUpdate">
       <th mat-header-cell *matHeaderCellDef>Последнее обновление</th>
-      <td mat-cell class="update-title" *matCellDef="let channel"> {{channel.lustUpdate ? (channel.lustUpdate | date:'medium')  : 'Нет информации'}} </td>
+      <td mat-cell class="update-title"
+          *matCellDef="let channel"> {{channel.lustUpdate ? (channel.lustUpdate | date:'medium') : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="switchId">
@@ -139,13 +150,21 @@
 
     <ng-container matColumnDef="port">
       <th mat-header-cell *matHeaderCellDef>Номер порта</th>
-      <td mat-cell class="port-title" *matCellDef="let channel"> {{channel.port ? channel.port : 'Нет информации'}} </td>
+      <td mat-cell class="port-title"
+          *matCellDef="let channel"> {{channel.port ? channel.port : 'Нет информации'}} </td>
     </ng-container>
 
 
-    <ng-container matColumnDef="poeInjector">
+    <ng-container class="injector-title-2" matColumnDef="poeInjector">
       <th mat-header-cell *matHeaderCellDef>Есть ли пое инжектор?</th>
-      <td mat-cell class="injector-title"  *matCellDef="let channel"> {{channel.poeInjector ? channel.poeInjector : false}} </td>
+      <td mat-cell class="injector-title"
+          *matCellDef="let channel">
+        <mat-checkbox class="example-margin"
+                      [checked]="channel.poeInjector"
+                      [disabled]="true"
+        ></mat-checkbox>
+      </td>
+
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -153,7 +172,7 @@
 
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td class="injector-title" mat-cell  *matCellDef="let channel" >
+      <td class="edit-title-2" mat-cell *matCellDef="let channel">
         <button mat-icon-button (click)="openEditChannelDialog(channel)"
                 class="edit-icon">
           <mat-icon atia-hidden="false">edit</mat-icon>

@@ -21,3 +21,14 @@ export class ServerSearchValues {
     this.serverName = serverName;
   }
 }
+
+export class RebootValues {
+
+  switchIp: string;
+  cameraPort: string;
+
+  constructor(switchIp: string, cameraPort: string) {
+    this.switchIp = switchIp;
+    this.cameraPort = cameraPort;
+  }
+}

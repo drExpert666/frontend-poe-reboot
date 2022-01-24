@@ -45,7 +45,14 @@ table {
 }
 
 .signal-title {
-  width: 5%;
+  width: 10%;
+  position: relative;
+}
+
+.reset-button {
+  position: absolute;
+  right: 20px;
+  top: 4px;
 }
 
 .ip-title {
@@ -67,8 +74,13 @@ table {
 .switch-title {
   width: 5%;
 }
+
 .injector-title {
   width: 5%;
+}
+
+.edit-title-2 {
+  width: 2%;
 }
 
 .link {

@@ -26,6 +26,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import { EditCameraDialogComponent } from './dialog/edit-camera-dialog/edit-camera-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSelectModule} from "@angular/material/select";
+import {REBOOT_URL_TOKEN} from "./data/implementation/RebootService";
 
 @NgModule({
   declarations: [
@@ -76,6 +77,10 @@ import {MatSelectModule} from "@angular/material/select";
       provide: SWITCH_URL_TOKEN,
       useValue: 'http://localhost:8080/switch'
     },
+    {
+      provide: REBOOT_URL_TOKEN,
+      useValue: 'http://localhost:8080/reboot'
+    }
   ],
   bootstrap: [AppComponent]
 })

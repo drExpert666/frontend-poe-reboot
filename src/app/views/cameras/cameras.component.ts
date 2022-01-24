@@ -3,7 +3,7 @@ import {Channel} from "../../../models/Channel";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {Server} from "../../../models/Server";
-import {ChannelSearchValues} from "../../data/search/search";
+import {ChannelSearchValues, RebootValues} from "../../data/search/search";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {EditChannelDialogComponent} from "../../dialog/edit-channel-dialog/edit-channel-dialog.component";
 import {Switch} from "../../../models/Switch";
@@ -88,6 +88,9 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   @Output()
   updateChannel = new EventEmitter<Channel>();
+
+  @Output()
+  rebootCamera = new EventEmitter<RebootValues>()
 
   private fillTable() {
     if (!this.dataSource) {
@@ -176,5 +179,38 @@ export class CamerasComponent implements OnInit, AfterViewInit {
         this.dropAllFilters();
       }
     });
+  }
+
+  canReboot(channel: Channel): boolean {
+    if (channel.switchId == null) {
+      return false;
+    }
+    if (channel.switchId.ip == null || channel.switchId.ports == null) {
+      return false;
+    }
+    if (channel.port == null) {
+      return false;
+    }
+    if (channel.poeInjector !=null && channel.poeInjector) {
+      return false;
+    }
+    const ports = channel.switchId?.ports?.split(',');
+    const port = channel.port.toString();
+    if (ports.find(ports => ports == port) as string) {
+      return true;
+    } else {
+      return  false;
+    }
+  }
+
+
+  cameraReboot(channel: Channel) {
+    // @ts-ignore
+    const switchIp = channel.switchId.ip;
+    // @ts-ignore
+    const cameraPort = channel.port.toString();
+    // @ts-ignore
+    const rebootValues = new RebootValues(switchIp, cameraPort);
+    this.rebootCamera.emit(rebootValues);
   }
 }

@@ -5,9 +5,10 @@ import {ServerService} from "./data/implementation/ServerService";
 import {Server} from "../models/Server";
 import {MatSidenav} from "@angular/material/sidenav";
 import {BreakpointObserver} from "@angular/cdk/layout";
-import {ChannelSearchValues, ServerSearchValues} from "./data/search/search";
+import {ChannelSearchValues, RebootValues, ServerSearchValues} from "./data/search/search";
 import {Switch} from "../models/Switch";
 import {SwitchService} from "./data/implementation/SwitchService";
+import {RebootService} from "./data/implementation/RebootService";
 
 @Component({
   selector: 'app-root',
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(private channelService: ChannelService,
               private serverService: ServerService,
               private switchService: SwitchService,
+              private rebootService: RebootService,
               private observer: BreakpointObserver) { // обсервер, необходим для отслеживания изменений в сайдбаре
 
     this.channelSearchValues = new ChannelSearchValues();
@@ -49,7 +51,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   //todo выдаёт ошибку ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked.
-  // Previous value: 'true'. Current value: 'false'. Исправить!!!
+  // Previous value: 'true'. Current value: 'false'. Исправить!!! Ошибка выскакивает при первом запуске страницы
+  // и при открытом сайд-баре (при закрытом всё ок)
   ngAfterViewInit(): void {
     this.observer.observe(['(max-width: 1000px)']).subscribe((res) => {
       if (res.matches) {
@@ -128,5 +131,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     console.log(channel);
     this.tmpChannel = channel;
     this.channelService.update(channel).subscribe(res => this.findAllChannels());
+  }
+
+  rebootCamera(rebootValues: RebootValues) {
+    this.rebootService.reboot(rebootValues).subscribe((res) => {
+      console.log(res);
+    })
   }
 }
