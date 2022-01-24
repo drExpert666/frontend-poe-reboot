@@ -84,6 +84,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   searchingByParams(searchValues: ChannelSearchValues) {
+    if (this.selectedServer) {
+      this.channelSearchValues.guidServer = this.selectedServer.guid;
+    }
+    else {
+      this.channelSearchValues.guidServer = '';
+    }
     this.channelSearchValues.name = searchValues.name;
     this.channelSearchValues.signal = searchValues.signal;
     this.channelSearchValues.switchId = searchValues.switchId;

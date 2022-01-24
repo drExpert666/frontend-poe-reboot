@@ -30,7 +30,7 @@
       <div class="col-3 col-md-3 col-sm-12">
 
         <mat-radio-group aria-label="Select an option"
-                         [(ngModel)]="tmpSwitch"
+                         [(ngModel)]="tmpChannelStatus"
         (change)="onFilterByStatus()">
 
           <mat-radio-button class="green" [value]="1">В сети</mat-radio-button>
@@ -145,7 +145,7 @@
 
     <ng-container matColumnDef="poeInjector">
       <th mat-header-cell *matHeaderCellDef>Есть ли пое инжектор?</th>
-      <td mat-cell class="injector-title"  *matCellDef="let channel"> {{channel.poeInjector ? channel.poeInjector : 'Нет информации'}} </td>
+      <td mat-cell class="injector-title"  *matCellDef="let channel"> {{channel.poeInjector ? channel.poeInjector : false}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
