@@ -28,6 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   serverSearchValues: ServerSearchValues;
 
   selectedServer: Server;
+  tmpChannel: Channel;
 
   constructor(private channelService: ChannelService,
               private serverService: ServerService,
@@ -36,6 +37,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.channelSearchValues = new ChannelSearchValues();
     this.serverSearchValues = new ServerSearchValues();
+    this.tmpChannel = new Channel(null, null, null,null, null,
+      null,null, null, null, null,null);
     this.findAllChannels();
     this.findAllServers();
     this.findAllSwitches();
@@ -113,5 +116,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.findAllServers();
     this.findAllSwitches();
     this.findAllChannels();
+  }
+
+  updateChannel(channel: Channel) {
+    console.log(channel);
+    this.tmpChannel = channel;
+    this.channelService.update(channel).subscribe(res => this.findAllChannels());
   }
 }

@@ -23,13 +23,17 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {SWITCH_URL_TOKEN} from "./data/implementation/SwitchService";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatRadioModule} from "@angular/material/radio";
+import { EditCameraDialogComponent } from './dialog/edit-camera-dialog/edit-camera-dialog.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
     AppComponent,
     CamerasComponent,
     ServersComponent,
-    EditChannelDialogComponent
+    EditChannelDialogComponent,
+    EditCameraDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,10 +52,13 @@ import {MatRadioModule} from "@angular/material/radio";
     MatInputModule,
     MatDialogModule,
     MatExpansionModule,
-    MatRadioModule
+    MatRadioModule,
+    MatCheckboxModule,
+    MatSelectModule
   ],
   providers: [
     EditChannelDialogComponent,
+    EditCameraDialogComponent,
     // { //todo добавить позже
     //   provide: HTTP_INTERCEPTORS, // все Http запросы будут выполняться с отображением индикатора загрузки
     //   useClass: CustomHttpInterceptor,

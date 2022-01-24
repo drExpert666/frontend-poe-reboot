@@ -89,3 +89,11 @@ table {
 .red {
   color: red;
 }
+
+.edit-icon {
+  cursor: pointer;
+  color: #b38989;
+  font-size: 18px;
+  margin-left: 3px;
+  margin-right: 3px;
+}

@@ -8,6 +8,7 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {EditChannelDialogComponent} from "../../dialog/edit-channel-dialog/edit-channel-dialog.component";
 import {Switch} from "../../../models/Switch";
 import {Actions} from "../../utils/ActionsResult";
+import {EditCameraDialogComponent} from "../../dialog/edit-camera-dialog/edit-camera-dialog.component";
 
 @Component({
   selector: 'app-cameras',
@@ -20,7 +21,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     'name', 'signal', 'ip',
     'model', 'lastUpdate', // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
     'switchId',
-    'port', 'poeInjector'];
+    'port', 'poeInjector', 'edit'];
   dataSource: MatTableDataSource<Channel>; // контейнер - источник данных для таблицы
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -28,6 +29,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   tmpChannelName: string;
   tmpChannelStatus: number | null;
   tmpSwitch: Switch | null;
+  tmpChannel: Channel;
 
   constructor(private dialog: MatDialog) {
 
@@ -83,6 +85,9 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   @Output()
   changeSelectedServer = new EventEmitter<Server>();
+
+  @Output()
+  updateChannel = new EventEmitter<Channel>();
 
   private fillTable() {
     if (!this.dataSource) {
@@ -153,5 +158,23 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.tmpChannelName = '';
     this.channelSearchValues = new ChannelSearchValues();
     this.searchParams.emit(this.channelSearchValues);
+  }
+
+  openEditChannelDialog(channel: Channel) {
+    const dialogRef = this.dialog.open(EditCameraDialogComponent, {
+      data: [channel, this.switches],
+      autoFocus: false,
+      width: '550px'});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.action == Actions.CANCEL) {
+        console.log("Нажали отмену");
+      }
+      if (result.action == Actions.EDIT) {
+        console.log("Нажали сохранить. Переданный объект:  " + result.obj);
+        this.tmpChannel = result.obj;
+        this.updateChannel.emit(this.tmpChannel);
+        console.log(this.tmpChannel);
+      }
+    });
   }
 }

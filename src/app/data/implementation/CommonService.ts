@@ -30,6 +30,7 @@ export class CommonService<T> {
   }
 
   update(t: T): Observable<T> {
+    console.log(t);
     return this.httpClient.put<T>(this.url + '/update', t);
   }
 

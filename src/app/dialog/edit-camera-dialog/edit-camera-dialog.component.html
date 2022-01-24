@@ -1,0 +1,98 @@
+<div mat-dialog-content class="row">
+  <p class="title">Редактирование камеры</p>
+  <mat-form-field class="col-12">
+    <mat-label>Название камеры</mat-label>
+    <input [disabled]="true"
+           #inputName
+           matInput
+           [ngModel]="tmpChannel.name ? tmpChannel.name : 'Имя неизвестно'"
+    >
+
+  </mat-form-field>
+
+  <mat-form-field class="col-12">
+    <mat-label>Сервер</mat-label>
+    <input [disabled]="true"
+           #inputName
+           matInput
+           [ngModel]="tmpChannel.guidServer ? tmpChannel.guidServer.serverName : 'Имя сервера неизвестно'"
+    >
+
+  </mat-form-field>
+
+  <mat-form-field class="col-12">
+    <mat-label>IP адрес камеры</mat-label>
+    <input [disabled]="true"
+           matInput
+           [ngModel]="tmpChannel.ip ? tmpChannel.ip : 'IP адрес неизвестен'"
+    >
+
+  </mat-form-field>
+
+  <mat-form-field class="col-12">
+    <mat-label>Модель</mat-label>
+    <input [disabled]="true"
+           matInput
+           [ngModel]="tmpChannel.model ? tmpChannel.model : 'Модель неизвестна'"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="col-12" appearance="fill">
+    <mat-label>Выберите коммутатор</mat-label>
+    <mat-select [(value)]="tmpSwitch" >
+      <mat-option
+        *ngFor="let newSwitch of tmpSwitches"
+        (valueChange)="onSelectSwitch(newSwitch)"
+        [value]="newSwitch">{{newSwitch.ip}}</mat-option>
+    </mat-select>
+    <button *ngIf="tmpSwitch"
+            (click)="tmpSwitch = null; $event.stopPropagation()"
+            mat-button matSuffix mat-icon-button aria-label="Clear" class="size20">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field class="col-12">
+    <mat-label>Номер порта</mat-label>
+    <input type="number"
+      #inputName
+      matInput
+      [(ngModel)]="tmpPortNumber"
+    >
+
+    <button *ngIf="tmpPortNumber"
+            (click)="tmpPortNumber = null"
+      mat-button matSuffix mat-icon-button aria-label="Clear" class="size20">
+      <mat-icon>clear</mat-icon>
+    </button>
+
+  </mat-form-field>
+
+  <mat-form-field class="col-12" appearance="fill">
+    <mat-label>Пое-инжектор</mat-label>
+    <mat-select [(value)]="tmpPoeInj" >
+      <mat-option [value]="true">Есть</mat-option>
+      <mat-option [value]="false">Нет</mat-option>
+      <mat-option [value]="null">Неизвестно</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+</div>
+
+<!--возможные операции над камерой-->
+<div mat-dialog-actions>
+
+  <div>
+
+    <button
+      mat-raised-button color="primary"
+      (click)="confirm()"
+      [disabled]="tmpSwitch == null  && tmpPortNumber == null"> <!-- если пустой текст, то кнопка неактивна-->
+      Сохранить
+    </button>
+    <button mat-raised-button (click)="cancel()">Отмена</button>
+
+  </div>
+
+</div>

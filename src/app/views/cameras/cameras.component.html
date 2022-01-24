@@ -30,8 +30,7 @@
       <div class="col-3 col-md-3 col-sm-12">
 
         <mat-radio-group aria-label="Select an option"
-
-                         [(ngModel)]="tmpChannelStatus"
+                         [(ngModel)]="tmpSwitch"
         (change)="onFilterByStatus()">
 
           <mat-radio-button class="green" [value]="1">В сети</mat-radio-button>
@@ -151,6 +150,18 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td class="injector-title" mat-cell  *matCellDef="let channel" >
+        <button mat-icon-button (click)="openEditChannelDialog(channel)"
+                class="edit-icon">
+          <mat-icon atia-hidden="false">edit</mat-icon>
+
+        </button>
+      </td>
+    </ng-container>
+
   </table>
 
   <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"
