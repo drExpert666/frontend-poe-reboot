@@ -20,6 +20,7 @@ export class EditCameraDialogComponent implements OnInit {
   tmpSwitch: Switch | null;
   tmpPortNumber: number | null;
   tmpPoeInj: boolean | null;
+  tmpSwitchIp: string | null;
 
   ngOnInit(): void {
     this.tmpChannel = this.data[0];
@@ -28,6 +29,7 @@ export class EditCameraDialogComponent implements OnInit {
     this.tmpSwitch = this.tmpChannel.switchId? this.tmpChannel.switchId : null;
     this.tmpPortNumber = this.tmpChannel.port ? this.tmpChannel.port : null;
     this.tmpPoeInj = this.tmpChannel.poeInjector ? this.tmpChannel.poeInjector : false;
+    this.tmpSwitchIp = (this.tmpSwitch && this.tmpSwitch.ip) ? this.tmpSwitch.ip : null;
 
   }
 

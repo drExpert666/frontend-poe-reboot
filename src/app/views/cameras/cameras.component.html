@@ -11,36 +11,52 @@
 
     <div class="row">
 
-      <div class="col-2 col-md-2 col-sm-12 text-left-2">
+      <div class="col-lg-2 col-md-6 col-sm-12 text-left-2">
 
         <mat-form-field class="example-form-field" appearance="fill">
           <mat-label>Поиск по названию</mat-label>
           <input matInput type="text" [(ngModel)]="tmpChannelName"
                  (keyup)="findByTitle()"
-                 (keydown.escape)="tmpChannelName=''; dropFilters();"
+                 (keydown.escape)="tmpChannelName=''; dropChannelNameFilter();"
           >
           <button *ngIf="tmpChannelName" matSuffix mat-icon-button aria-label="Clear"
-                  (click)="tmpChannelName=''; dropFilters()">
+                  (click)="tmpChannelName=''; dropChannelNameFilter()">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
 
       </div>
 
-      <div class="col-3 col-md-3 col-sm-12">
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <mat-form-field appearance="fill">
+          <mat-label>Фильтр по коммутатору</mat-label>
+          <mat-select [(value)]="tmpSwitchId"
+                      (selectionChange)="onFilterBySwitchIP(tmpSwitchId)">
+            <mat-option
+              *ngFor="let newSwitch of switches"
+              (change)="onFilterBySwitch(newSwitch)"
+              [value]="newSwitch.id">{{newSwitch.ip}}</mat-option>
+          </mat-select>
+          <button *ngIf="tmpSwitchId"
+                  (click)="tmpSwitchId = null; dropSwitchFilter(); $event.stopPropagation()"
+                  mat-button matSuffix mat-icon-button aria-label="Clear" class="size20">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-12">
 
         <mat-radio-group aria-label="Select an option"
                          [(ngModel)]="tmpChannelStatus"
-                         (change)="onFilterByStatus()">
+                         (change)="onFilterByStatus()"
+        >
+
 
           <mat-radio-button class="green" [value]="1">В сети</mat-radio-button>
           <mat-radio-button class="red" [value]="-1">Вне сети</mat-radio-button>
-          <mat-radio-button [value]="null">Все</mat-radio-button>
+          <mat-radio-button [value]="null" checked>Все</mat-radio-button>
         </mat-radio-group>
-
-      </div>
-
-      <div class="col-3 col-md-3 col-sm-12">
 
       </div>
 
@@ -53,10 +69,10 @@
 
 <div class="row">
 
-  <div class="col-4 col-sm-4 text-right-2"
+  <div class="col-lg-6 col-md-6 col-sm-12 text-right-2"
 
 
-       *ngIf="channelSearchValues != undefined">
+       *ngIf="tmpChannelName || tmpChannelStatus || tmpSwitch || tmpSwitchId ">
 
     <div mat-dialog-actions appearance="fill">
       <button mat-raised-button color="accent"
@@ -68,15 +84,9 @@
 
   </div>
 
-  <div class="col-2 col-sm-2 text-right-2">
 
-  </div>
 
-  <div class="col-2 col-sm-2 text-right-2">
-
-  </div>
-
-  <div class="col-4 col-sm-4 text-right-3">
+  <div class="col-lg-6 col-md-6 col-sm-12 text-right-3">
 
     <div mat-dialog-actions appearance="fill"
     >
@@ -99,12 +109,14 @@
     <ng-container matColumnDef="guidServer">
       <th mat-header-cell *matHeaderCellDef>Имя сервера</th>
       <td mat-cell class="server-title"
+          [class.no-info-2]="channel.guidServer.serverName == undefined || null"
           *matCellDef="let channel"> {{channel.guidServer && channel.guidServer.serverName ? channel.guidServer.serverName : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Имя канала</th>
       <td mat-cell class="channel-title"
+          [class.no-info-2]="channel.name == undefined || null"
           *matCellDef="let channel"> {{channel.name ? channel.name : 'Нет информации'}} </td>
     </ng-container>
 
@@ -124,7 +136,7 @@
     <ng-container matColumnDef="ip">
       <th mat-header-cell *matHeaderCellDef>IP адрес камеры</th>
       <td mat-cell class="ip-title" *matCellDef="let channel"
-          [class.no-info]="channel.ip  == undefined || null"
+          [class.no-info-2]="(channel.ip == undefined || null) || (channel.ip == undefined || null)"
       > {{channel.ip ? channel.ip : 'Нет информации'}} </td>
 
     </ng-container>
@@ -132,6 +144,7 @@
     <ng-container matColumnDef="model">
       <th mat-header-cell *matHeaderCellDef>Модель</th>
       <td mat-cell class="model-title"
+          [class.no-info-2]="channel.model == undefined || null"
           *matCellDef="let channel"> {{channel.model ? channel.model : 'Нет информации'}} </td>
     </ng-container>
 
@@ -144,13 +157,15 @@
     <ng-container matColumnDef="switchId">
       <th mat-header-cell *matHeaderCellDef>IP адресс свитча</th>
       <td mat-cell class="switch-title link" *matCellDef="let channel"
-          (click)="onFilterBySwitch(channel)"
+          (click)="onFilterBySwitch(channel.switchId)"
+          [class.no-info-2]="(channel.switchId == undefined || null) || (channel.switchId.ip == undefined || null)"
       >{{channel.switchId && channel.switchId.ip ? channel.switchId.ip : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="port">
       <th mat-header-cell *matHeaderCellDef>Номер порта</th>
       <td mat-cell class="port-title"
+          [class.no-info-2]="channel.port == undefined || null"
           *matCellDef="let channel"> {{channel.port ? channel.port : 'Нет информации'}} </td>
     </ng-container>
 

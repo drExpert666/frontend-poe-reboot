@@ -30,6 +30,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   tmpChannelStatus: number | null;
   tmpSwitch: Switch | null;
   tmpChannel: Channel;
+  tmpSwitchId: number | null;
 
   constructor(private dialog: MatDialog) {
 
@@ -70,7 +71,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   set setChannelSearchValues(value: ChannelSearchValues) {
     console.log(this.channelSearchValues);
     this.channelSearchValues = value;
-    this.initSearchValues()
+    this.initSearchValues();
   }
 
   /** аутпут декораторы */
@@ -109,7 +110,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     console.log(this.channelSearchValues);
   }
 
-  dropFilters() {
+  dropChannelNameFilter() {
     this.channelSearchValues.name = this.tmpChannelName;
     this.searchParams.emit(this.channelSearchValues);
   }
@@ -149,9 +150,15 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     console.log(this.tmpChannelStatus);
   }
 
-  onFilterBySwitch(channel: Channel) {
-    this.tmpSwitch = channel.switchId;
+  onFilterBySwitch(switchId: Switch) {
+    console.log(switchId);
+    this.tmpSwitch = switchId;
     this.channelSearchValues.switchId = this.tmpSwitch?.id;
+    this.searchParams.emit(this.channelSearchValues);
+  }
+
+  onFilterBySwitchIP(tmpSwitchId: number | null) {
+    this.channelSearchValues.switchId  = tmpSwitchId;
     this.searchParams.emit(this.channelSearchValues);
   }
 
@@ -159,6 +166,8 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.changeSelectedServer.emit(undefined);
     this.tmpChannelStatus = null;
     this.tmpChannelName = '';
+    this.tmpSwitch = null;
+    this.tmpSwitchId = null;
     this.channelSearchValues = new ChannelSearchValues();
     this.searchParams.emit(this.channelSearchValues);
   }
@@ -212,5 +221,11 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     const rebootValues = new RebootValues(switchIp, cameraPort);
     this.rebootCamera.emit(rebootValues);
+  }
+
+
+  dropSwitchFilter() {
+    this.channelSearchValues.switchId = this.tmpSwitchId;
+    this.searchParams.emit(this.channelSearchValues);
   }
 }

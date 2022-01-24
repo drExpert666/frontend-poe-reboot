@@ -39,14 +39,14 @@
 
   <mat-form-field class="col-12" appearance="fill">
     <mat-label>Выберите коммутатор</mat-label>
-    <mat-select [(value)]="tmpSwitch" >
+    <mat-select [(value)]="tmpSwitchIp" >
       <mat-option
         *ngFor="let newSwitch of tmpSwitches"
         (valueChange)="onSelectSwitch(newSwitch)"
-        [value]="newSwitch">{{newSwitch.ip}}</mat-option>
+        [value]="newSwitch.ip">{{newSwitch.ip}}</mat-option>
     </mat-select>
-    <button *ngIf="tmpSwitch"
-            (click)="tmpSwitch = null; $event.stopPropagation()"
+    <button *ngIf="tmpSwitchIp"
+            (click)="tmpSwitchIp = null; $event.stopPropagation()"
             mat-button matSuffix mat-icon-button aria-label="Clear" class="size20">
       <mat-icon>clear</mat-icon>
     </button>
@@ -61,7 +61,7 @@
     >
 
     <button *ngIf="tmpPortNumber"
-            (click)="tmpPortNumber = null"
+            (click)="tmpPortNumber = null; $event.stopPropagation()"
       mat-button matSuffix mat-icon-button aria-label="Clear" class="size20">
       <mat-icon>clear</mat-icon>
     </button>
