@@ -9,6 +9,7 @@ import {EditChannelDialogComponent} from "../../dialog/edit-channel-dialog/edit-
 import {Switch} from "../../../models/Switch";
 import {Actions} from "../../utils/ActionsResult";
 import {EditCameraDialogComponent} from "../../dialog/edit-camera-dialog/edit-camera-dialog.component";
+import {ConfirmDialogComponent} from "../../dialog/confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-cameras',
@@ -17,7 +18,7 @@ import {EditCameraDialogComponent} from "../../dialog/edit-camera-dialog/edit-ca
 })
 export class CamerasComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['guidServer',
+  displayedColumns: string[] = ['index', 'guidServer',
     'name', 'signal', 'ip',
     'model', 'lastUpdate', // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
     'switchId',
@@ -215,13 +216,26 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
 
   cameraReboot(channel: Channel) {
-    // @ts-ignore
+    // @ts-ignore //проверки были осуществлены до вызова этого метода, поэтому тут проверки не делаю
     const switchIp = channel.switchId.ip;
     // @ts-ignore
     const cameraPort = channel.port.toString();
     // @ts-ignore
     const rebootValues = new RebootValues(switchIp, cameraPort);
-    this.rebootCamera.emit(rebootValues);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: channel,
+      width:'350px',
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      if (res && res.action == Actions.CONFIRM) {
+        this.rebootCamera.emit(rebootValues);
+      }
+      if (res.action == Actions.CANCEL) {
+        console.log("Нажали отмену")
+      }
+    });
+    //
   }
 
 

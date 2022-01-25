@@ -27,6 +27,10 @@ import { EditCameraDialogComponent } from './dialog/edit-camera-dialog/edit-came
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSelectModule} from "@angular/material/select";
 import {REBOOT_URL_TOKEN} from "./data/implementation/RebootService";
+import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {NgxSpinnerModule} from "ngx-spinner";
+import { AfterConfirmRebootDialogComponent } from './dialog/after-confirm-reboot-dialog/after-confirm-reboot-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,9 @@ import {REBOOT_URL_TOKEN} from "./data/implementation/RebootService";
     CamerasComponent,
     ServersComponent,
     EditChannelDialogComponent,
-    EditCameraDialogComponent
+    EditCameraDialogComponent,
+    ConfirmDialogComponent,
+    AfterConfirmRebootDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -55,11 +61,14 @@ import {REBOOT_URL_TOKEN} from "./data/implementation/RebootService";
     MatExpansionModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    NgxSpinnerModule
   ],
   providers: [
     EditChannelDialogComponent,
     EditCameraDialogComponent,
+    ConfirmDialogComponent,
+    AfterConfirmRebootDialogComponent,
     // { //todo добавить позже
     //   provide: HTTP_INTERCEPTORS, // все Http запросы будут выполняться с отображением индикатора загрузки
     //   useClass: CustomHttpInterceptor,

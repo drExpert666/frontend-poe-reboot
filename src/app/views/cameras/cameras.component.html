@@ -106,6 +106,13 @@
   <table mat-table [dataSource]="dataSource">
 
 
+    <ng-container matColumnDef="index" >
+      <th mat-header-cell *matHeaderCellDef
+
+      ></th>
+      <td mat-cell class="index-title"  *matCellDef="let i = index"> {{i + 1}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="guidServer">
       <th mat-header-cell *matHeaderCellDef>Имя сервера</th>
       <td mat-cell class="server-title"
@@ -123,7 +130,7 @@
     <ng-container matColumnDef="signal">
       <th mat-header-cell *matHeaderCellDef>Состояние</th>
       <td mat-cell class="signal-title" *matCellDef="let channel"
-          [class.no-info]="channel.signal  == undefined || null"
+          [class.no-info]="channel.signal  == undefined || channel.signal  == null || channel.signal  == -1"
           [class.green]="channel.signal && channel.signal == 1"
       > {{channel.signal && channel.signal == 1 ? 'В сети' : 'Вне сети'}}
 
