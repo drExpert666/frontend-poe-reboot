@@ -47,7 +47,9 @@ export class EditCameraDialogComponent implements OnInit {
   }
 
 
-  onSelectSwitch(newSwitch: Switch) {
-    this.tmpSwitch = newSwitch;
+  onSelectSwitch(s: Switch) {
+    this.tmpSwitch = s;
+    console.log(this.tmpSwitch);
+
   }
 }
