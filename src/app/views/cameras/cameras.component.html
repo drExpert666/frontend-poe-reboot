@@ -85,7 +85,6 @@
   </div>
 
 
-
   <div class="col-lg-6 col-md-6 col-sm-12 text-right-3">
 
     <div mat-dialog-actions appearance="fill"
@@ -106,11 +105,11 @@
   <table mat-table [dataSource]="dataSource">
 
 
-    <ng-container matColumnDef="index" >
+    <ng-container matColumnDef="index">
       <th mat-header-cell *matHeaderCellDef
 
       ></th>
-      <td mat-cell class="index-title"  *matCellDef="let i = index"> {{i + 1}} </td>
+      <td mat-cell class="index-title" *matCellDef="let i = index"> {{i + 1}} </td>
     </ng-container>
 
     <ng-container matColumnDef="guidServer">
@@ -129,14 +128,16 @@
 
     <ng-container matColumnDef="signal">
       <th mat-header-cell *matHeaderCellDef>Состояние</th>
-      <td mat-cell class="signal-title" *matCellDef="let channel"
+      <td mat-cell class="signal-title"
+          *matCellDef="let channel"
           [class.no-info]="channel.signal  == undefined || channel.signal  == null || channel.signal  == -1"
           [class.green]="channel.signal && channel.signal == 1"
-      > {{channel.signal && channel.signal == 1 ? 'В сети' : 'Вне сети'}}
+      > {{channel.signal && channel.signal == 1 ? 'В сети' : channel.signal == -1 ? 'Вне сети' : 'Состояние неизвестно'}}
 
         <button [disabled]="!canReboot(channel)"
                 (click)="cameraReboot(channel)"
-                class="reset-button" mat-mini-fab color="warn">reset</button>
+                class="reset-button" mat-mini-fab color="warn">reset
+        </button>
       </td>
     </ng-container>
 
