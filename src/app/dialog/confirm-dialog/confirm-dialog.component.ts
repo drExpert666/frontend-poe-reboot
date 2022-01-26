@@ -15,7 +15,7 @@ import {RebootValues} from "../../data/search/search";
 export class ConfirmDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Channel,
+              @Inject(MAT_DIALOG_DATA) public data: [Channel, RebootValues],
               private spinner: NgxSpinnerService,
               private dialog: MatDialog,
               private rebootService: RebootService) {
@@ -28,18 +28,16 @@ export class ConfirmDialogComponent implements OnInit {
 
   //todo убрать харкод строки в отдельные переменные
   ngOnInit(): void {
-    if (this.data as Channel) {
+    if (this.data[0] as Channel) {
       this.dialogTitle = 'Перезагрузка камеры';
     }
-    this.tmpChannel = this.data;
+    this.tmpChannel = this.data[0];
+    this.responseRebootValues = this.data[1]
     this.tmpMessage = 'Вы точно хотите перезагрузить камеру ' + this.tmpChannel.name + '?'
-    this.responseRebootValues = new RebootValues('','');
-
-
   }
 
   onConfirm() {
-    this.rebootService.reboot(new RebootValues('192.168.254.84', '3')).subscribe(res => {
+    this.rebootService.reboot(this.responseRebootValues).subscribe(res => {
       this.responseRebootValues = res;
     })
     this.spinner.show();
@@ -50,6 +48,14 @@ export class ConfirmDialogComponent implements OnInit {
     setTimeout(() =>
       {
         this.dialog.open(AfterConfirmRebootDialogComponent, {data: this.responseRebootValues});
+        this.dialogRef.afterClosed().subscribe((result) => {
+          if (result.actions == Actions.CONFIRM) {
+            console.log("Reboot complete!!!");
+          }
+          if (result.actions == Actions.CANCEL) {
+            console.log("ERROR!!!")}
+
+        })
       },
       6000);
 

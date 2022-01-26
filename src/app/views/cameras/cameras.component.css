@@ -95,11 +95,16 @@ table {
 }
 
 .green {
-  color: green;
+  color: #28c328;
 }
 
 .red {
   color: red;
+}
+
+
+.red2 {
+  color: #dd3e3e;
 }
 
 .edit-icon {

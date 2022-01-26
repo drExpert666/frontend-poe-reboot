@@ -22,6 +22,7 @@ export class EditCameraDialogComponent implements OnInit {
   tmpPoeInj: boolean | null;
   tmpSwitchIp: string | null;
 
+
   ngOnInit(): void {
     this.tmpChannel = this.data[0];
     this.tmpSwitches = this.data[1];

@@ -47,7 +47,7 @@
         [value]="newSwitch">{{newSwitch.ip}}</mat-option>
     </mat-select>
     <button *ngIf="tmpSwitchIp"
-            (click)="tmpSwitchIp = null; $event.stopPropagation()"
+            (click)="tmpSwitchIp = null; tmpSwitch = null; $event.stopPropagation()"
             mat-button matSuffix mat-icon-button aria-label="Clear" class="size20">
       <mat-icon>clear</mat-icon>
     </button>
@@ -89,7 +89,7 @@
     <button
       mat-raised-button color="primary"
       (click)="confirm()"
-      [disabled]="tmpSwitch == null  && tmpPortNumber == null"> <!-- если пустой текст, то кнопка неактивна-->
+      [disabled]="!tmpSwitch  && !tmpPortNumber"> <!-- если пустой текст, то кнопка неактивна-->
       Сохранить
     </button>
     <button mat-raised-button (click)="cancel()">Отмена</button>

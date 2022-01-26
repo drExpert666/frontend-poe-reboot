@@ -170,9 +170,12 @@
     </ng-container>
 
     <ng-container matColumnDef="port">
-      <th mat-header-cell *matHeaderCellDef>Номер порта</th>
+      <th mat-header-cell *matHeaderCellDef>Номер порта (красным без пое)</th>
       <td mat-cell class="port-title"
           [class.no-info-2]="channel.port == undefined || null"
+
+          [class.red2]="redGreenStylePort(channel) == 2"
+          [class.green]="redGreenStylePort(channel) == 3"
           *matCellDef="let channel"> {{channel.port ? channel.port : 'Нет информации'}} </td>
     </ng-container>
 

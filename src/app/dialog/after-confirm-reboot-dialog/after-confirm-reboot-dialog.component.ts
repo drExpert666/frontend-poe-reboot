@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Channel} from "../../../models/Channel";
 import {RebootValues} from "../../data/search/search";
+import {Actions, ActionsResult} from "../../utils/ActionsResult";
 
 @Component({
   selector: 'app-after-confirm-reboot-dialog',
@@ -18,9 +18,23 @@ export class AfterConfirmRebootDialogComponent implements OnInit {
   tmpTitle: string;
 
   ngOnInit(): void {
-
     this.tmpRebootValues = this.data;
-    this.tmpTitle = this.tmpRebootValues.switchIp;
+    if (this.tmpRebootValues.switchIp) {
+      this.tmpTitle = this.tmpRebootValues.switchIp;
+      console.log(this.tmpRebootValues)
+    }
+    else {
+      this.tmpTitle = 'Произошла ошибка!'
+    }
+
   }
 
+  ok() {
+    if (this.tmpTitle == 'Произошла ошибка!') {
+      this.dialogRef.close(new ActionsResult(Actions.CANCEL));
+    } else {
+      this.dialogRef.close(new ActionsResult(Actions.CONFIRM));
+    }
+
+  }
 }

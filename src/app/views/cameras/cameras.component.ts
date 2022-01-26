@@ -214,6 +214,25 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     }
   }
 
+  redGreenStylePort(channel: Channel): number {
+    if (channel.switchId == null) {
+      return 1;
+    }
+    if (channel.switchId.ip == null || channel.switchId.ports == null) {
+      return 1;
+    }
+    if (channel.port == null) {
+      return 1;
+    }
+    const ports = channel.switchId?.ports?.split(',');
+    const port = channel.port.toString();
+    if (ports.find(ports => ports == port) as string) {
+      return 3;
+    } else {
+      return  2;
+    }
+  }
+
 
   cameraReboot(channel: Channel) {
     // @ts-ignore //проверки были осуществлены до вызова этого метода, поэтому тут проверки не делаю
@@ -223,7 +242,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     const rebootValues = new RebootValues(switchIp, cameraPort);
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: channel,
+      data: [channel, rebootValues],
       width:'350px',
       autoFocus: false
     });
