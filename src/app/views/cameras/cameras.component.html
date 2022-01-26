@@ -55,7 +55,7 @@
 
           <mat-radio-button class="green" [value]="1">В сети</mat-radio-button>
           <mat-radio-button class="red" [value]="-1">Вне сети</mat-radio-button>
-          <mat-radio-button [value]="null" checked>Все</mat-radio-button>
+          <mat-radio-button [value]="null">Все</mat-radio-button>
         </mat-radio-group>
 
       </div>
@@ -102,10 +102,10 @@
 </div>
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
+  <table class="margin-table" mat-table [dataSource]="dataSource">
 
 
-    <ng-container matColumnDef="index">
+    <ng-container  matColumnDef="index">
       <th mat-header-cell *matHeaderCellDef
 
       ></th>
@@ -133,6 +133,14 @@
           [class.no-info]="channel.signal  == undefined || channel.signal  == null || channel.signal  == -1"
           [class.green]="channel.signal && channel.signal == 1"
       > {{channel.signal && channel.signal == 1 ? 'В сети' : channel.signal == -1 ? 'Вне сети' : 'Состояние неизвестно'}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="reboot-button">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell class="signal-title"
+          *matCellDef="let channel"
+      >
 
         <button [disabled]="!canReboot(channel)"
                 (click)="cameraReboot(channel)"
@@ -162,7 +170,7 @@
           *matCellDef="let channel"> {{channel.lustUpdate ? (channel.lustUpdate | date:'medium') : 'Нет информации'}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="switchId">
+    <ng-container  matColumnDef="switchId">
       <th mat-header-cell *matHeaderCellDef>IP адресс свитча</th>
       <td mat-cell class="switch-title link" *matCellDef="let channel"
           (click)="onFilterBySwitch(channel.switchId)"
@@ -181,7 +189,7 @@
     </ng-container>
 
 
-    <ng-container class="injector-title-2" matColumnDef="poeInjector">
+    <ng-container matColumnDef="poeInjector">
       <th mat-header-cell *matHeaderCellDef>Есть ли пое инжектор?</th>
       <td mat-cell class="injector-title"
           *matCellDef="let channel">

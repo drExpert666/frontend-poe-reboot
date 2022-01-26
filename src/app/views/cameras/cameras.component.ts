@@ -19,7 +19,7 @@ import {ConfirmDialogComponent} from "../../dialog/confirm-dialog/confirm-dialog
 export class CamerasComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['index', 'guidServer',
-    'name', 'signal', 'ip',
+    'name', 'signal', 'reboot-button', 'ip',
     'model', 'lastUpdate', // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
     'switchId',
     'port', 'poeInjector', 'edit'];

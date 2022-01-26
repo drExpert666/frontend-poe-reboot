@@ -37,50 +37,69 @@ table {
 }
 
 .server-title {
-  width: 6%;
+  padding: 5px;
+  /*width: 6%;*/
 }
 
 .channel-title {
-  width: 10%;
+  padding: 5px;
+  /*width: 10%;*/
 }
 
 .signal-title {
-  width: 10%;
+  padding: 5px;
+  /*width: 5%;*/
   position: relative;
 }
 
 .reset-button {
-  position: absolute;
-  right: 20px;
-  top: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  position: center;
+  font-size: 12px;
 }
 
 .ip-title {
-  width: 20%;
+  padding: 5px;
+  /*width: 20%;*/
 }
 
 .model-title {
-  width: 10%;
+  padding: 5px;
+  /*width: 10%;*/
 }
 
 .update-title {
-  width: 10%;
+  padding: 5px;
+  /*width: 10%;*/
 }
 
 .port-title {
-  width: 5%;
+  padding: 5px;
+  /*width: 5%;*/
 }
 
 .switch-title {
-  width: 5%;
+  padding: 5px;
+  /*width: 5%;*/
 }
 
 .injector-title {
-  width: 5%;
+  padding: 5px 5px 5px 20px;
+  position: center;
+  /*width: 5%;*/
 }
 
+.index-title {
+  padding: 5px;
+  /*width: 3%;*/
+  color: #b1b1b1;
+}
+
+
 .edit-title-2 {
-  width: 2%;
+  padding: 5px;
+  /*width: 2%;*/
 }
 
 .link {
@@ -117,9 +136,4 @@ table {
 
 .no-info-2{
   color: #a29f9f;
-}
-
-.index-title {
-  width: 3%;
-  color: #b1b1b1;
 }
