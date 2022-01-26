@@ -3,13 +3,14 @@
   text-align-all: right;
   padding-top: 12px;
   padding-bottom: 12px;
-  padding-left: 26px;
+  padding-left: 32px;
   display: flex;
-  font-size: 15px;
+  font-size: 14px;
   font-style: inherit;
-  background-color: #fff5f5;
+  background-color: #595959;
   margin-top: 12px;
   margin-bottom: 12px;
+  color: white;
   border-radius: 4px;
   text-transform: uppercase;
   width: 90%;
@@ -33,6 +34,10 @@
 
 .example-form-field-2 {
   margin: 4px !important;
+  width: 100%;
+  font-size: 15px;
+  color: white;
+  display: inline-block;
   margin-bottom: 4px !important;
 }
 
@@ -43,7 +48,7 @@ mat-form-field {
 .channels-count-good {
   background-color: #44cd5e;
   border-radius: 9px;
-  color: black;
+  color: white;
   border-color: #0f542b;
   width: 15%;
   border-style: groove;
@@ -56,7 +61,7 @@ mat-form-field {
   border-radius: 9px;
   border-style: groove;
   border-color: #4a0808;
-  color: black;
+  color: white;
   width: 15%;
   /*display: inline-flex;*/
   text-align: right !important;
