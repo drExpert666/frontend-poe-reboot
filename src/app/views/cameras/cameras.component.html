@@ -72,7 +72,7 @@
   <div class="col-lg-5 col-md-5 col-sm-12"
 
 
-       *ngIf="tmpChannelName || tmpChannelStatus || tmpSwitch || tmpSwitchId ">
+       *ngIf="tmpChannelName || tmpChannelStatus || tmpSwitch || tmpSwitchId || changed">
 
     <div mat-dialog-actions appearance="fill">
       <button mat-raised-button color="accent"
@@ -102,25 +102,26 @@
 </div>
 
 <div class="mat-elevation-z8">
-  <table class="margin-table" mat-table [dataSource]="dataSource">
-
+  <table class="margin-table" mat-table matSort
+         (matSortChange)="sortData($event)"
+         [dataSource]="dataSource">
 
     <ng-container  matColumnDef="index">
       <th mat-header-cell *matHeaderCellDef
 
       ></th>
-      <td mat-cell class="index-title" *matCellDef="let i = index"> {{i + 1}} </td>
+      <td mat-cell class="index-title" *matCellDef="let i = index"> {{(i + 1) + (channelSearchValues.pageNumber * channelSearchValues.pageSize) }} </td>
     </ng-container>
 
     <ng-container matColumnDef="guidServer">
-      <th mat-header-cell *matHeaderCellDef>Имя сервера</th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Имя сервера</th>
       <td mat-cell class="server-title"
           [class.no-info-2]="channel.guidServer.serverName == undefined || null"
           *matCellDef="let channel"> {{channel.guidServer && channel.guidServer.serverName ? channel.guidServer.serverName : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Имя канала</th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Имя канала</th>
       <td mat-cell class="channel-title"
           [class.no-info-2]="channel.name == undefined || null"
           *matCellDef="let channel"> {{channel.name ? channel.name : 'Нет информации'}} </td>
@@ -150,7 +151,7 @@
     </ng-container>
 
     <ng-container matColumnDef="ip">
-      <th mat-header-cell *matHeaderCellDef>IP адрес камеры</th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>IP адрес камеры</th>
       <td mat-cell class="ip-title" *matCellDef="let channel"
           [class.no-info-2]="(channel.ip == undefined || null) || (channel.ip == undefined || null)"
       > {{channel.ip && channel.ip.length < 25 ? channel.ip : (channel.ip && channel.ip.length >= 25) ? 'Слишком большое имя' : 'Нет информации'}} </td>
@@ -171,7 +172,7 @@
     </ng-container>
 
     <ng-container  matColumnDef="switchId">
-      <th mat-header-cell *matHeaderCellDef>IP адресс свитча</th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>IP адресс свитча</th>
       <td mat-cell class="switch-title link" *matCellDef="let channel"
           (click)="onFilterBySwitch(channel.switchId)"
           [class.no-info-2]="(channel.switchId == undefined || null) || (channel.switchId.ip == undefined || null)"

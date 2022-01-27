@@ -31,6 +31,7 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgxSpinnerModule} from "ngx-spinner";
 import { AfterConfirmRebootDialogComponent } from './dialog/after-confirm-reboot-dialog/after-confirm-reboot-dialog.component';
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { AfterConfirmRebootDialogComponent } from './dialog/after-confirm-reboot
     BrowserModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
+    MatSortModule,
     MatTableModule,
     HttpClientModule,
     ReactiveFormsModule,

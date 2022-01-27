@@ -50,9 +50,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.channelSearchValues.pageNumber = this.defaultPageNumber;
     this.tmpChannel = new Channel(null, null, null,null, null,
       null,null, null, null, null,null);
-    // this.findAllChannels();
     this.searchingByParams(this.channelSearchValues);
     this.findAllSwitches();
+    this.findAllServers();
 
   }
 
@@ -103,16 +103,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   findAllServers() {
-    // this.serverService.findAll().subscribe(s => this.servers = s);
+    this.serverService.findAll().subscribe(s => this.servers = s);
     // console.log(this.channels);
-    this.searchingByParams(this.channelSearchValues);
+    // this.searchingByParams(this.channelSearchValues);
   }
 
   onSelectedServer(server: Server) {
     this.selectedServer = server;
     this.channelSearchValues.guidServer = server.guid;
-    this.channelService.findByParams(this.channelSearchValues)
-      .subscribe(c => this.channels = c);
+    this.searchingByParams(this.channelSearchValues);
   }
 
   searchingByServer(searchValues: ServerSearchValues) {
@@ -143,7 +142,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   changeSelectedServer(server: Server) {
     this.selectedServer = server;
-    this.findAllServers();
+    this.searchingByParams(this.channelSearchValues);
     this.findAllSwitches();
     this.findAllChannels();
   }

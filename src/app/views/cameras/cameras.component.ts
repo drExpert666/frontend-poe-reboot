@@ -10,6 +10,7 @@ import {Switch} from "../../../models/Switch";
 import {Actions} from "../../utils/ActionsResult";
 import {EditCameraDialogComponent} from "../../dialog/edit-camera-dialog/edit-camera-dialog.component";
 import {ConfirmDialogComponent} from "../../dialog/confirm-dialog/confirm-dialog.component";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-cameras',
@@ -26,6 +27,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Channel>; // контейнер - источник данных для таблицы
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   tmpChannelName: string;
   tmpChannelStatus: number | null;
@@ -33,18 +35,20 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   tmpChannel: Channel;
   tmpSwitchId: number | null;
 
+  changed = false; //todo флаг для сохранения изменений фильтрации (нужно внедрить)
+
   constructor(private dialog: MatDialog) {
 
   }
 
   ngAfterViewInit(): void {
+
   }
 
   ngOnInit(): void {
     // датасорс нужно обязательно создавать для таблицы, в него присваивается любой источник (БД, массивы, json)
     this.dataSource = new MatTableDataSource();
   }
-
 
   /** инпут декораторы */
 
@@ -102,12 +106,24 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   private fillTable() {
     if (!this.dataSource) {
+      console.log(this.dataSource);
       return;
     }
 
     this.dataSource.data = this.channels;
+    this.dataSource.sort = this.sort;
+    //todo работает без строчки ниже, выяснить почему
+    // this.dataSource.paginator = this.paginator;
     console.log(this.channels);
-    // this.dataSource.sortingDataAccessor(channel, colName)
+    this.dataSource.sortingDataAccessor = (channel, colName) => {
+      switch (colName) {
+        case 'name': {
+          return channel.name ? channel.name : '';
+        }
+        default:
+          return '';
+    };
+    }
 
   }
 
@@ -126,6 +142,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   findByTitle() {
     if (this.tmpChannelName != null && this.tmpChannelName.trim().length > 0) {
       this.channelSearchValues.name = this.tmpChannelName;
+      this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
       this.searchParams.emit(this.channelSearchValues);
     }
 
@@ -153,7 +170,8 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   onFilterByStatus() {
     this.channelSearchValues.signal = this.tmpChannelStatus;
-    this.searchParams.emit(this.channelSearchValues)
+    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+    this.searchParams.emit(this.channelSearchValues);
     console.log(this.tmpChannelStatus);
   }
 
@@ -161,21 +179,31 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     console.log(switchId);
     this.tmpSwitch = switchId;
     this.channelSearchValues.switchId = this.tmpSwitch?.id;
+    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
     this.searchParams.emit(this.channelSearchValues);
   }
 
   onFilterBySwitchIP(tmpSwitchId: number | null) {
     this.channelSearchValues.switchId  = tmpSwitchId;
+    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
     this.searchParams.emit(this.channelSearchValues);
   }
 
   dropAllFilters() {
-    this.changeSelectedServer.emit(undefined);
+    // this.changeSelectedServer.emit(undefined);
     this.tmpChannelStatus = null;
     this.tmpChannelName = '';
     this.tmpSwitch = null;
     this.tmpSwitchId = null;
-    this.channelSearchValues = new ChannelSearchValues();
+    this.channelSearchValues.signal = this.tmpChannelStatus;
+    this.channelSearchValues.name = this.tmpChannelName;
+    this.channelSearchValues.switchId = this.tmpSwitchId;
+    this.channelSearchValues.guidServer = '';
+    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+    this.channelSearchValues.sortDirection = 'acs';
+    this.channelSearchValues.sortColumn = 'guidServer';
+    this.changed = false;
+
     this.searchParams.emit(this.channelSearchValues);
   }
 
@@ -239,7 +267,6 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   cameraReboot(channel: Channel) {
     // @ts-ignore //проверки были осуществлены до вызова этого метода, поэтому тут проверки не делаю
     const switchIp = channel.switchId.ip;
@@ -263,7 +290,6 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     //
   }
 
-
   dropSwitchFilter() {
     this.channelSearchValues.switchId = this.tmpSwitchId;
     this.searchParams.emit(this.channelSearchValues);
@@ -277,12 +303,24 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   initSearch() {
 
-    this.channelSearchValues.pageSize = this.paginator.pageSize;
-    this.channelSearchValues.pageNumber = this.paginator.pageIndex;
-
-    this.searchParams.emit(this.channelSearchValues);
+    // this.channelSearchValues.pageSize = this.paginator.pageSize;
+    // this.channelSearchValues.pageNumber = this.paginator.pageIndex;
+    //
+    // this.searchParams.emit(this.channelSearchValues);
 
   }
 
 
+  sortData(changingSortDirection: any) {
+    if (!this.changed) {
+      this.changed = !this.changed;
+    }
+    console.log(this.changed);
+    console.log('Изменили направление');
+    console.log(changingSortDirection);
+    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+    this.channelSearchValues.sortColumn = changingSortDirection.active;
+    this.channelSearchValues.sortDirection = changingSortDirection.direction;
+    this.searchParams.emit(this.channelSearchValues);
+  }
 }
