@@ -218,6 +218,11 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"
+                 [pageIndex]="channelSearchValues.pageNumber"
+                 [pageSize]="channelSearchValues.pageSize"
+                 [length]="totalChannelsFounded"
+
+                 (page)="pageChanged($event)"
                  showFirstLastButtons
                  aria-label="Select page of channels">
   </mat-paginator>

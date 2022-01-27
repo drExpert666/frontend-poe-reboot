@@ -9,6 +9,7 @@ import {ChannelSearchValues, RebootValues, ServerSearchValues} from "./data/sear
 import {Switch} from "../models/Switch";
 import {SwitchService} from "./data/implementation/SwitchService";
 import {RebootService} from "./data/implementation/RebootService";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-root',
@@ -25,11 +26,17 @@ export class AppComponent implements OnInit, AfterViewInit {
   channels: Channel[];
   servers: Server[];
   switches: Switch[];
+
   channelSearchValues: ChannelSearchValues;
   serverSearchValues: ServerSearchValues;
 
+  readonly defaultPageSize = 10;
+  readonly defaultPageNumber = 0;
+  totalChannelsFounded: number; // сколько всего найдено задач - для заполнения таблицы
+
   selectedServer: Server;
   tmpChannel: Channel;
+
 
   constructor(private channelService: ChannelService,
               private serverService: ServerService,
@@ -39,10 +46,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.channelSearchValues = new ChannelSearchValues();
     this.serverSearchValues = new ServerSearchValues();
+    this.channelSearchValues.pageSize = this.defaultPageSize;
+    this.channelSearchValues.pageNumber = this.defaultPageNumber;
     this.tmpChannel = new Channel(null, null, null,null, null,
       null,null, null, null, null,null);
-    this.findAllChannels();
-    this.findAllServers();
+    // this.findAllChannels();
+    this.searchingByParams(this.channelSearchValues);
     this.findAllSwitches();
 
   }
@@ -65,18 +74,38 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /** методы работы с каналами */
-
-  findAllChannels() {
-    this.channelService.findAll().subscribe(c => this.channels = c);
-    console.log(this.channels);
-  }
 
   /** методы работы с серверами */
 
+  searchingByParams(searchValues: ChannelSearchValues) {
+    this.channelSearchValues = searchValues;
+    if (this.selectedServer) {
+      this.channelSearchValues.guidServer = this.selectedServer.guid;
+    }
+    else {
+      this.channelSearchValues.guidServer = '';
+    }
+
+    this.channelService.findByParams(searchValues)
+      .subscribe(c => {
+        /* если выбранная страница для отображения больше, чем всего страниц - заново делаем поиск и показываем первую
+        * если пользователь был например на 2й странице общего списка и выполнил поиск, в рез-те которого страниц
+        * вернулось меньше, чем страница с которой совершили поиск, то нужно показать первую страницу */
+        if (c.totalPages > 0 && this.channelSearchValues.pageNumber >= c.totalPages) {
+          this.channelSearchValues.pageNumber = 0;
+          this.searchingByParams(searchValues);
+        }
+        this.totalChannelsFounded = c.totalElements // получаем кол-во элементов в массиве
+        this.channels = c.content;
+        console.log(this.channels) // получаем массив
+      });
+
+  }
+
   findAllServers() {
-    this.serverService.findAll().subscribe(s => this.servers = s);
-    console.log(this.channels);
+    // this.serverService.findAll().subscribe(s => this.servers = s);
+    // console.log(this.channels);
+    this.searchingByParams(this.channelSearchValues);
   }
 
   onSelectedServer(server: Server) {
@@ -86,25 +115,17 @@ export class AppComponent implements OnInit, AfterViewInit {
       .subscribe(c => this.channels = c);
   }
 
-  searchingByParams(searchValues: ChannelSearchValues) {
-    if (this.selectedServer) {
-      this.channelSearchValues.guidServer = this.selectedServer.guid;
-    }
-    else {
-      this.channelSearchValues.guidServer = '';
-    }
-    this.channelSearchValues.name = searchValues.name;
-    this.channelSearchValues.signal = searchValues.signal;
-    this.channelSearchValues.switchId = searchValues.switchId;
-    this.channelService.findByParams(this.channelSearchValues)
-      .subscribe(c => this.channels = c);
-  }
-
   searchingByServer(searchValues: ServerSearchValues) {
     this.serverSearchValues = searchValues;
     this.serverService.findByParams(searchValues).subscribe(s => this.servers = s);
   }
 
+  /** методы работы с каналами */
+
+  findAllChannels() {
+    this.channelService.findAll().subscribe(c => this.channels = c);
+    console.log(this.channels);
+  }
 
   /** методы работы с коммутаторами */
 
@@ -138,4 +159,20 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.log(res);
     })
   }
+
+  paging(pageEvent: PageEvent) {
+
+    // если изменили настройку "кол-во на странице" - заново делаем запрос и показываем с 1й страницы (индекс 0)
+    // if (this.channelSearchValues.pageSize != pageEvent.pageSize) {
+    //   this.channelSearchValues.pageNumber = 0; // новые данные будем показывать с 1-й страницы (индекс 0)
+    // } else {
+    //   this.channelSearchValues.pageNumber = pageEvent.pageIndex;
+    // }
+    this.channelSearchValues.pageSize = pageEvent.pageSize;
+    this.channelSearchValues.pageNumber = pageEvent.pageIndex;
+    // this.findTasks(this.taskSearchValues); // показываем новые данные
+    this.searchingByParams(this.channelSearchValues);
+
+  }
+
 }

@@ -5,6 +5,14 @@ export class ChannelSearchValues {
   signal?: number | null;
   switchId?: number | null;
 
+  // постарничность
+  pageNumber = 0;
+  pageSize = 5;
+
+  // сортировка
+  sortColumn = 'guidServer';
+  sortDirection = 'asc';
+
   constructor(guidServer?: string, guidChannel?: string, name?: string, signal?: number, switchId?: number) {
     this.guidServer = guidServer;
     this.guidChannel = guidChannel;

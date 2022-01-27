@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild, EventEmitter, Output} from '@angular/core';
 import {Channel} from "../../../models/Channel";
 import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {Server} from "../../../models/Server";
 import {ChannelSearchValues, RebootValues} from "../../data/search/search";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
@@ -75,6 +75,9 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.initSearchValues();
   }
 
+  @Input()
+  totalChannelsFounded: number;
+
   /** аутпут декораторы */
 
   @Output()
@@ -92,7 +95,10 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   updateChannel = new EventEmitter<Channel>();
 
   @Output()
-  rebootCamera = new EventEmitter<RebootValues>()
+  rebootCamera = new EventEmitter<RebootValues>();
+
+  @Output()
+  paging = new EventEmitter<PageEvent>(); // переход по страницам данных
 
   private fillTable() {
     if (!this.dataSource) {
@@ -100,8 +106,8 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     }
 
     this.dataSource.data = this.channels;
-    this.dataSource.paginator = this.paginator;
     console.log(this.channels);
+    // this.dataSource.sortingDataAccessor(channel, colName)
 
   }
 
@@ -262,4 +268,21 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.channelSearchValues.switchId = this.tmpSwitchId;
     this.searchParams.emit(this.channelSearchValues);
   }
+
+  pageChanged(pageEvent: PageEvent) {
+    this.paging.emit(pageEvent);
+  }
+
+
+
+  initSearch() {
+
+    this.channelSearchValues.pageSize = this.paginator.pageSize;
+    this.channelSearchValues.pageNumber = this.paginator.pageIndex;
+
+    this.searchParams.emit(this.channelSearchValues);
+
+  }
+
+
 }

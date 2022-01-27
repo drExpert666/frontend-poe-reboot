@@ -35,12 +35,15 @@
       <app-cameras [channels]="channels"
                    [channelSearchValues]="channelSearchValues"
                    [switches]="switches"
+                   [totalChannelsFounded]="totalChannelsFounded"
 
                    (searchParams)="searchingByParams($event)"
                    (addSwitch)="addSwitch($event)"
                    (changeSelectedServer)="changeSelectedServer($event)"
                    (updateChannel)="updateChannel($event)"
                    (rebootCamera)="rebootCamera($event)"
+
+                   (paging)="paging($event)"
 
       >
 
