@@ -1,7 +1,7 @@
 <div *ngIf="!wasError" class="green">Камера успешно перезагружена!</div>
 <div *ngIf="wasError" class="red">Произошла ошибка при перезагрузке!</div>
-<div class="container">
-  <button class="center-block"
+<div mat-dialog-actions class="justify-content-center padding-top">
+  <button
           mat-raised-button color="primary"
           (click)="ok()">
     Ок
