@@ -27,6 +27,22 @@
 
       </div>
 
+      <div class="col-lg-2 col-md-6 col-sm-12">
+
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>Поиск по ip камеры</mat-label>
+          <input matInput type="text" [(ngModel)]="tmpChannelIp"
+                 (keyup)="findByChannelIp()"
+                 (keydown.escape)="tmpChannelIp=''; dropChannelIpFilter();"
+          >
+          <button *ngIf="tmpChannelIp" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="tmpChannelIp=''; dropChannelIpFilter()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+
+      </div>
+
       <div class="col-lg-3 col-md-6 col-sm-12">
         <mat-form-field appearance="fill">
           <mat-label>Фильтр по коммутатору</mat-label>
@@ -72,7 +88,7 @@
   <div class="col-lg-5 col-md-5 col-sm-12"
 
 
-       *ngIf="tmpChannelName || tmpChannelStatus || tmpSwitch || tmpSwitchId || changed">
+       *ngIf="tmpChannelName || tmpChannelStatus || tmpSwitch || tmpSwitchId || changed || tmpChannelIp">
 
     <div mat-dialog-actions appearance="fill">
       <button mat-raised-button color="accent"
@@ -85,18 +101,18 @@
   </div>
 
 
-  <div class="col-lg-5 col-md-5 col-sm-12 text-right-2">
+<!--  <div class="col-lg-5 col-md-5 col-sm-12 text-right-2">-->
 
-    <div mat-dialog-actions appearance="fill"
-    >
-      <button mat-raised-button color="warn"
-              (click)="openAddDialog()"
+<!--    <div mat-dialog-actions appearance="fill"-->
+<!--    >-->
+<!--      <button mat-raised-button color="warn"-->
+<!--              (click)="openAddDialog()"-->
 
-      >Добавить коммутатор
-      </button>
-    </div>
+<!--      >Добавить коммутатор-->
+<!--      </button>-->
+<!--    </div>-->
 
-  </div>
+<!--  </div>-->
 
 
 </div>
@@ -128,7 +144,7 @@
     </ng-container>
 
     <ng-container matColumnDef="signal">
-      <th mat-header-cell *matHeaderCellDef>Состояние</th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Состояние</th>
       <td mat-cell class="signal-title"
           *matCellDef="let channel"
           [class.no-info]="channel.signal  == undefined || channel.signal  == null || channel.signal  == -1"
@@ -154,7 +170,8 @@
       <th mat-header-cell mat-sort-header *matHeaderCellDef>IP адрес камеры</th>
       <td mat-cell class="ip-title" *matCellDef="let channel"
           [class.no-info-2]="(channel.ip == undefined || null) || (channel.ip == undefined || null)"
-      > {{channel.ip && channel.ip.length < 25 ? channel.ip : (channel.ip && channel.ip.length >= 25) ? 'Слишком большое имя' : 'Нет информации'}} </td>
+      > {{channel.ip && channel.ip.length < 25 ? channel.ip : (channel.ip && channel.ip.length >= 25)
+        ? 'Слишком большое имя' : 'Нет информации'}} </td>
 
     </ng-container>
 

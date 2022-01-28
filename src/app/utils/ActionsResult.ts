@@ -13,5 +13,6 @@ export enum Actions {
   ADD,
   EDIT,
   CONFIRM,
-  CANCEL
+  CANCEL,
+  ERROR
 }

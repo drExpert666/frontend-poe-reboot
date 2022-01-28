@@ -4,6 +4,7 @@ export class ChannelSearchValues {
   name?: string;
   signal?: number | null;
   switchId?: number | null;
+  ip?: string;
 
   // постарничность
   pageNumber = 0;

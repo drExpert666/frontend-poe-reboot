@@ -34,6 +34,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   tmpSwitch: Switch | null;
   tmpChannel: Channel;
   tmpSwitchId: number | null;
+  tmpChannelIp: string;
 
   changed = false; //todo флаг для сохранения изменений фильтрации (нужно внедрить)
 
@@ -127,47 +128,12 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   }
 
-
   private initSearchValues() {
     this.channelSearchValues.name = this.tmpChannelName;
     console.log(this.channelSearchValues);
   }
 
-  dropChannelNameFilter() {
-    this.channelSearchValues.name = this.tmpChannelName;
-    this.searchParams.emit(this.channelSearchValues);
-  }
-
-
-  findByTitle() {
-    if (this.tmpChannelName != null && this.tmpChannelName.trim().length > 0) {
-      this.channelSearchValues.name = this.tmpChannelName;
-      this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
-      this.searchParams.emit(this.channelSearchValues);
-    }
-
-  }
-
-  openAddDialog() {
-    const newSwitch = new Switch(null, null, null, null, null, null);
-    const dialogRef = this.dialog.open(EditChannelDialogComponent, {
-      data: [newSwitch, this.switches],
-      autoFocus: false,
-      width: '450px'
-    })
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.action == Actions.ADD) {
-        this.addSwitch.emit(result.obj);
-      }
-      if (result.action == Actions.CANCEL) {
-        console.log("Ничего не делаем");
-      }
-
-    });
-
-  }
-
+  /** методы фильтрации */
   onFilterByStatus() {
     this.channelSearchValues.signal = this.tmpChannelStatus;
     this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
@@ -189,12 +155,29 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.searchParams.emit(this.channelSearchValues);
   }
 
+  findByChannelIp() {
+    this.channelSearchValues.ip = this.tmpChannelIp;
+    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+    this.searchParams.emit(this.channelSearchValues); //todo вынести в отдельный метод повторяющиеся строки
+  }
+
+  findByTitle() {
+    if (this.tmpChannelName != null && this.tmpChannelName.trim().length > 0) {
+      this.channelSearchValues.name = this.tmpChannelName;
+      this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+      this.searchParams.emit(this.channelSearchValues);
+    }
+  }
+
+
+  /** сброс фильтрации */
   dropAllFilters() {
-    // this.changeSelectedServer.emit(undefined);
     this.tmpChannelStatus = null;
     this.tmpChannelName = '';
+    this.tmpChannelIp = '';
     this.tmpSwitch = null;
     this.tmpSwitchId = null;
+    this.channelSearchValues.ip = this.tmpChannelIp;
     this.channelSearchValues.signal = this.tmpChannelStatus;
     this.channelSearchValues.name = this.tmpChannelName;
     this.channelSearchValues.switchId = this.tmpSwitchId;
@@ -205,6 +188,42 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.changed = false;
 
     this.searchParams.emit(this.channelSearchValues);
+  }
+
+  dropChannelNameFilter() {
+    this.channelSearchValues.name = this.tmpChannelName;
+    this.searchParams.emit(this.channelSearchValues);
+  }
+
+  dropSwitchFilter() {
+    this.channelSearchValues.switchId = this.tmpSwitchId;
+    this.searchParams.emit(this.channelSearchValues);
+  }
+
+  dropChannelIpFilter() {
+    this.channelSearchValues.ip = this.tmpChannelIp;
+    this.searchParams.emit(this.channelSearchValues);
+  }
+
+  /** диалоговые окна */
+  openAddDialog() {
+    const newSwitch = new Switch(null, null, null, null, null, null);
+    const dialogRef = this.dialog.open(EditChannelDialogComponent, {
+      data: [newSwitch, this.switches],
+      autoFocus: false,
+      width: '450px'
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.action == Actions.ADD) {
+        this.addSwitch.emit(result.obj);
+      }
+      if (result.action == Actions.CANCEL) {
+        console.log("Ничего не делаем");
+      }
+
+    });
+
   }
 
   openEditChannelDialog(channel: Channel) {
@@ -226,6 +245,35 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /* метод перезагрузки камеры */
+  cameraReboot(channel: Channel) {
+    // @ts-ignore //проверки были осуществлены до вызова этого метода, поэтому тут проверки не делаю
+    const switchIp = channel.switchId.ip;
+    // @ts-ignore
+    const cameraPort = channel.port.toString();
+    // @ts-ignore
+    const rebootValues = new RebootValues(switchIp, cameraPort);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: [channel, rebootValues],
+      width:'350px',
+      autoFocus: false
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      // if (res && res.action == Actions.CONFIRM) {
+      //   this.rebootCamera.emit(rebootValues); //todo - лишнее, нужно убрать
+      // }
+      if (res.action == Actions.CANCEL) { //todo обработать ошибки и изменить действи при подтверждении
+        console.log("Нажали отмену");
+      }
+      if (res.action == Actions.ERROR) {
+
+        console.log("Ошибка");
+      }
+    });
+    //
+  }
+
+  /* проверка (можно ли перезагрузить камеру) */
   canReboot(channel: Channel): boolean {
     if (channel.switchId == null) {
       return false;
@@ -248,6 +296,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /* применение зел/красного стиля для порта канала */
   redGreenStylePort(channel: Channel): number {
     if (channel.switchId == null) {
       return 1;
@@ -267,39 +316,10 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     }
   }
 
-  cameraReboot(channel: Channel) {
-    // @ts-ignore //проверки были осуществлены до вызова этого метода, поэтому тут проверки не делаю
-    const switchIp = channel.switchId.ip;
-    // @ts-ignore
-    const cameraPort = channel.port.toString();
-    // @ts-ignore
-    const rebootValues = new RebootValues(switchIp, cameraPort);
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: [channel, rebootValues],
-      width:'350px',
-      autoFocus: false
-    });
-    dialogRef.afterClosed().subscribe(res => {
-      if (res && res.action == Actions.CONFIRM) {
-        this.rebootCamera.emit(rebootValues);
-      }
-      if (res.action == Actions.CANCEL) {
-        console.log("Нажали отмену")
-      }
-    });
-    //
-  }
-
-  dropSwitchFilter() {
-    this.channelSearchValues.switchId = this.tmpSwitchId;
-    this.searchParams.emit(this.channelSearchValues);
-  }
-
+  /* изменился размер или страница таблице */
   pageChanged(pageEvent: PageEvent) {
     this.paging.emit(pageEvent);
   }
-
-
 
   initSearch() {
 
@@ -310,7 +330,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   }
 
-
+  /* сортировка */
   sortData(changingSortDirection: any) {
     if (!this.changed) {
       this.changed = !this.changed;
@@ -323,4 +343,5 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.channelSearchValues.sortDirection = changingSortDirection.direction;
     this.searchParams.emit(this.channelSearchValues);
   }
+
 }
