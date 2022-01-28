@@ -16,24 +16,28 @@ export class AfterConfirmRebootDialogComponent implements OnInit {
 
   tmpRebootValues: RebootValues;
   tmpTitle: string;
+  wasError: boolean = false;
+
 
   ngOnInit(): void {
     this.tmpRebootValues = this.data;
     if (this.tmpRebootValues.switchIp) {
       this.tmpTitle = this.tmpRebootValues.switchIp;
-      console.log(this.tmpRebootValues)
+      console.log(this.tmpRebootValues);
+      this.wasError = false;
     }
     else {
       this.tmpTitle = 'Произошла ошибка!'
+      this.wasError = true;
     }
 
   }
 
   ok() {
     if (this.tmpTitle == 'Произошла ошибка!') {
-      this.dialogRef.close(new ActionsResult(Actions.CANCEL));
+      this.dialogRef.close(new ActionsResult(Actions.ERROR));
     } else {
-      this.dialogRef.close(new ActionsResult(Actions.CONFIRM));
+      this.dialogRef.close(new ActionsResult(Actions.OK));
     }
 
   }

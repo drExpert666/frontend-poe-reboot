@@ -1,6 +1,10 @@
-<p>{{tmpTitle}}</p>
-<button
-  mat-raised-button color="primary"
-  (click)="ok()">
-  Ок
-</button>
+<div *ngIf="!wasError" class="green">Камера успешно перезагружена!</div>
+<div *ngIf="wasError" class="red">Произошла ошибка при перезагрузке!</div>
+<div class="container">
+  <button class="center-block"
+          mat-raised-button color="primary"
+          (click)="ok()">
+    Ок
+  </button>
+</div>
+

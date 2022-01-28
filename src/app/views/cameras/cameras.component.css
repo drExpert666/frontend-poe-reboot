@@ -11,8 +11,8 @@ table {
 }
 
 .text-left-2 {
-position: relative;
-  display: inline-block;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 
@@ -135,4 +135,8 @@ position: relative;
 
 .no-info-2{
   color: #a29f9f;
+}
+
+.test-filters {
+  display: inline-block;
 }

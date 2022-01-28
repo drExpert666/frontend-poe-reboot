@@ -206,6 +206,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   }
 
   /** диалоговые окна */
+  // пока закомментирован, так как не знаю, нужна ли реаализация
   openAddDialog() {
     const newSwitch = new Switch(null, null, null, null, null, null);
     const dialogRef = this.dialog.open(EditChannelDialogComponent, {
@@ -266,8 +267,10 @@ export class CamerasComponent implements OnInit, AfterViewInit {
         console.log("Нажали отмену");
       }
       if (res.action == Actions.ERROR) {
-
-        console.log("Ошибка");
+        console.log("Нажали ок, во время перезагрузки произошла ошибка");
+      }
+      if (res.action == Actions.OK) {
+        console.log("Нажали ок, перезагрузка выполнилась успешно");
       }
     });
     //

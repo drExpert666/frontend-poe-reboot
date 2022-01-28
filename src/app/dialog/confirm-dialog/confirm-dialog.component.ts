@@ -41,18 +41,16 @@ export class ConfirmDialogComponent implements OnInit {
       this.responseRebootValues = res;
     })
     this.spinner.show();
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 6000);
 
     setTimeout(() => {
+      this.spinner.hide();
        const dialogRef = this.dialog.open(AfterConfirmRebootDialogComponent, {data: this.responseRebootValues});
         dialogRef.afterClosed().subscribe((result) => {
-          if (result.actions == Actions.CONFIRM) {
+          if (result.action == Actions.OK) {
             console.log("Reboot complete!!!");
-            this.dialogRef.close(new ActionsResult(Actions.CANCEL));
+            this.dialogRef.close(new ActionsResult(Actions.OK));
           }
-          if (result.actions == Actions.CANCEL) {
+          if (result.action == Actions.ERROR) {
             console.log("ERROR!!!");
             this.dialogRef.close(new ActionsResult(Actions.ERROR));
           }
