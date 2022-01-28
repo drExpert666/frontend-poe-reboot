@@ -57,7 +57,7 @@ export class ConfirmDialogComponent implements OnInit {
 
         })
       },
-      6000);
+      10000);
 
 
     // this.dialogRef.close(new ActionsResult(Actions.CONFIRM));
