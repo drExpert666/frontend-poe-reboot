@@ -9,10 +9,13 @@ import {ChannelSearchValues, ServerSearchValues} from "../../data/search/search"
 })
 export class ServersComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
 
   tmpServerName: string;
+  allChannelsCount: number;
+  onlineChannelsCount: number;
 
 
   /** инпут декораторы */
@@ -21,16 +24,18 @@ export class ServersComponent implements OnInit {
   serverSearchValues: ServerSearchValues;
 
   servers: Server[];
+
   @Input("servers")
   set setServers(value: Server[]) {
     this.servers = value;
+    this.getAllChannelsCount();
     console.log(this.servers);
   }
 
   @Input()
   selectedServer: Server;
 
-  channelSearchValues :ChannelSearchValues;
+  channelSearchValues: ChannelSearchValues;
 
   /** аутпут декораторы */
 
@@ -41,7 +46,6 @@ export class ServersComponent implements OnInit {
   searchParams = new EventEmitter<ServerSearchValues>();
 
   ngOnInit(): void {
-
   }
 
   showSelectedServer(server: Server | null) {
@@ -50,8 +54,8 @@ export class ServersComponent implements OnInit {
       this.onSelectedServer.emit(server);
     } else {
       //todo подумать над изменением реализации
-      this.selectedServer = new Server('','','',0,0,0,'', new Date(),'');
-      this.onSelectedServer.emit(new Server('','','',0,0,0,'', new Date(),''))
+      this.selectedServer = new Server('', '', '', 0, 0, 0, '', new Date(), '');
+      this.onSelectedServer.emit(new Server('', '', '', 0, 0, 0, '', new Date(), ''))
     }
   }
 
@@ -66,9 +70,20 @@ export class ServersComponent implements OnInit {
       this.serverSearchValues.serverName = this.tmpServerName;
       console.log(this.serverSearchValues);
       this.searchParams.emit(this.serverSearchValues);
-
+    }
   }
-}
 
+  getAllChannelsCount() {
+    if (!this.servers) {
+      return;
+    }
+    this.allChannelsCount = 0;
+    this.onlineChannelsCount = 0;
+    this.servers.forEach(s => {
+      this.allChannelsCount += s.channelsTotal;
+      this.onlineChannelsCount += s.channelsOnline;
+      console.log(this.allChannelsCount);
+    })
+  }
 
 }

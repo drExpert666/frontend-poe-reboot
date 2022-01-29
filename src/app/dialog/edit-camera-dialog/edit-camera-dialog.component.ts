@@ -27,7 +27,7 @@ export class EditCameraDialogComponent implements OnInit {
     this.tmpChannel = this.data[0];
     this.tmpSwitches = this.data[1];
     console.log(this.tmpSwitches);
-    this.tmpSwitch = this.tmpChannel.switchId? this.tmpChannel.switchId : null;
+    this.tmpSwitch = this.tmpChannel.switchId ? this.tmpChannel.switchId : null;
     this.tmpPortNumber = this.tmpChannel.port ? this.tmpChannel.port : null;
     this.tmpPoeInj = this.tmpChannel.poeInjector ? this.tmpChannel.poeInjector : false;
     this.tmpSwitchIp = (this.tmpSwitch && this.tmpSwitch.ip) ? this.tmpSwitch.ip : null;

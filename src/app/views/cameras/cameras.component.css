@@ -56,6 +56,7 @@ table {
   padding-right: 5px;
   position: center;
   font-size: 12px;
+  box-shadow: inset 0px 3px 20px 14px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)
 }
 
 .ip-title {
@@ -113,7 +114,7 @@ table {
 }
 
 .green {
-  color: #28c328;
+  color: #ffffff;
 }
 
 .red {
@@ -139,4 +140,65 @@ table {
 
 .test-filters {
   display: inline-block;
+}
+
+.test-green {
+  position: center;
+  padding: 4px;
+  text-align: center;
+  font-size: 12px;
+  width: 80%;
+  background-color: #527258;
+  box-shadow: -1px -1px 19px -4px #000000;
+  border-radius: 6px;
+}
+
+.test-red {
+  position: center;
+  padding: 4px;
+  text-align: center;
+  font-size: 12px;
+  width: 85%;
+  background-color: #814f4f;
+  box-shadow: -1px -1px 19px -4px #000000;
+  border-radius: 6px;
+}
+
+.radio-button-green {
+  padding: 2px;
+  text-align: center;
+  font-size: 11px;
+  position: absolute;
+  top: 10px;
+  /*width: 20%;*/
+  background-color: #3a4a3d;
+  box-shadow: -1px -1px 19px -4px #000000;
+  border-radius: 156px;
+}
+
+.radio-button-red {
+  padding: 2px;
+  text-align: center;
+  font-size: 10px !important;
+  position: absolute;
+  top: -6px;
+  left: 85px;
+  /*width: 20%;*/
+  background-color: #5c4646;
+  box-shadow: -1px -1px 19px -4px #000000;
+  border-radius: 156px;
+}
+
+
+.radio-button-default {
+  padding: 2px;
+  text-align: center;
+  font-size: 11px !important;
+  position: absolute;
+  top: -6px;
+  left: 163px;
+  /*width: 20%;*/
+  /*background-color: #3a7844;*/
+  box-shadow: -1px -1px 19px -4px #000000;
+  border-radius: 156px;
 }

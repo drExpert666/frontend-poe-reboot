@@ -1,4 +1,5 @@
 .sidenav-list {
+  position: relative;
   cursor: pointer;
   text-align-all: right;
   padding-top: 12px;
@@ -11,13 +12,14 @@
   margin-top: 12px;
   margin-bottom: 12px;
   color: white;
-  border-radius: 4px;
+  border-radius: 6px;
   text-transform: uppercase;
-  width: 90%;
+  width: 80%;
+  box-shadow: -3px 4px 20px -10px #000000;
 }
 
-.test{
-  box-shadow:0px 2px 4px -1px ;
+.test {
+  box-shadow: 0px 2px 4px -1px;
 }
 
 
@@ -26,7 +28,7 @@
 
 }
 
-.line  {
+.line {
   border-bottom: 1px solid #dadada;
   padding-top: 10px;
 }
@@ -45,30 +47,66 @@ mat-form-field {
   width: 170px !important;
 }
 
-.channels-count-good {
-  background-color: #44cd5e;
-  border-radius: 9px;
+
+.server-count-red {
+  cursor: pointer;
+  text-align-all: right;
+  padding: 8px;
+  position: absolute;
+  left: 146px;
+  bottom: -8px;
+  box-shadow: -1px 2px 19px 0px #000000;
+  /*padding-left: 32px;*/
+  display: flex;
+  font-size: 12px;
+  font-style: inherit;
+  background-color: #af3434;
+  margin-top: 12px;
+  margin-bottom: 12px;
   color: white;
-  border-color: #0f542b;
-  width: 15%;
-  border-style: groove;
-  /*display: ;*/
-  text-align: right !important;
+  border-radius: 11px;
+  text-transform: uppercase;
+  width: 30%;
 }
 
-.channels-count-bad {
-  background-color: #d91414;
-  border-radius: 9px;
-  border-style: groove;
-  border-color: #4a0808;
+.server-count-green {
+  cursor: pointer;
+  text-align-all: right;
+  padding: 8px;
+  position: absolute;
+  left: 146px;
+  bottom: -8px;
+  /*padding-left: 32px;*/
+  display: flex;
+  font-size: 12px;
+  font-style: inherit;
+  background-color: #3b7844;
+  margin-top: 12px;
+  margin-bottom: 12px;
   color: white;
-  width: 15%;
-  /*display: inline-flex;*/
-  text-align: right !important;
+  border-radius: 11px;
+  text-transform: uppercase;
+  width: 30%;
+  box-shadow: -1px 2px 19px 0px #000000;
 }
 
-.server-list {
-  text-align: left;
-  width: 85%;
-  /*display: flex;*/
+.server-count-all {
+  cursor: pointer;
+  text-align-all: center;
+  padding: 8px;
+  position: absolute;
+  left: 146px;
+  bottom: -8px;
+  box-shadow: -1px 2px 19px 0px #000000;
+  /*padding-left: 32px;*/
+  display: flex;
+  font-size: 12px;
+  font-style: inherit;
+  background-color: #5f5279;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  color: white;
+  border-radius: 11px;
+  text-transform: uppercase;
+  width: 30%;
 }

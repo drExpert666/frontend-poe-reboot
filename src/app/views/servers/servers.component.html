@@ -9,19 +9,29 @@
   </button>
 </mat-form-field>
 
-<li class="sidenav-list"
+<div>
+  <div class="sidenav-list"
 
-    (click)="showSelectedServer(null)"
-    [class.on-server-click]="selectedServer === undefined || null || selectedServer.guid == ''"
->Все
-</li>
+       (click)="showSelectedServer(null)"
+       [class.on-server-click]="selectedServer === undefined || null || selectedServer.guid == ''"
+  >Все
+
+    <div
+      class="server-count-all">
+      {{onlineChannelsCount}}/{{allChannelsCount}}
+    </div>
+  </div>
+
+
+</div>
+
 
 <div class="line"></div>
 
 
 <div class="sidenav-list"
-    [class.on-server-click]="server === selectedServer"
-    *ngFor="let server of servers; let index = index"
+     [class.on-server-click]="server === selectedServer"
+     *ngFor="let server of servers; let index = index"
      (click)="showSelectedServer(server)"
 >
   <div class="">
@@ -32,11 +42,11 @@
   </div>
 
   <div *ngIf="(server.channelsOnline == server.channelsTotal) &&  (server.channelsTotal != null || undefined)"
-        class=""> -
-     {{server.channelsOnline ? server.channelsOnline : 0}}/{{server.channelsTotal ? server.channelsTotal : 0}}</div>
+       class="server-count-green">
+    {{server.channelsOnline ? server.channelsOnline : 0}}/{{server.channelsTotal ? server.channelsTotal : 0}}</div>
 
   <div *ngIf="(server.channelsOnline != server.channelsTotal) ||  (server.channelsTotal == null || undefined)"
-        class=""> -
-     {{server.channelsOnline ? server.channelsOnline : 0}}/{{server.channelsTotal ? server.channelsTotal : 0}}</div>
+       class="server-count-red">
+    {{server.channelsOnline ? server.channelsOnline : 0}}/{{server.channelsTotal ? server.channelsTotal : 0}}</div>
 
 </div>
