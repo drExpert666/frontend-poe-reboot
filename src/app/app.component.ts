@@ -1,9 +1,9 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ChannelService} from "./data/implementation/ChannelService";
 import {Channel} from "../models/Channel";
 import {ServerService} from "./data/implementation/ServerService";
 import {Server} from "../models/Server";
-import {MatSidenav} from "@angular/material/sidenav";
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {BreakpointObserver} from "@angular/cdk/layout";
 import {ChannelSearchValues, RebootValues, ServerSearchValues} from "./data/search/search";
 import {Switch} from "../models/Switch";
@@ -13,6 +13,7 @@ import {PageEvent} from "@angular/material/paginator";
 import {AuthService} from "./service/auth.service";
 import {TokenStorageService} from "./service/token-storage.service";
 import {NotificationService} from "./service/notification.service";
+import set = Reflect.set;
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
+  sidenavIsReady = false; // флаг для отображения сайдбара только после инициализации
 
   /** передаваемые параметры через Input декораторы */
   channels: Channel[];
@@ -54,7 +56,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     if (this.tokenStorage.getUser()) // если пользоавтель аторизирован (есть токен)
     {
-      this.isAuthorized = true;
+      this.isAuthorized = true; // только после этого флага возможны обращения к БД (без него html с основными данными пустой)
 
       this.channelSearchValues = new ChannelSearchValues();
       this.serverSearchValues = new ServerSearchValues();
@@ -75,22 +77,24 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   }
 
-  //todo выдаёт ошибку ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked.
-  // Previous value: 'true'. Current value: 'false'. Исправить!!! Ошибка выскакивает при первом запуске страницы
-  // и при открытом сайд-баре (при закрытом всё ок)
   ngAfterViewInit(): void {
-    console.log(this.isAuthorized)
-    if (this.isAuthorized) {
-      this.observer.observe(['(max-width: 1000px)']).subscribe((res) => {
-        if (res.matches) {
-          this.sidenav.mode = 'over';
-          this.sidenav.close();
-        } else {
-          this.sidenav.mode = 'side';
-          this.sidenav.open();
-        }
-      });
-    }
+    /* реализация взята из ютуб ролика, для избежания ошибки по изменению состояния сайдбара */
+    setTimeout(() => {
+      this.sidenavIsReady = true;
+      console.log(this.isAuthorized)
+      if (this.isAuthorized) {
+        this.observer.observe(['(max-width: 1000px)']).subscribe((res) => {
+          if (res.matches) {
+            this.sidenav.mode = 'over';
+            this.sidenav.close();
+          } else {
+            this.sidenav.mode = 'side';
+            this.sidenav.open();
+          }
+        });
+      }
+
+    }, 0)
 
   }
 

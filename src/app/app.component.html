@@ -4,27 +4,27 @@
   <router-outlet></router-outlet>
 
 </div>
-<mat-toolbar *ngIf="isAuthorized">
-<!--  <button mat-icon-button (click)="sidenav.toggle()">-->
-<!--    <mat-icon *ngIf="!sidenav.opened">-->
-<!--      menu-->
-<!--    </mat-icon>-->
+<mat-toolbar *ngIf="isAuthorized && sidenavIsReady">
 
-<!--    <mat-icon *ngIf="sidenav.opened">-->
-<!--      close-->
-<!--    </mat-icon>-->
-<!--  </button>-->
-<!--  <p class="mat-menu-panel pointer text-menu" *ngIf="sidenav.opened"-->
-<!--     (click)="sidenav.toggle()"-->
-<!--  >Скрыть меню</p>-->
-<!--  <p class="mat-menu-panel pointer text-menu" *ngIf="!sidenav.opened"-->
-<!--     (click)="sidenav.toggle()"-->
-<!--  >Показать меню</p>-->
-<!--  <button mat-icon-button>-->
-<!--  <mat-icon *ngIf="sidenav.opened">-->
-<!--    close-->
-<!--  </mat-icon> </button>-->
+
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+  </button>
+  <p class="mat-menu-panel pointer text-menu" *ngIf="sidenav.opened"
+     (click)="sidenav.toggle()"
+  >Скрыть меню</p>
+  <p class="mat-menu-panel pointer text-menu" *ngIf="!sidenav.opened"
+     (click)="sidenav.toggle()"
+  >Показать меню</p>
+
 <div >
+
     <button class="logout-button"  mat-icon-button (click)="logout()">
     <mat-icon>
       logout
@@ -64,7 +64,6 @@
                    (rebootCamera)="rebootCamera($event)"
 
                    (paging)="paging($event)"
-
       >
 
       </app-cameras>
