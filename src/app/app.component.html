@@ -1,57 +1,62 @@
 <!--не забудь перенести тулбар в отдельный компонент!-->
-<mat-toolbar>
-  <button mat-icon-button (click)="sidenav.toggle()">
-    <mat-icon *ngIf="!sidenav.opened">
-      menu
-    </mat-icon>
+<div>
 
-    <mat-icon *ngIf="sidenav.opened">
-      close
-    </mat-icon>
-  </button>
-  <p class="mat-menu-panel pointer text-menu" *ngIf="sidenav.opened"
-     (click)="sidenav.toggle()"
-  >Скрыть меню</p>
-  <p class="mat-menu-panel pointer text-menu" *ngIf="!sidenav.opened"
-     (click)="sidenav.toggle()"
-  >Показать меню</p>
-</mat-toolbar>
+  <router-outlet></router-outlet>
 
-<mat-sidenav-container>
-  <mat-sidenav #sidenav="matSidenav">
-    <app-servers [servers]="servers"
-                 [serverSearchValues]="serverSearchValues"
-                 [selectedServer]="selectedServer"
+</div>
+<!--<mat-toolbar>-->
+<!--  <button mat-icon-button (click)="sidenav.toggle()">-->
+<!--    <mat-icon *ngIf="!sidenav.opened">-->
+<!--      menu-->
+<!--    </mat-icon>-->
 
-                 (onSelectedServer)="onSelectedServer($event)"
-                 (searchParams)="searchingByServer($event)"
-    >
+<!--    <mat-icon *ngIf="sidenav.opened">-->
+<!--      close-->
+<!--    </mat-icon>-->
+<!--  </button>-->
+<!--  <p class="mat-menu-panel pointer text-menu" *ngIf="sidenav.opened"-->
+<!--     (click)="sidenav.toggle()"-->
+<!--  >Скрыть меню</p>-->
+<!--  <p class="mat-menu-panel pointer text-menu" *ngIf="!sidenav.opened"-->
+<!--     (click)="sidenav.toggle()"-->
+<!--  >Показать меню</p>-->
+<!--</mat-toolbar>-->
 
-    </app-servers>
-  </mat-sidenav>
+<!--<mat-sidenav-container>-->
+<!--  <mat-sidenav #sidenav="matSidenav">-->
+<!--    <app-servers [servers]="servers"-->
+<!--                 [serverSearchValues]="serverSearchValues"-->
+<!--                 [selectedServer]="selectedServer"-->
 
-  <mat-sidenav-content>
-    <div class="content">
-      <app-cameras [channels]="channels"
-                   [channelSearchValues]="channelSearchValues"
-                   [switches]="switches"
-                   [totalChannelsFounded]="totalChannelsFounded"
+<!--                 (onSelectedServer)="onSelectedServer($event)"-->
+<!--                 (searchParams)="searchingByServer($event)"-->
+<!--    >-->
 
-                   (searchParams)="searchingByParams($event)"
-                   (addSwitch)="addSwitch($event)"
-                   (changeSelectedServer)="changeSelectedServer($event)"
-                   (updateChannel)="updateChannel($event)"
-                   (rebootCamera)="rebootCamera($event)"
+<!--    </app-servers>-->
+<!--  </mat-sidenav>-->
 
-                   (paging)="paging($event)"
+<!--  <mat-sidenav-content>-->
+<!--    <div class="content">-->
+<!--      <app-cameras [channels]="channels"-->
+<!--                   [channelSearchValues]="channelSearchValues"-->
+<!--                   [switches]="switches"-->
+<!--                   [totalChannelsFounded]="totalChannelsFounded"-->
 
-      >
+<!--                   (searchParams)="searchingByParams($event)"-->
+<!--                   (addSwitch)="addSwitch($event)"-->
+<!--                   (changeSelectedServer)="changeSelectedServer($event)"-->
+<!--                   (updateChannel)="updateChannel($event)"-->
+<!--                   (rebootCamera)="rebootCamera($event)"-->
 
-      </app-cameras>
-    </div>
-  </mat-sidenav-content>
+<!--                   (paging)="paging($event)"-->
 
-</mat-sidenav-container>
+<!--      >-->
+
+<!--      </app-cameras>-->
+<!--    </div>-->
+<!--  </mat-sidenav-content>-->
+
+<!--</mat-sidenav-container>-->
 
 
 

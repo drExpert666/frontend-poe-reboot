@@ -1,0 +1,23 @@
+<div class="login-page">
+  <h2>Login</h2>
+  <form [formGroup]="loginForm">
+    <div class="row">
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Введите логин</mat-label>
+        <input matInput formControlName="username">
+      </mat-form-field>
+
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Введите пароль</mat-label>
+        <input matInput type="password" formControlName="password">
+      </mat-form-field>
+    </div>
+    <div id="controls" class="row">
+      <button mat-flat-button color="primary" [disabled]="loginForm.invalid" (click)="submit()">
+        Подтвердить
+      </button>
+    </div>
+  </form>
+
+
+</div>

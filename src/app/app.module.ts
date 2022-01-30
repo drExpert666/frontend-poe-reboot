@@ -32,7 +32,12 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgxSpinnerModule} from "ngx-spinner";
 import { AfterConfirmRebootDialogComponent } from './dialog/after-confirm-reboot-dialog/after-confirm-reboot-dialog.component';
 import {MatSortModule} from "@angular/material/sort";
-import {authInterceptorProviders} from "./helper/auth-interceptor.service";
+import {AuthInterceptorService} from "./helper/auth-interceptor.service";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {ErrorInterceptorService} from "./helper/error-interceptor.service";
+import { LoginComponent } from './auth/login/login.component';
+import {AppRoutingModule} from "./app.routing.module";
+import {NavigationComponent} from "./layout/navigation/navigation.component";
 
 @NgModule({
   declarations: [
@@ -42,7 +47,9 @@ import {authInterceptorProviders} from "./helper/auth-interceptor.service";
     EditChannelDialogComponent,
     EditCameraDialogComponent,
     ConfirmDialogComponent,
-    AfterConfirmRebootDialogComponent
+    AfterConfirmRebootDialogComponent,
+    LoginComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -65,14 +72,27 @@ import {authInterceptorProviders} from "./helper/auth-interceptor.service";
     MatRadioModule,
     MatCheckboxModule,
     MatSelectModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatSnackBarModule,
+    AppRoutingModule // импорт нашего созданного модуля с роутингом
   ],
   providers: [
     EditChannelDialogComponent,
     EditCameraDialogComponent,
     ConfirmDialogComponent,
     AfterConfirmRebootDialogComponent,
-    authInterceptorProviders,
+    // authInterceptorProviders,
+    // authErrorInterceptorProviders,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
+      multi: true
+    },
     // { //todo добавить позже
     //   provide: HTTP_INTERCEPTORS, // все Http запросы будут выполняться с отображением индикатора загрузки
     //   useClass: CustomHttpInterceptor,

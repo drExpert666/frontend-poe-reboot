@@ -51,8 +51,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.tmpChannel = new Channel(null, null, null,null, null,
       null,null, null, null, null,null);
     this.searchingByParams(this.channelSearchValues);
-    this.findAllSwitches();
-    this.findAllServers();
+    // this.findAllSwitches();
+    // this.findAllServers();
 
   }
 
