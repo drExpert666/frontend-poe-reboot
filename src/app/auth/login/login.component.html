@@ -1,23 +1,30 @@
 <div class="login-page">
-  <h2>Login</h2>
-  <form [formGroup]="loginForm">
-    <div class="row">
-      <mat-form-field class="col-12" appearance="outline">
+
+  <div class="mat-card-2">
+  <h2 class="red-title">Login</h2>
+  <form class="container" [formGroup]="loginForm">
+    <div >
+      <mat-form-field class="row background container-fluid" appearance="outline">
         <mat-label>Введите логин</mat-label>
         <input matInput formControlName="username">
+
       </mat-form-field>
 
-      <mat-form-field class="col-12" appearance="outline">
+      <mat-form-field class="row container-fluid" appearance="outline">
         <mat-label>Введите пароль</mat-label>
         <input matInput type="password" formControlName="password">
       </mat-form-field>
     </div>
-    <div id="controls" class="row">
-      <button mat-flat-button color="primary" [disabled]="loginForm.invalid" (click)="submit()">
+    <div id="controls" class="row container-fluid">
+      <button mat-flat-button color="accent" [disabled]="loginForm.invalid" (click)="submit()">
         Подтвердить
       </button>
     </div>
   </form>
 
+  </div>
 
 </div>
+
+
+

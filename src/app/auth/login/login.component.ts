@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
       this.tokenStorage.saveUser(data); // сохраняем юзера
 
       this.notificationService.showSnack('Successfully logged in');
-      this.router.navigate(['main']);
+      this.router.navigate(['']);
       window.location.reload();
     }, error => { // если была ошибка
       console.log(error);

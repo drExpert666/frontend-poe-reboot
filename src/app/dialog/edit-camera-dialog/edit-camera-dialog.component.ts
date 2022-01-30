@@ -13,6 +13,8 @@ export class EditCameraDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<EditCameraDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: [Channel, Switch[]]) {
+
+
   }
 
   tmpSwitches: Switch[];
@@ -31,6 +33,7 @@ export class EditCameraDialogComponent implements OnInit {
     this.tmpPortNumber = this.tmpChannel.port ? this.tmpChannel.port : null;
     this.tmpPoeInj = this.tmpChannel.poeInjector ? this.tmpChannel.poeInjector : false;
     this.tmpSwitchIp = (this.tmpSwitch && this.tmpSwitch.ip) ? this.tmpSwitch.ip : null;
+    console.log(this.tmpSwitchIp);
 
   }
 

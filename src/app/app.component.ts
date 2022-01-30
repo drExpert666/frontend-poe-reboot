@@ -10,6 +10,9 @@ import {Switch} from "../models/Switch";
 import {SwitchService} from "./data/implementation/SwitchService";
 import {RebootService} from "./data/implementation/RebootService";
 import {PageEvent} from "@angular/material/paginator";
+import {AuthService} from "./service/auth.service";
+import {TokenStorageService} from "./service/token-storage.service";
+import {NotificationService} from "./service/notification.service";
 
 @Component({
   selector: 'app-root',
@@ -37,41 +40,58 @@ export class AppComponent implements OnInit, AfterViewInit {
   selectedServer: Server;
   tmpChannel: Channel;
 
+  isAuthorized = false;
 
-  constructor(private channelService: ChannelService,
+
+  constructor(private authService: AuthService,
+              private tokenStorage: TokenStorageService,
+              private notificationService: NotificationService,
+              private channelService: ChannelService,
               private serverService: ServerService,
               private switchService: SwitchService,
               private rebootService: RebootService,
               private observer: BreakpointObserver) { // обсервер, необходим для отслеживания изменений в сайдбаре
 
-    this.channelSearchValues = new ChannelSearchValues();
-    this.serverSearchValues = new ServerSearchValues();
-    this.channelSearchValues.pageSize = this.defaultPageSize;
-    this.channelSearchValues.pageNumber = this.defaultPageNumber;
-    this.tmpChannel = new Channel(null, null, null,null, null,
-      null,null, null, null, null,null);
-    this.searchingByParams(this.channelSearchValues);
-    // this.findAllSwitches();
-    // this.findAllServers();
+    if (this.tokenStorage.getUser()) // если пользоавтель аторизирован (есть токен)
+    {
+      this.isAuthorized = true;
+
+      this.channelSearchValues = new ChannelSearchValues();
+      this.serverSearchValues = new ServerSearchValues();
+      this.channelSearchValues.pageSize = this.defaultPageSize;
+      this.channelSearchValues.pageNumber = this.defaultPageNumber;
+      this.tmpChannel = new Channel(null, null, null, null, null,
+        null, null, null, null, null, null);
+      this.searchingByParams(this.channelSearchValues);
+      this.findAllSwitches();
+      this.findAllServers();
+
+    }
+
 
   }
 
   ngOnInit(): void {
+
   }
 
   //todo выдаёт ошибку ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked.
   // Previous value: 'true'. Current value: 'false'. Исправить!!! Ошибка выскакивает при первом запуске страницы
   // и при открытом сайд-баре (при закрытом всё ок)
   ngAfterViewInit(): void {
-    this.observer.observe(['(max-width: 1000px)']).subscribe((res) => {
-      if (res.matches) {
-        this.sidenav.mode = 'over';
-        this.sidenav.close();
-      } else {
-        this.sidenav.mode = 'side';
-        this.sidenav.open();
-      }
-    });
+    console.log(this.isAuthorized)
+    if (this.isAuthorized) {
+      this.observer.observe(['(max-width: 1000px)']).subscribe((res) => {
+        if (res.matches) {
+          this.sidenav.mode = 'over';
+          this.sidenav.close();
+        } else {
+          this.sidenav.mode = 'side';
+          this.sidenav.open();
+        }
+      });
+    }
+
   }
 
 
@@ -81,8 +101,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.channelSearchValues = searchValues;
     if (this.selectedServer) {
       this.channelSearchValues.guidServer = this.selectedServer.guid;
-    }
-    else {
+    } else {
       this.channelSearchValues.guidServer = '';
     }
 
@@ -121,10 +140,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   /** методы работы с каналами */
 
-  findAllChannels() {
-    this.channelService.findAll().subscribe(c => this.channels = c);
-    console.log(this.channels);
-  }
+  // findAllChannels() {
+  //   this.channelService.findAll().subscribe(c => this.channels = c);
+  //   console.log(this.channels);
+  // }
 
   /** методы работы с коммутаторами */
 
@@ -144,13 +163,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.selectedServer = server;
     this.searchingByParams(this.channelSearchValues);
     this.findAllSwitches();
-    this.findAllChannels();
+    // this.findAllChannels();
   }
 
   updateChannel(channel: Channel) {
     console.log(channel);
     this.tmpChannel = channel;
-    this.channelService.update(channel).subscribe(res => this.findAllChannels());
+    this.channelService.update(channel).subscribe(res => this.searchingByParams(this.channelSearchValues));
   }
 
   rebootCamera(rebootValues: RebootValues) {
@@ -174,4 +193,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   }
 
+  logout() {
+    this.tokenStorage.logOut();
+  }
 }

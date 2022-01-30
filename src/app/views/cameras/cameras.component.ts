@@ -240,8 +240,8 @@ export class CamerasComponent implements OnInit, AfterViewInit {
         console.log("Нажали сохранить. Переданный объект:  " + result.obj);
         this.tmpChannel = result.obj;
         console.log(this.tmpChannel);
+        // this.dropAllFilters();
         this.updateChannel.emit(this.tmpChannel);
-        this.dropAllFilters();
       }
     });
   }

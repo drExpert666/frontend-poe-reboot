@@ -38,6 +38,7 @@ import {ErrorInterceptorService} from "./helper/error-interceptor.service";
 import { LoginComponent } from './auth/login/login.component';
 import {AppRoutingModule} from "./app.routing.module";
 import {NavigationComponent} from "./layout/navigation/navigation.component";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {NavigationComponent} from "./layout/navigation/navigation.component";
     MatSelectModule,
     NgxSpinnerModule,
     MatSnackBarModule,
-    AppRoutingModule // импорт нашего созданного модуля с роутингом
+    AppRoutingModule, // импорт нашего созданного модуля с роутингом
+    MatCardModule
   ],
   providers: [
     EditChannelDialogComponent,

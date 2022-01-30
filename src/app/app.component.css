@@ -31,3 +31,19 @@ mat-sidenav-container {
 .text-menu {
   margin-top: 10px;
 }
+
+.logout-button {
+  position: absolute;
+  display: inline-block;
+  right: 20px;
+  top: 16px;
+  text-align: right;
+}
+
+.logout-text {
+  position: absolute;
+  display: inline-block;
+  right: 50px;
+  top: 20px;
+  text-align: right;
+}
