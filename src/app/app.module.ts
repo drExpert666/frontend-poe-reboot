@@ -32,6 +32,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NgxSpinnerModule} from "ngx-spinner";
 import { AfterConfirmRebootDialogComponent } from './dialog/after-confirm-reboot-dialog/after-confirm-reboot-dialog.component';
 import {MatSortModule} from "@angular/material/sort";
+import {authInterceptorProviders} from "./helper/auth-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import {MatSortModule} from "@angular/material/sort";
     EditCameraDialogComponent,
     ConfirmDialogComponent,
     AfterConfirmRebootDialogComponent,
+    authInterceptorProviders,
     // { //todo добавить позже
     //   provide: HTTP_INTERCEPTORS, // все Http запросы будут выполняться с отображением индикатора загрузки
     //   useClass: CustomHttpInterceptor,
