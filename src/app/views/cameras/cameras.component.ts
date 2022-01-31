@@ -184,7 +184,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.channelSearchValues.guidServer = '';
     this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
     this.channelSearchValues.sortDirection = 'acs';
-    this.channelSearchValues.sortColumn = 'guidServer';
+    this.channelSearchValues.sortColumn = 'name';
     this.changed = false;
 
     this.searchParams.emit(this.channelSearchValues);
