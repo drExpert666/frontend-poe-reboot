@@ -23,6 +23,9 @@ export class EditCameraDialogComponent implements OnInit {
   tmpPortNumber: number | null;
   tmpPoeInj: boolean | null;
   tmpSwitchIp: string | null;
+  tmpLostChannel: boolean = false;
+
+  wasChange = false;
 
 
   ngOnInit(): void {
@@ -33,17 +36,31 @@ export class EditCameraDialogComponent implements OnInit {
     this.tmpPortNumber = this.tmpChannel.port ? this.tmpChannel.port : null;
     this.tmpPoeInj = this.tmpChannel.poeInjector ? this.tmpChannel.poeInjector : false;
     this.tmpSwitchIp = (this.tmpSwitch && this.tmpSwitch.ip) ? this.tmpSwitch.ip : null;
-    console.log(this.tmpSwitchIp);
+    this.tmpLostChannel = this.tmpChannel.lostChannel;
 
   }
 
   confirm() {
-    console.log(this.tmpSwitch);
     this.tmpChannel.port = this.tmpPortNumber;
     this.tmpChannel.poeInjector = this.tmpPoeInj;
     this.tmpChannel.switchId = this.tmpSwitch;
+    this.tmpChannel.lostChannel = this.tmpLostChannel;
     console.log(this.tmpChannel);
     this.dialogRef.close(new ActionsResult(Actions.EDIT, this.tmpChannel));
+  }
+
+  checkChanges(): boolean {
+    console.log('asdasdadassdad')
+    if (this.tmpChannel.port == this.tmpPortNumber &&
+      this.tmpChannel.poeInjector == this.tmpPoeInj &&
+      this.tmpChannel.switchId == this.tmpSwitch &&
+      this.tmpChannel.lostChannel == this.tmpLostChannel) {
+      this.wasChange = false;
+    } else {
+      this.wasChange = true;
+    }
+    console.log(this.wasChange);
+    return this.wasChange;
   }
 
   cancel() {

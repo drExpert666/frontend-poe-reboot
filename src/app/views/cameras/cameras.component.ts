@@ -23,7 +23,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     'name', 'signal', 'reboot-button', 'ip',
     'model', 'lastUpdate', // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
     'switchId',
-    'port', 'poeInjector', 'edit'];
+    'port','lostChannel', 'poeInjector', 'edit'];
   dataSource: MatTableDataSource<Channel>; // контейнер - источник данных для таблицы
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

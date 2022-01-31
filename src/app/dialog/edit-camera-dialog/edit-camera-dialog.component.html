@@ -40,7 +40,7 @@
   <mat-form-field class="col-12" appearance="fill">
     <mat-label>Выберите коммутатор</mat-label>
     <mat-select [(value)]="tmpSwitchIp"
-                (valueChange)="onSelectSwitch($event)" >
+                (valueChange)="onSelectSwitch($event); checkChanges()" >
       <mat-option
         *ngFor="let newSwitch of tmpSwitches"
         (valueChange)="onSelectSwitch(newSwitch)"
@@ -59,6 +59,8 @@
       #inputName
       matInput
       [(ngModel)]="tmpPortNumber"
+           (keyup)="checkChanges()"
+           (mouseup)="checkChanges()"
     >
 
     <button *ngIf="tmpPortNumber"
@@ -71,10 +73,21 @@
 
   <mat-form-field class="col-12" appearance="fill">
     <mat-label>Пое-инжектор</mat-label>
-    <mat-select [(value)]="tmpPoeInj" >
+    <mat-select [(value)]="tmpPoeInj"
+    (valueChange)="checkChanges()">
       <mat-option [value]="true">Есть</mat-option>
       <mat-option [value]="false">Нет</mat-option>
       <mat-option [value]="null">Неизвестно</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="col-12" appearance="fill">
+    <mat-label>Потерянный канал?</mat-label>
+    <mat-select [(value)]="tmpLostChannel"
+                (valueChange)="checkChanges()"
+    >
+      <mat-option [value]="true">Да</mat-option>
+      <mat-option [value]="false">Нет</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -89,7 +102,7 @@
     <button
       mat-raised-button color="primary"
       (click)="confirm()"
-      [disabled]="!tmpSwitch  && !tmpPortNumber"> <!-- если пустой текст, то кнопка неактивна-->
+      [disabled]="!wasChange"> <!-- если пустой текст, то кнопка неактивна-->
       Сохранить
     </button>
     <button mat-raised-button (click)="cancel()">Отмена</button>

@@ -164,6 +164,18 @@ table {
   border-radius: 6px;
 }
 
+.test-grey {
+  position: center;
+  padding: 4px;
+  text-align: center;
+  font-size: 12px;
+  width: 85%;
+  background-color: #595959;
+  box-shadow: -1px -1px 19px -4px #000000;
+  border-radius: 6px;
+}
+
+
 .radio-button-green {
   padding: 2px;
   text-align: center;
@@ -201,4 +213,9 @@ table {
   /*background-color: #3a7844;*/
   box-shadow: -1px -1px 19px -4px #000000;
   border-radius: 156px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #797979;
 }

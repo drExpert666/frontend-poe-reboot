@@ -63,7 +63,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.channelSearchValues.pageSize = this.defaultPageSize;
       this.channelSearchValues.pageNumber = this.defaultPageNumber;
       this.tmpChannel = new Channel(null, null, null, null, null,
-        null, null, null, null, null, null);
+        null, null, null, null, null, null, false);
       this.searchingByParams(this.channelSearchValues);
       this.findAllSwitches();
       this.findAllServers();
