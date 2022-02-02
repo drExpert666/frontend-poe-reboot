@@ -105,7 +105,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   @Output()
   paging = new EventEmitter<PageEvent>(); // переход по страницам данных
 
-  private fillTable() {
+  fillTable() {
     if (!this.dataSource) {
       console.log(this.dataSource);
       return;
@@ -128,7 +128,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   }
 
-  private initSearchValues() {
+  initSearchValues() {
     this.channelSearchValues.name = this.tmpChannelName;
     console.log(this.channelSearchValues);
   }
