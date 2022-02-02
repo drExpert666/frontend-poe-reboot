@@ -23,18 +23,19 @@
      (click)="sidenav.toggle()"
   >Показать меню</p>
 
-<div >
+  <div>
 
-    <button class="logout-button"  mat-icon-button (click)="logout()">
-    <mat-icon>
-      logout
-    </mat-icon></button>
+    <button class="logout-button" mat-icon-button (click)="logout()">
+      <mat-icon>
+        logout
+      </mat-icon>
+    </button>
 
     <p class="mat-menu-panel pointer logout-text"
        (click)="logout()"
     >Logout</p>
 
-</div>
+  </div>
 </mat-toolbar>
 
 <mat-sidenav-container *ngIf="isAuthorized">

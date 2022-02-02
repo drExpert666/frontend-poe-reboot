@@ -25,8 +25,12 @@ export class Channel {
 
   port: number | null; // номер порта
 
+  lostChannel: boolean;
 
-  constructor(guidServer: Server | null, guidChannel: string | null, name: string | null, signal: number | null, guidIpDevice: string | null, ip: string | null, model: string | null, lustUpdate: Date | null, poeInjector: boolean | null, switchId: Switch | null, port: number | null) {
+
+  constructor(guidServer: Server | null, guidChannel: string | null, name: string | null, signal: number | null,
+              guidIpDevice: string | null, ip: string | null, model: string | null, lustUpdate: Date | null,
+              poeInjector: boolean | null, switchId: Switch | null, port: number | null, lostChannel: boolean) {
     this.guidServer = guidServer;
     this.guidChannel = guidChannel;
     this.name = name;
@@ -38,5 +42,6 @@ export class Channel {
     this.poeInjector = poeInjector;
     this.switchId = switchId;
     this.port = port;
+    this.lostChannel = lostChannel;
   }
 }

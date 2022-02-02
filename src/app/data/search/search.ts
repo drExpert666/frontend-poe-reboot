@@ -11,7 +11,7 @@ export class ChannelSearchValues {
   pageSize = 5;
 
   // сортировка
-  sortColumn = 'guidServer';
+  sortColumn = 'name';
   sortDirection = 'asc';
 
   constructor(guidServer?: string, guidChannel?: string, name?: string, signal?: number, switchId?: number) {

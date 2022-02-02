@@ -128,6 +128,7 @@
     <ng-container matColumnDef="guidServer">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>Имя сервера</th>
       <td mat-cell class="server-title"
+          [class.completed]="channel.lostChannel"
           [class.no-info-2]="channel.guidServer.serverName == undefined || null"
           *matCellDef="let channel"> {{channel.guidServer && channel.guidServer.serverName ? channel.guidServer.serverName : 'Нет информации'}} </td>
     </ng-container>
@@ -135,17 +136,20 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>Имя канала</th>
       <td mat-cell class="channel-title"
+          [class.completed]="channel.lostChannel"
           [class.no-info-2]="channel.name == undefined || null"
           *matCellDef="let channel"> {{channel.name ? channel.name : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="signal">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef>Состояние</th>
+      <th mat-header-cell mat-sort-header
+          *matHeaderCellDef>Состояние</th>
       <td mat-cell class="signal-title"
           *matCellDef="let channel"
       >
-        <div [class.test-red]="channel.signal  == undefined || channel.signal  == null || channel.signal  == -1"
-             [class.test-green]="channel.signal && channel.signal == 1"
+        <div [class.test-red]="(channel.signal  == undefined || channel.signal  == null || channel.signal  == -1) && !channel.lostChannel"
+             [class.test-green]="(channel.signal && channel.signal == 1) && !channel.lostChannel"
+             [class.test-grey]="channel.lostChannel"
              class="tests"> {{channel.signal && channel.signal == 1 ? 'В сети' : channel.signal == -1 ? 'Вне сети' : 'Неизвестно'}}</div>
       </td>
     </ng-container>
@@ -166,6 +170,7 @@
     <ng-container matColumnDef="ip">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>IP адрес камеры</th>
       <td mat-cell class="ip-title" *matCellDef="let channel"
+          [class.completed]="channel.lostChannel"
           [class.no-info-2]="(channel.ip == undefined || null) || (channel.ip == undefined || null)"
       > {{channel.ip && channel.ip.length < 25 ? channel.ip : (channel.ip && channel.ip.length >= 25)
         ? 'Слишком большое имя' : 'Нет информации'}} </td>
@@ -175,6 +180,7 @@
     <ng-container matColumnDef="model">
       <th mat-header-cell *matHeaderCellDef>Модель</th>
       <td mat-cell class="model-title"
+          [class.completed]="channel.lostChannel"
           [class.no-info-2]="channel.model == undefined || null"
           *matCellDef="let channel"> {{channel.model ? channel.model : 'Нет информации'}} </td>
     </ng-container>
@@ -182,13 +188,15 @@
     <ng-container matColumnDef="lastUpdate">
       <th mat-header-cell *matHeaderCellDef>Последнее обновление</th>
       <td mat-cell class="update-title"
-          *matCellDef="let channel"> {{channel.lustUpdate ? (channel.lustUpdate | date:'medium') : 'Нет информации'}} </td>
+          [class.completed]="channel.lostChannel"
+          *matCellDef="let channel"> {{channel.lustUpdate ? (channel.lustUpdate | date:'short') : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="switchId">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>IP адресс свитча</th>
       <td mat-cell class="switch-title link" *matCellDef="let channel"
           (click)="onFilterBySwitch(channel.switchId)"
+          [class.completed]="channel.lostChannel"
           [class.no-info-2]="(channel.switchId == undefined || null) || (channel.switchId.ip == undefined || null)"
       >{{channel.switchId && channel.switchId.ip ? channel.switchId.ip : 'Нет информации'}} </td>
     </ng-container>
@@ -197,12 +205,22 @@
       <th mat-header-cell *matHeaderCellDef>Номер порта</th>
       <td mat-cell class="port-title"
           [class.no-info-2]="channel.port == undefined || null"
-
+          [class.completed]="channel.lostChannel"
           [class.red2]="redGreenStylePort(channel) == 2"
           [class.green]="redGreenStylePort(channel) == 3"
           *matCellDef="let channel"> {{channel.port ? channel.port : 'Нет информации'}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="lostChannel">
+      <th mat-header-cell *matHeaderCellDef>Потерянный канал</th>
+      <td mat-cell class="injector-title"
+          *matCellDef="let channel">
+        <mat-checkbox class="example-margin"
+                      [checked]="channel.lostChannel"
+                      [disabled]="true"
+        ></mat-checkbox>
+      </td>
+    </ng-container>
 
     <ng-container matColumnDef="poeInjector">
       <th mat-header-cell *matHeaderCellDef>Пое инжектор?</th>
@@ -213,7 +231,6 @@
                       [disabled]="true"
         ></mat-checkbox>
       </td>
-
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
