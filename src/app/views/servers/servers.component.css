@@ -11,10 +11,11 @@
   background-color: #595959;
   margin-top: 12px;
   margin-bottom: 12px;
+  margin-left: 6px;
   color: white;
   border-radius: 6px;
   text-transform: uppercase;
-  width: 80%;
+  width: 90%;
   box-shadow: -3px 4px 20px -10px #000000;
 }
 
@@ -53,7 +54,7 @@ mat-form-field {
   text-align-all: right;
   padding: 8px;
   position: absolute;
-  left: 146px;
+  left: 163px;
   bottom: -8px;
   box-shadow: -1px 2px 19px 0px #000000;
   /*padding-left: 32px;*/
@@ -65,8 +66,8 @@ mat-form-field {
   margin-bottom: 12px;
   color: white;
   border-radius: 11px;
-  text-transform: uppercase;
-  width: 30%;
+  /*text-transform: uppercase;*/
+  /*width: 30%;*/
 }
 
 .server-count-green {
@@ -74,7 +75,7 @@ mat-form-field {
   text-align-all: right;
   padding: 8px;
   position: absolute;
-  left: 146px;
+  left: 163px;
   bottom: -8px;
   /*padding-left: 32px;*/
   display: flex;
@@ -85,8 +86,8 @@ mat-form-field {
   margin-bottom: 12px;
   color: white;
   border-radius: 11px;
-  text-transform: uppercase;
-  width: 30%;
+  /*text-transform: uppercase;*/
+  /*width: 30%;*/
   box-shadow: -1px 2px 19px 0px #000000;
 }
 
@@ -95,7 +96,7 @@ mat-form-field {
   text-align-all: center;
   padding: 8px;
   position: absolute;
-  left: 146px;
+  left: 163px;
   bottom: -8px;
   box-shadow: -1px 2px 19px 0px #000000;
   /*padding-left: 32px;*/
@@ -107,6 +108,6 @@ mat-form-field {
   margin-bottom: 12px;
   color: white;
   border-radius: 11px;
-  text-transform: uppercase;
-  width: 30%;
+  /*text-transform: uppercase;*/
+  /*width: 30%;*/
 }

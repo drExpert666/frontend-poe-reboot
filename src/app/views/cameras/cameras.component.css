@@ -178,13 +178,14 @@ table {
 
 .radio-button-green {
   padding: 2px;
+  padding-right: 10px;
   text-align: center;
   font-size: 11px;
   position: absolute;
-  top: 10px;
+  top: 14px;
   /*width: 20%;*/
   background-color: #527258;
-  box-shadow: -1px -1px 19px -4px #000000;
+  box-shadow: -1px -1px 19px -8px #000000;
   border-radius: 156px;
 }
 
@@ -193,39 +194,41 @@ table {
   text-align: center;
   font-size: 10px !important;
   position: absolute;
-  top: -6px;
-  left: 85px;
+  top: -2px;
+  left: 90px;
   /*width: 20%;*/
   background-color: #814f4f;
-  box-shadow: -1px -1px 19px -4px #000000;
+  box-shadow: -1px -1px 19px -8px #000000;
   border-radius: 156px;
 }
 
 
 .radio-button-default {
   padding: 2px;
+  padding-right: 22px;
   text-align: center;
   font-size: 11px !important;
   position: absolute;
-  top: -6px;
-  left: 223px;
+  top: -2px;
+  left: 239px;
   /*width: 20%;*/
   /*background-color: #3a7844;*/
-  box-shadow: -1px -1px 19px -4px #000000;
+  box-shadow: -1px -1px 19px -8px #000000;
   border-radius: 156px;
 }
 
 
 .radio-button-lost-channel {
   padding: 2px;
+  padding-right: 18px;
   text-align: center;
   font-size: 11px !important;
   position: absolute;
-  top: -6px;
-  left: 163px;
+  top: -2px;
+  left: 166px;
   /*width: 20%;*/
   background-color: #595959;
-  box-shadow: -1px -1px 19px -4px #000000;
+  box-shadow: -1px -1px 19px -8px #000000;
   border-radius: 156px;
 }
 

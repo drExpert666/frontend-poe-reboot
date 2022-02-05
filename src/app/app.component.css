@@ -47,3 +47,9 @@ mat-sidenav-container {
   top: 15px;
   text-align: right;
 }
+
+.my-custom-style {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}

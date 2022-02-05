@@ -13,7 +13,7 @@
 
       <div class="col-lg-3 col-md-6 col-sm-12  container">
 
-        <mat-form-field class="example-form-field  container-fluid" appearance="fill">
+        <mat-form-field class="example-form-field  container-fluid" appearance="outline">
           <mat-label>Поиск по названию</mat-label>
           <input matInput type="text" [(ngModel)]="tmpChannelName"
                  (keyup)="findByTitle()"
@@ -29,7 +29,7 @@
 
       <div class="col-lg-3 col-md-6 col-sm-12 container">
 
-        <mat-form-field class="example-form-field container-fluid" appearance="fill">
+        <mat-form-field class="example-form-field container-fluid" appearance="outline">
           <mat-label>Поиск по ip камеры</mat-label>
           <input matInput type="text" [(ngModel)]="tmpChannelIp"
                  (keyup)="findByChannelIp()"
@@ -44,7 +44,7 @@
       </div>
 
       <div class="col-lg-3 col-md-6 col-sm-12 container">
-        <mat-form-field class="container-fluid" appearance="fill">
+        <mat-form-field class="container-fluid" appearance="outline">
           <mat-label>Фильтр по коммутатору</mat-label>
           <mat-select [(value)]="tmpSwitchId"
                       (selectionChange)="onFilterBySwitchIP(tmpSwitchId)">
@@ -86,7 +86,7 @@
 
        *ngIf="tmpChannelName || tmpChannelStatus || tmpSwitch || tmpSwitchId || changed || tmpChannelIp">
 
-    <div mat-dialog-actions appearance="fill">
+    <div mat-dialog-actions appearance="outline">
       <button mat-stroked-button color="warn"
               (click)="dropAllFilters()"
 
@@ -260,6 +260,4 @@
                  aria-label="Select page of channels">
   </mat-paginator>
 </div>
-
-
 

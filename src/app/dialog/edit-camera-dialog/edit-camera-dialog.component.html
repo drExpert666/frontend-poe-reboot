@@ -38,7 +38,7 @@
     >
   </mat-form-field>
 
-  <mat-form-field class="col-12" appearance="fill">
+  <mat-form-field class="col-12" appearance="outline">
     <mat-label>Выберите коммутатор</mat-label>
     <mat-select [(value)]="htmlSwitchIp"
                 (valueChange)="onSelectSwitch($event); changeSwitchPortNumbers($event); htmlPortNumber = null;">
@@ -96,7 +96,7 @@
     </button>
   </mat-form-field>
 
-  <mat-form-field class="col-12" appearance="fill">
+  <mat-form-field class="col-12" appearance="outline">
     <mat-label>Пое-инжектор</mat-label>
     <mat-select [(value)]="htmlPoeInj"
                 (valueChange)="checkChanges()">
@@ -106,7 +106,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="col-12" appearance="fill">
+  <mat-form-field class="col-12" appearance="outline">
     <mat-label>Потерянный канал?</mat-label>
     <mat-select [(value)]="htmlLostChannel"
                 (valueChange)="checkChanges()"
