@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, enableProdMode, OnInit, ViewChild} from '@angular/core';
 import {ChannelService} from "./data/implementation/ChannelService";
 import {Channel} from "../models/Channel";
 import {ServerService} from "./data/implementation/ServerService";
@@ -14,6 +14,7 @@ import {AuthService} from "./service/auth.service";
 import {TokenStorageService} from "./service/token-storage.service";
 import {NotificationService} from "./service/notification.service";
 import set = Reflect.set;
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',

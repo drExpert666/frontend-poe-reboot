@@ -5,6 +5,7 @@ export class ChannelSearchValues {
   signal?: number | null;
   switchId?: number | null;
   ip?: string;
+  lostChannel?: boolean | null = null;
 
   // постарничность
   pageNumber = 0;

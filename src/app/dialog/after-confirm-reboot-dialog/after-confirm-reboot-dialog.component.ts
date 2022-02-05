@@ -21,6 +21,7 @@ export class AfterConfirmRebootDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.tmpRebootValues = this.data;
+    console.log(this.tmpRebootValues);
     if (this.tmpRebootValues.switchIp) {
       this.tmpTitle = this.tmpRebootValues.switchIp;
       console.log(this.tmpRebootValues);

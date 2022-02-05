@@ -1,8 +1,12 @@
 .title {
 
-  font-size: 20px;
+  font-size: 26px;
   color: #a24267;
-  text-align: center;
+  text-align: center !important;
   padding-bottom: 6px;
 
+}
+
+::ng-deep .mat-typography h2 {
+  text-align: center !important;
 }

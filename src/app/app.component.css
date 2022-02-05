@@ -36,7 +36,7 @@ mat-sidenav-container {
   position: absolute;
   display: inline-block;
   right: 20px;
-  top: 16px;
+  top: 11px;
   text-align: right;
 }
 
@@ -44,6 +44,6 @@ mat-sidenav-container {
   position: absolute;
   display: inline-block;
   right: 50px;
-  top: 20px;
+  top: 15px;
   text-align: right;
 }

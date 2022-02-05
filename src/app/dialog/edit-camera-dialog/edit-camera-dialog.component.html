@@ -1,5 +1,6 @@
+<h2 class="title">Редактирование камеры</h2>
+
 <div mat-dialog-content class="row">
-  <p class="title">Редактирование камеры</p>
   <mat-form-field class="col-12">
     <mat-label>Название камеры</mat-label>
     <input [disabled]="true"
@@ -39,42 +40,66 @@
 
   <mat-form-field class="col-12" appearance="fill">
     <mat-label>Выберите коммутатор</mat-label>
-    <mat-select [(value)]="tmpSwitchIp"
-                (valueChange)="onSelectSwitch($event); checkChanges()" >
+    <mat-select [(value)]="htmlSwitchIp"
+                (valueChange)="onSelectSwitch($event); changeSwitchPortNumbers($event); htmlPortNumber = null;">
+      <mat-option
+
+        [value]=null>Неизвестно
+      </mat-option>
       <mat-option
         *ngFor="let newSwitch of tmpSwitches"
-        (valueChange)="onSelectSwitch(newSwitch)"
-        [value]="newSwitch">{{newSwitch.ip}}</mat-option>
+
+        [value]="newSwitch.ip"
+        >{{newSwitch.ip}}</mat-option>
     </mat-select>
-    <button *ngIf="tmpSwitchIp"
-            (click)="tmpSwitchIp = null; tmpSwitch = null; $event.stopPropagation()"
+    <button *ngIf="htmlSwitchIp"
+            (click)="htmlSwitchIp = null; htmlPortNumber = null; $event.stopPropagation(); onSelectSwitch(htmlSwitchIp)"
             mat-button matSuffix mat-icon-button aria-label="Clear" class="size20">
       <mat-icon>clear</mat-icon>
     </button>
   </mat-form-field>
 
-  <mat-form-field class="col-12">
+  <mat-form-field class="col-12" *ngIf="!htmlSwitch">
+    <mat-label>Номер порта (сначала выберите коммутатор)</mat-label>
+    <input type="number"
+           matInput
+           [disabled]="true"
+           [ngModel]="htmlPortNumber">
+
+  </mat-form-field>
+
+
+  <mat-form-field class="col-12" *ngIf="htmlSwitch">
     <mat-label>Номер порта</mat-label>
     <input type="number"
-      #inputName
-      matInput
-      [(ngModel)]="tmpPortNumber"
+           matInput
+           [formControl]="numberFormControl"
+           [(ngModel)]="htmlPortNumber"
+           [readonly]="!htmlSwitch"
            (keyup)="checkChanges()"
            (mouseup)="checkChanges()"
     >
+    <mat-error *ngIf="!htmlSwitch">
+      Сначала выберите коммутатор
+    </mat-error>
+    <mat-error *ngIf="numberFormControl.hasError('min') && !numberFormControl.hasError('max')">
+      Порт не может быть меньше 1
+    </mat-error>
+    <mat-error *ngIf="numberFormControl.hasError('max')">
+      Такой порт на этом коммутаторе <strong>не существует</strong>
+    </mat-error>
 
-    <button *ngIf="tmpPortNumber"
-            (click)="tmpPortNumber = null; $event.stopPropagation()"
-      mat-button matSuffix mat-icon-button aria-label="Clear" class="size20">
+    <button *ngIf="htmlPortNumber"
+            (click)="htmlPortNumber = null; $event.stopPropagation()"
+            mat-button matSuffix mat-icon-button aria-label="Clear" class="size20">
       <mat-icon>clear</mat-icon>
     </button>
-
   </mat-form-field>
 
   <mat-form-field class="col-12" appearance="fill">
     <mat-label>Пое-инжектор</mat-label>
-    <mat-select [(value)]="tmpPoeInj"
-    (valueChange)="checkChanges()">
+    <mat-select [(value)]="htmlPoeInj"
+                (valueChange)="checkChanges()">
       <mat-option [value]="true">Есть</mat-option>
       <mat-option [value]="false">Нет</mat-option>
       <mat-option [value]="null">Неизвестно</mat-option>
@@ -83,7 +108,7 @@
 
   <mat-form-field class="col-12" appearance="fill">
     <mat-label>Потерянный канал?</mat-label>
-    <mat-select [(value)]="tmpLostChannel"
+    <mat-select [(value)]="htmlLostChannel"
                 (valueChange)="checkChanges()"
     >
       <mat-option [value]="true">Да</mat-option>
@@ -97,15 +122,18 @@
 <!--возможные операции над камерой-->
 <div mat-dialog-actions>
 
-  <div>
+  <div class="container-fluid">
 
-    <button
-      mat-raised-button color="primary"
-      (click)="confirm()"
-      [disabled]="!wasChange"> <!-- если пустой текст, то кнопка неактивна-->
+    <button class="justify-content-center"
+            mat-raised-button color="primary"
+            (click)="confirm()"
+            [disabled]="!wasChange || numberFormControl.hasError('min') || numberFormControl.hasError('max')" > <!-- если пустой текст, то кнопка неактивна-->
       Сохранить
     </button>
-    <button mat-raised-button (click)="cancel()">Отмена</button>
+    <button mat-raised-button (click)="cancel()"
+            class="justify-content-center"
+    >Отмена
+    </button>
 
   </div>
 

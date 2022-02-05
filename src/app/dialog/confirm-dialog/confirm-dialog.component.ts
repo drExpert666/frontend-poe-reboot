@@ -6,6 +6,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {AfterConfirmRebootDialogComponent} from "../after-confirm-reboot-dialog/after-confirm-reboot-dialog.component";
 import {RebootService} from "../../data/implementation/RebootService";
 import {RebootValues} from "../../data/search/search";
+import {Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -39,6 +40,7 @@ export class ConfirmDialogComponent implements OnInit {
   onConfirm() {
     this.rebootService.reboot(this.responseRebootValues).subscribe(res => {
       this.responseRebootValues = res;
+      console.log(res);
     })
     this.spinner.show();
 
@@ -57,7 +59,7 @@ export class ConfirmDialogComponent implements OnInit {
 
         })
       },
-      10000);
+      8000);
 
 
     // this.dialogRef.close(new ActionsResult(Actions.CONFIRM));

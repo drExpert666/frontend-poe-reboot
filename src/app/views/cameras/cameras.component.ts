@@ -135,8 +135,19 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   /** методы фильтрации */
   onFilterByStatus() {
-    this.channelSearchValues.signal = this.tmpChannelStatus;
-    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+    if (this.tmpChannelStatus == 1 || this.tmpChannelStatus == null) {
+      this.channelSearchValues.lostChannel = null;
+      this.channelSearchValues.signal = this.tmpChannelStatus;
+    }
+    if (this.tmpChannelStatus == -1) {
+      this.channelSearchValues.lostChannel = false;
+      this.channelSearchValues.signal = this.tmpChannelStatus;
+    }
+    if (this.tmpChannelStatus == 2) {
+      this.channelSearchValues.signal = null;
+      this.channelSearchValues.lostChannel = true;
+    }
+    this.channelSearchValues.pageNumber = 0;
     this.searchParams.emit(this.channelSearchValues);
     console.log(this.tmpChannelStatus);
   }
@@ -145,30 +156,29 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     console.log(switchId);
     this.tmpSwitch = switchId;
     this.channelSearchValues.switchId = this.tmpSwitch?.id;
-    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+    this.channelSearchValues.pageNumber = 0;
     this.searchParams.emit(this.channelSearchValues);
   }
 
   onFilterBySwitchIP(tmpSwitchId: number | null) {
     this.channelSearchValues.switchId  = tmpSwitchId;
-    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+    this.channelSearchValues.pageNumber = 0;
     this.searchParams.emit(this.channelSearchValues);
   }
 
   findByChannelIp() {
     this.channelSearchValues.ip = this.tmpChannelIp;
-    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+    this.channelSearchValues.pageNumber = 0;
     this.searchParams.emit(this.channelSearchValues); //todo вынести в отдельный метод повторяющиеся строки
   }
 
   findByTitle() {
     if (this.tmpChannelName != null && this.tmpChannelName.trim().length > 0) {
       this.channelSearchValues.name = this.tmpChannelName;
-      this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+      this.channelSearchValues.pageNumber = 0;
       this.searchParams.emit(this.channelSearchValues);
     }
   }
-
 
   /** сброс фильтрации */
   dropAllFilters() {
@@ -182,9 +192,10 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.channelSearchValues.name = this.tmpChannelName;
     this.channelSearchValues.switchId = this.tmpSwitchId;
     this.channelSearchValues.guidServer = '';
-    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+    this.channelSearchValues.pageNumber = 0;
     this.channelSearchValues.sortDirection = 'acs';
     this.channelSearchValues.sortColumn = 'name';
+    this.channelSearchValues.lostChannel = null;
     this.changed = false;
 
     this.searchParams.emit(this.channelSearchValues);
@@ -341,7 +352,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     console.log(this.changed);
     console.log('Изменили направление');
     console.log(changingSortDirection);
-    this.channelSearchValues.pageNumber = 0; //todo посмотреть нужно ли сбрасывать страницу в 0 при сбросе настроек
+    this.channelSearchValues.pageNumber = 0;
     this.channelSearchValues.sortColumn = changingSortDirection.active;
     this.channelSearchValues.sortDirection = changingSortDirection.direction;
     this.searchParams.emit(this.channelSearchValues);

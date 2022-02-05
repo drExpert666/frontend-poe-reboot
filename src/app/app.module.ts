@@ -95,11 +95,6 @@ import {MatCardModule} from "@angular/material/card";
       useClass: ErrorInterceptorService,
       multi: true
     },
-    // { //todo добавить позже
-    //   provide: HTTP_INTERCEPTORS, // все Http запросы будут выполняться с отображением индикатора загрузки
-    //   useClass: CustomHttpInterceptor,
-    //   multi: true
-    // },
     {
       provide: CHANNEL_URL_TOKEN,
       useValue: 'http://localhost:8080/common'
