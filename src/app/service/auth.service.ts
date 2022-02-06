@@ -5,7 +5,7 @@ import {User} from "../../models/User";
 
 
 const AUTH_API = 'http://localhost:8080/api/auth/';
-
+// const AUTH_API = 'http://reboot:8080/rebooting-cameras/api/auth/';
 @Injectable({
   providedIn: 'root'
 })

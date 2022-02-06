@@ -242,7 +242,6 @@ table {
 }
 
 
-
 ::ng-deep .mat-radio-label-content {
   position: relative;
   top: 4px !important;
@@ -253,4 +252,16 @@ table {
 
   top: 4px !important;
   left: 1px;
+}
+
+::ng-deep .mat-expansion-panel-header-title {
+  /*margin: 22px !important;*/
+  position: relative !important;
+  text-align: center !important;
+  left: 700px;
+  font-size: 18px !important;
+}
+
+.color-icon {
+  color: #ffffff;
 }

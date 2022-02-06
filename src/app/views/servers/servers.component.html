@@ -10,8 +10,8 @@
 </mat-form-field>
 
 <div>
-  <div class="sidenav-list"
-
+  <a class="sidenav-list model3"
+       [class.model3]="selectedServer? selectedServer.guid != '' : selectedServer !== undefined"
        (click)="showSelectedServer(null)"
        [class.on-server-click]="selectedServer === undefined || null || selectedServer.guid == ''"
   >Все
@@ -20,7 +20,7 @@
       class="server-count-all">
       {{onlineChannelsCount}}/{{allChannelsCount}}
     </div>
-  </div>
+  </a>
 
 
 </div>
@@ -29,8 +29,10 @@
 <div class="line"></div>
 
 
-<div class="sidenav-list"
+<a class="sidenav-list"
+   [class.model3]="server !== selectedServer"
      [class.on-server-click]="server === selectedServer"
+   #serverInput
      *ngFor="let server of servers; let index = index"
      (click)="showSelectedServer(server)"
 >
@@ -49,4 +51,4 @@
        class="server-count-red">
     {{server.channelsOnline ? server.channelsOnline : 0}}/{{server.channelsTotal ? server.channelsTotal : 0}}</div>
 
-</div>
+</a>

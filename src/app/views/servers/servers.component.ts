@@ -65,10 +65,8 @@ export class ServersComponent implements OnInit {
   }
 
   startSearch() {
-    if (this.tmpServerName != null && this.tmpServerName.trim().length > 0) {
       this.serverSearchValues.serverName = this.tmpServerName;
       this.searchParams.emit(this.serverSearchValues);
-    }
   }
 
   getAllChannelsCount() {

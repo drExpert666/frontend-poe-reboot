@@ -166,11 +166,9 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   }
 
   findByTitle() {
-    if (this.tmpChannelName != null && this.tmpChannelName.trim().length > 0) {
       this.channelSearchValues.name = this.tmpChannelName;
       this.channelSearchValues.pageNumber = 0;
       this.searchParams.emit(this.channelSearchValues);
-    }
   }
 
   /** сброс фильтрации */

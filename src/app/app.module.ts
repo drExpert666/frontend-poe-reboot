@@ -110,6 +110,24 @@ import {MatCardModule} from "@angular/material/card";
       provide: REBOOT_URL_TOKEN,
       useValue: 'http://localhost:8080/reboot'
     }
+    // ,
+    // {
+    //   provide: CHANNEL_URL_TOKEN,
+    //   useValue: 'http://reboot:8080/rebooting-cameras/common'
+    // },
+    // {
+    //   provide: SERVER_URL_TOKEN,
+    //   useValue: 'http://reboot:8080/rebooting-cameras/server'
+    // },
+    // {
+    //   provide: SWITCH_URL_TOKEN,
+    //   useValue: 'http://reboot:8080/rebooting-cameras/switch'
+    // },
+    // {
+    //   provide: REBOOT_URL_TOKEN,
+    //   useValue: 'http://reboot:8080/rebooting-cameras/reboot'
+    // }
+
   ],
   bootstrap: [AppComponent]
 })
