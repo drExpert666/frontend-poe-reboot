@@ -53,3 +53,19 @@ mat-sidenav-container {
   right: 20px;
   bottom: 20px;
 }
+
+.message-button {
+  position: absolute;
+  display: inline-block;
+  right: 146px;
+  top: 12px;
+}
+
+.message-text {
+  position: absolute;
+  display: inline-block;
+  right: 180px;
+  font-size: 14px!important;
+  top: 15px;
+  text-align: right;
+}

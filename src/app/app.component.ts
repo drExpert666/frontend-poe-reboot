@@ -15,6 +15,8 @@ import {TokenStorageService} from "./service/token-storage.service";
 import {NotificationService} from "./service/notification.service";
 import set = Reflect.set;
 import {environment} from "../environments/environment";
+import {MatIconRegistry} from "@angular/material/icon";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -53,11 +55,19 @@ export class AppComponent implements OnInit, AfterViewInit {
               private serverService: ServerService,
               private switchService: SwitchService,
               private rebootService: RebootService,
-              private observer: BreakpointObserver) { // обсервер, необходим для отслеживания изменений в сайдбаре
+              private observer: BreakpointObserver, // обсервер, необходим для отслеживания изменений в сайдбаре
+              private matIconRegistry: MatIconRegistry, // для регистарции сторонних иконок
+              private domSanitizer: DomSanitizer) { // для регистарции сторонних иконок
 
     if (this.tokenStorage.getUser()) // если пользоавтель аторизирован (есть токен)
     {
       this.isAuthorized = true; // только после этого флага возможны обращения к БД (без него html с основными данными пустой)
+
+      /* добавляем иконку и задаём ей имя, по которомы мы сможем обращаться к ней в html */
+      this.matIconRegistry.addSvgIcon(
+        "telegramIcon",
+        this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/telegramIcon.svg")
+      );
 
       this.channelSearchValues = new ChannelSearchValues();
       this.serverSearchValues = new ServerSearchValues();
@@ -201,4 +211,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   logout() {
     this.tokenStorage.logOut();
   }
+
+
 }
