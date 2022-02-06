@@ -62,13 +62,10 @@
       </div>
 
       <div class="col-lg-3 col-md-6 col-sm-12 container">
-
         <mat-radio-group class="container-fluid" aria-label="Select an option"
                          [(ngModel)]="tmpChannelStatus"
                          (change)="onFilterByStatus()"
         >
-
-
           <mat-radio-button class="radio-button-green" [value]="1">В сети</mat-radio-button>
           <mat-radio-button class="radio-button-red" [value]="-1">Вне сети</mat-radio-button>
           <mat-radio-button class="radio-button-lost-channel" [value]="2">Lost</mat-radio-button>

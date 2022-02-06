@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder
   ) {
-    console.log("121213231132132");
 
     if (this.tokenStorage.getUser()) // если пользоавтель аторизирован (есть токен)
     {
@@ -47,7 +46,6 @@ export class LoginComponent implements OnInit {
       username: this.loginForm.value.username,
       password: this.loginForm.value.password,
     }).subscribe(data => { // получаем токен
-      console.log(data);
 
       this.tokenStorage.saveToken(data.token); // сохраняем токен
       this.tokenStorage.saveUser(data); // сохраняем юзера
@@ -56,7 +54,6 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['']);
       window.location.reload();
     }, error => { // если была ошибка
-      console.log(error);
       this.notificationService.showSnack(error.message);
       }
     )

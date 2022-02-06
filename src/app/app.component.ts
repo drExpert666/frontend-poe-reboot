@@ -92,7 +92,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     /* реализация взята из ютуб ролика, для избежания ошибки по изменению состояния сайдбара */
     setTimeout(() => {
       this.sidenavIsReady = true;
-      console.log(this.isAuthorized)
       if (this.isAuthorized) {
         this.observer.observe(['(max-width: 1000px)']).subscribe((res) => {
           if (res.matches) {
@@ -131,20 +130,19 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
         this.totalChannelsFounded = c.totalElements // получаем кол-во элементов в массиве
         this.channels = c.content;
-        console.log(this.channels) // получаем массив
       });
 
   }
 
   findAllServers() {
     this.serverService.findAll().subscribe(s => this.servers = s);
-    // console.log(this.channels);
     // this.searchingByParams(this.channelSearchValues);
   }
 
+  /* при клике на сервер из списка в сайд-баре */
   onSelectedServer(server: Server) {
     this.selectedServer = server;
-    this.channelSearchValues.guidServer = server.guid;
+    this.channelSearchValues.guidServer = server.guid; // присваиваем выбранный сервер в переменную для поиска каналов
     this.searchingByParams(this.channelSearchValues);
   }
 
@@ -157,7 +155,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   // findAllChannels() {
   //   this.channelService.findAll().subscribe(c => this.channels = c);
-  //   console.log(this.channels);
   // }
 
   /** методы работы с коммутаторами */
@@ -182,14 +179,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   updateChannel(channel: Channel) {
-    console.log(channel);
     this.tmpChannel = channel;
     this.channelService.update(channel).subscribe(res => this.searchingByParams(this.channelSearchValues));
   }
 
   rebootCamera(rebootValues: RebootValues) {
     this.rebootService.reboot(rebootValues).subscribe((res) => {
-      console.log(res);
     })
   }
 

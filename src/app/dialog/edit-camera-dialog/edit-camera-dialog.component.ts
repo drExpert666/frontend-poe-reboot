@@ -73,7 +73,6 @@ export class EditCameraDialogComponent implements OnInit {
     this.tmpChannel.poeInjector = this.htmlPoeInj;
     this.tmpChannel.switchId = this.htmlSwitch;
     this.tmpChannel.lostChannel = this.htmlLostChannel;
-    console.log(this.tmpChannel);
     this.dialogRef.close(new ActionsResult(Actions.EDIT, this.tmpChannel));
   }
 
@@ -93,9 +92,6 @@ export class EditCameraDialogComponent implements OnInit {
     else {
       this.wasChange = true;
     }
-
-
-    console.log(this.wasChange);
     return this.wasChange;
   }
 
@@ -105,16 +101,12 @@ export class EditCameraDialogComponent implements OnInit {
 
 
   onSelectSwitch(ip: string | null | undefined) {
-    console.log(ip);
-    console.log(this.htmlSwitchIp);
-    console.log(this.tmpSwitchIp);
     this.htmlSwitchIp = ip;
 
     if (this.tmpSwitchIp !== this.htmlSwitchIp) {
       this.wasChange = true;
     } else {
       this.wasChange = this.checkChanges();
-      console.log(this.wasChange);
     }
 
     const findSwitchByIp = this.tmpSwitches.find(s => s.ip == this.htmlSwitchIp);
@@ -123,9 +115,6 @@ export class EditCameraDialogComponent implements OnInit {
     } else {
       this.htmlSwitch = null;
     }
-    console.log(this.htmlSwitch);
-    console.log(this.tmpSwitch);
-    console.log(this.tmpChannel);
   }
 
   changeSwitchPortNumbers(switchIp: string | null | undefined) {
@@ -134,7 +123,6 @@ export class EditCameraDialogComponent implements OnInit {
       this.tmpSwitchPortNumbers = selectedSwitch.numbersOfPorts ? selectedSwitch.numbersOfPorts : null;
       this.numberFormControl = new FormControl('',
         [Validators.min(1), Validators.max(this.tmpSwitchPortNumbers ? this.tmpSwitchPortNumbers : 48)]);
-      console.log(this.tmpSwitchPortNumbers);
     }
   }
 

@@ -29,7 +29,6 @@ export class ServersComponent implements OnInit {
   set setServers(value: Server[]) {
     this.servers = value;
     this.getAllChannelsCount();
-    console.log(this.servers);
   }
 
   @Input()
@@ -68,7 +67,6 @@ export class ServersComponent implements OnInit {
   startSearch() {
     if (this.tmpServerName != null && this.tmpServerName.trim().length > 0) {
       this.serverSearchValues.serverName = this.tmpServerName;
-      console.log(this.serverSearchValues);
       this.searchParams.emit(this.serverSearchValues);
     }
   }
@@ -82,7 +80,6 @@ export class ServersComponent implements OnInit {
     this.servers.forEach(s => {
       this.allChannelsCount += s.channelsTotal;
       this.onlineChannelsCount += s.channelsOnline;
-      console.log(this.allChannelsCount);
     })
   }
 

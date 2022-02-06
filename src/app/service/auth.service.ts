@@ -12,11 +12,9 @@ const AUTH_API = 'http://localhost:8080/api/auth/';
 export class AuthService {
 
   constructor(private http: HttpClient) {
-    console.log('constructor() AuthService')
   }
 
   public login(user: User): Observable<any> {
-    console.log('login() AuthService')
     return this.http.post(AUTH_API + 'signin', {
       username: user.username,
       password: user.password

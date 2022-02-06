@@ -17,7 +17,6 @@ export class RebootService implements RebootRepo<RebootValues> {
   }
 
   reboot(t: RebootValues): Observable<RebootValues> {
-    console.log(t)
     return this.http.post<RebootValues>(this.baseUrl + '/values', t);
   }
 }

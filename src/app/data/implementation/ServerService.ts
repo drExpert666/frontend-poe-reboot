@@ -23,7 +23,6 @@ export class ServerService extends CommonService<Server> implements ServerRepo{
   }
 
   findByParams(searchValues: ServerSearchValues): Observable<Server[]> {
-    console.log(searchValues);
    return this.http.post<Server[]>(this.baseUrl + "/search", searchValues);
   }
 }

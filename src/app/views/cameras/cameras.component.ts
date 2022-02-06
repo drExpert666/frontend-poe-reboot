@@ -39,7 +39,6 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   changed = false; //todo флаг для сохранения изменений фильтрации (нужно внедрить)
 
   constructor(private dialog: MatDialog) {
-
   }
 
   ngAfterViewInit(): void {
@@ -75,7 +74,6 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   @Input('channelSearchValues')
   channelSearchValues: ChannelSearchValues;
   set setChannelSearchValues(value: ChannelSearchValues) {
-    console.log(this.channelSearchValues);
     this.channelSearchValues = value;
     this.initSearchValues();
   }
@@ -107,7 +105,6 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   fillTable() {
     if (!this.dataSource) {
-      console.log(this.dataSource);
       return;
     }
 
@@ -115,7 +112,6 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
     //todo работает без строчки ниже, выяснить почему
     // this.dataSource.paginator = this.paginator;
-    console.log(this.channels);
     this.dataSource.sortingDataAccessor = (channel, colName) => {
       switch (colName) {
         case 'name': {
@@ -130,7 +126,6 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   initSearchValues() {
     this.channelSearchValues.name = this.tmpChannelName;
-    console.log(this.channelSearchValues);
   }
 
   /** методы фильтрации */
@@ -149,11 +144,9 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     }
     this.channelSearchValues.pageNumber = 0;
     this.searchParams.emit(this.channelSearchValues);
-    console.log(this.tmpChannelStatus);
   }
 
   onFilterBySwitch(switchId: Switch) {
-    console.log(switchId);
     this.tmpSwitch = switchId;
     this.channelSearchValues.switchId = this.tmpSwitch?.id;
     this.channelSearchValues.pageNumber = 0;
@@ -230,8 +223,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
       if (result.action == Actions.ADD) {
         this.addSwitch.emit(result.obj);
       }
-      if (result.action == Actions.CANCEL) {
-        console.log("Ничего не делаем");
+      if (result.action == Actions.CANCEL) { //todo подумать над реализацией
       }
 
     });
@@ -245,12 +237,9 @@ export class CamerasComponent implements OnInit, AfterViewInit {
       width: '550px'});
     dialogRef.afterClosed().subscribe(result => {
       if (result.action == Actions.CANCEL) {
-        console.log("Нажали отмену");
       }
       if (result.action == Actions.EDIT) {
-        console.log("Нажали сохранить. Переданный объект:  " + result.obj);
         this.tmpChannel = result.obj;
-        console.log(this.tmpChannel);
         // this.dropAllFilters();
         this.updateChannel.emit(this.tmpChannel);
       }
@@ -271,17 +260,11 @@ export class CamerasComponent implements OnInit, AfterViewInit {
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(res => {
-      // if (res && res.action == Actions.CONFIRM) {
-      //   this.rebootCamera.emit(rebootValues); //todo - лишнее, нужно убрать
-      // }
-      if (res.action == Actions.CANCEL) { //todo обработать ошибки и изменить действи при подтверждении
-        console.log("Нажали отмену");
+      if (res.action == Actions.CANCEL) { //todo обработать ошибки и изменить действия при подтверждении
       }
       if (res.action == Actions.ERROR) {
-        console.log("Нажали ок, во время перезагрузки произошла ошибка");
       }
       if (res.action == Actions.OK) {
-        console.log("Нажали ок, перезагрузка выполнилась успешно");
       }
     });
     //
@@ -335,23 +318,11 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.paging.emit(pageEvent);
   }
 
-  initSearch() {
-
-    // this.channelSearchValues.pageSize = this.paginator.pageSize;
-    // this.channelSearchValues.pageNumber = this.paginator.pageIndex;
-    //
-    // this.searchParams.emit(this.channelSearchValues);
-
-  }
-
   /* сортировка */
   sortData(changingSortDirection: any) {
     if (!this.changed) {
       this.changed = !this.changed;
     }
-    console.log(this.changed);
-    console.log('Изменили направление');
-    console.log(changingSortDirection);
     this.channelSearchValues.pageNumber = 0;
     this.channelSearchValues.sortColumn = changingSortDirection.active;
     this.channelSearchValues.sortDirection = changingSortDirection.direction;

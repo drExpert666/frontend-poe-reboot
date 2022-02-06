@@ -11,13 +11,10 @@ export class AuthGuardService implements CanActivate{
 
   constructor(private router: Router,
               private tokenStorageService: TokenStorageService) {
-
-    console.log('constructor() AuthGuardService');
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-    console.log('canActivate')
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+    Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     const currentUser = this.tokenStorageService.getUser();
     if (currentUser) {

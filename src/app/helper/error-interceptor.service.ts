@@ -13,19 +13,12 @@ export class ErrorInterceptorService implements HttpInterceptor {
     private tokenService: TokenStorageService,
     private notificationService: NotificationService
   ) {
-
-    console.log("constructor() ErrorInterceptorService")
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(catchError(err => {
-
-      console.log("intercept()")
-
-      if (err.status === 401) {
-        console.log("intercept()logOut()")// если получена от сервера ошибка 401 (ошибка авторизации)
+      if (err.status === 401) {// если получена от сервера ошибка 401 (ошибка авторизации)
         this.tokenService.logOut(); // вызываем метод логаут
-        // window.location.reload(); // перезагружаем страницу //todo этот метод вызывается также в методе выше, удалить если не нужно
       }
 
       const error = err.errorMessage || err.statusText;

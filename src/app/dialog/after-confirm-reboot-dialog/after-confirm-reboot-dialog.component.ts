@@ -21,26 +21,23 @@ export class AfterConfirmRebootDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.tmpRebootValues = this.data;
-    console.log(this.tmpRebootValues);
     if (this.tmpRebootValues.switchIp == 'OK') {
       this.tmpTitle = this.tmpRebootValues.switchIp;
-      console.log(this.tmpRebootValues);
       this.wasError = false;
     }
 
     if (this.tmpRebootValues.switchIp == 'PORT_NOT_FOUND') {
-      console.log(this.tmpRebootValues);
+      this.tmpTitle = 'Реализация перезагрузки камеры по этому коммутатору ещё не добавлена';
       this.wasError = true;
     }
 
 
     if (this.tmpRebootValues.switchIp == 'ERROR') {
-      console.log(this.tmpRebootValues);
+      this.tmpTitle =  'Произошла ошибка при перезагрузке!';
       this.wasError = true;
     }
 
     else {
-      console.log(this.tmpRebootValues);
       this.wasError = true;
     }
 

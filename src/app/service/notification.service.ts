@@ -10,11 +10,9 @@ export class NotificationService {
 
   constructor(private snackBar: MatSnackBar) {
 
-    console.log('constructor() NotificationService');
   }
 
   public showSnack(message: string): void {
-    console.log('showSnack() NotificationService' + message);
     this.snackBar.open(message, undefined, {
       duration: 2000 // время отображения снэкбара
     });

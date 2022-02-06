@@ -24,13 +24,10 @@ export class CommonService<T> {
 
   findAll(): Observable<T[]> {
     const t = this.httpClient.get<T[]>(this.url + '/all')
-    console.log(this.url)
-    console.log(t)
     return t;
   }
 
   update(t: T): Observable<T> {
-    console.log(t);
     return this.httpClient.put<T>(this.url + '/update', t);
   }
 

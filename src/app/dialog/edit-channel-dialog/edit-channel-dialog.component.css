@@ -2,11 +2,11 @@
 
   font-size: 26px;
   color: #a24267;
-  text-align: center !important;
-  padding-bottom: 6px;
+  text-align: center;
+  padding-bottom: 15px;
 
 }
 
-::ng-deep .mat-typography h2 {
+::ng-deep .mat-dialog-title {
   text-align: center !important;
 }
