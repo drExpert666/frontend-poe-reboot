@@ -256,7 +256,7 @@ table {
 
 ::ng-deep .mat-expansion-panel-header-title {
   /*margin: 22px !important;*/
-  position: relative !important;
+  /*position: relative !important;*/
   text-align: center !important;
   left: 700px;
   font-size: 18px !important;

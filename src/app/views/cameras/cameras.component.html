@@ -188,7 +188,7 @@
       <th mat-header-cell *matHeaderCellDef>Последнее обновление</th>
       <td mat-cell class="update-title"
           [class.completed]="channel.lostChannel"
-          *matCellDef="let channel"> {{channel.lustUpdate ? (channel.lustUpdate | date:'short') : 'Нет информации'}} </td>
+          *matCellDef="let channel"> {{channel.lustUpdate ? (channel.lustUpdate | date:'HH:mm  dd.MM.YY') : 'Нет информации'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="switchId">
