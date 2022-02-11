@@ -42,3 +42,7 @@ export class RebootValues {
     this.cameraPort = cameraPort;
   }
 }
+
+export class UsersValues {
+  channelGuid: string
+}

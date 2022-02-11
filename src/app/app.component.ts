@@ -5,7 +5,7 @@ import {ServerService} from "./data/implementation/ServerService";
 import {Server} from "../models/Server";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {BreakpointObserver} from "@angular/cdk/layout";
-import {ChannelSearchValues, RebootValues, ServerSearchValues} from "./data/search/search";
+import {ChannelSearchValues, RebootValues, ServerSearchValues, UsersValues} from "./data/search/search";
 import {Switch} from "../models/Switch";
 import {SwitchService} from "./data/implementation/SwitchService";
 import {RebootService} from "./data/implementation/RebootService";
@@ -17,6 +17,7 @@ import set = Reflect.set;
 import {environment} from "../environments/environment";
 import {MatIconRegistry} from "@angular/material/icon";
 import {DomSanitizer} from "@angular/platform-browser";
+import {UsersService} from "./data/implementation/UsersService";
 
 @Component({
   selector: 'app-root',
@@ -45,6 +46,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   selectedServer: Server;
   tmpChannel: Channel;
 
+  usersValues : UsersValues;
+
   isAuthorized = false;
 
 
@@ -68,6 +71,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         "telegramIcon",
         this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/telegramIcon.svg")
       );
+
+      this.usersValues = new UsersValues();
 
       this.channelSearchValues = new ChannelSearchValues();
       this.serverSearchValues = new ServerSearchValues();
@@ -208,4 +213,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
 
+  getUsersFromChannel(usersValues: UsersValues) {
+      this.usersValues = usersValues;
+  }
 }

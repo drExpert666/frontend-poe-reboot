@@ -1,16 +1,18 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild, EventEmitter, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Channel} from "../../../models/Channel";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {Server} from "../../../models/Server";
-import {ChannelSearchValues, RebootValues} from "../../data/search/search";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {ChannelSearchValues, RebootValues, UsersValues} from "../../data/search/search";
+import {MatDialog} from "@angular/material/dialog";
 import {EditChannelDialogComponent} from "../../dialog/edit-channel-dialog/edit-channel-dialog.component";
 import {Switch} from "../../../models/Switch";
 import {Actions} from "../../utils/ActionsResult";
 import {EditCameraDialogComponent} from "../../dialog/edit-camera-dialog/edit-camera-dialog.component";
 import {ConfirmDialogComponent} from "../../dialog/confirm-dialog/confirm-dialog.component";
 import {MatSort} from "@angular/material/sort";
+import {ShowUserChannelsDialogComponent} from "../../dialog/show-user-channels-dialog/show-user-channels-dialog.component";
+import {UsersService} from "../../data/implementation/UsersService";
 
 @Component({
   selector: 'app-cameras',
@@ -23,7 +25,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     'name', 'signal', 'reboot-button', 'ip',
     'model', 'lastUpdate', // поля для таблицы (те, что отображают данные из задачи - должны совпадать с названиями переменных класса)
     'switchId',
-    'port','lostChannel', 'poeInjector', 'edit'];
+    'port', 'lostChannel', 'poeInjector', 'edit'];
   dataSource: MatTableDataSource<Channel>; // контейнер - источник данных для таблицы
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -38,7 +40,8 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   changed = false; //todo флаг для сохранения изменений фильтрации (нужно внедрить)
 
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog,
+              private usersService: UsersService) {
   }
 
   ngAfterViewInit(): void {
@@ -53,6 +56,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   /** инпут декораторы */
 
   channels: Channel[];
+
   @Input('channels')
   set setChannels(value: Channel[]) {
     this.channels = value;
@@ -60,12 +64,14 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   }
 
   servers: Server[];
+
   @Input('servers')
   set setServers(value: Server[]) {
     this.servers = value;
   }
 
   switches: Switch[];
+
   @Input('switches')
   set setSwitches(value: Switch[]) {
     this.switches = value;
@@ -73,10 +79,14 @@ export class CamerasComponent implements OnInit, AfterViewInit {
 
   @Input('channelSearchValues')
   channelSearchValues: ChannelSearchValues;
+
   set setChannelSearchValues(value: ChannelSearchValues) {
     this.channelSearchValues = value;
     this.initSearchValues();
   }
+
+  usersValues: UsersValues;
+  userChannels: UsersValues[];
 
   @Input()
   totalChannelsFounded: number;
@@ -103,6 +113,10 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   @Output()
   paging = new EventEmitter<PageEvent>(); // переход по страницам данных
 
+  @Output()
+  getUsersFromChannel = new EventEmitter<UsersValues>(); // переход по страницам данных
+
+
   fillTable() {
     if (!this.dataSource) {
       return;
@@ -119,7 +133,8 @@ export class CamerasComponent implements OnInit, AfterViewInit {
         }
         default:
           return '';
-    };
+      }
+      ;
     }
 
   }
@@ -154,7 +169,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   }
 
   onFilterBySwitchIP(tmpSwitchId: number | null) {
-    this.channelSearchValues.switchId  = tmpSwitchId;
+    this.channelSearchValues.switchId = tmpSwitchId;
     this.channelSearchValues.pageNumber = 0;
     this.searchParams.emit(this.channelSearchValues);
   }
@@ -166,9 +181,9 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   }
 
   findByTitle() {
-      this.channelSearchValues.name = this.tmpChannelName;
-      this.channelSearchValues.pageNumber = 0;
-      this.searchParams.emit(this.channelSearchValues);
+    this.channelSearchValues.name = this.tmpChannelName;
+    this.channelSearchValues.pageNumber = 0;
+    this.searchParams.emit(this.channelSearchValues);
   }
 
   /** сброс фильтрации */
@@ -232,7 +247,8 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(EditCameraDialogComponent, {
       data: [channel, this.switches],
       autoFocus: false,
-      width: '550px'});
+      width: '550px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result.action == Actions.CANCEL) {
       }
@@ -254,7 +270,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     const rebootValues = new RebootValues(switchIp, cameraPort);
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: [channel, rebootValues],
-      width:'350px',
+      width: '350px',
       autoFocus: false
     });
     dialogRef.afterClosed().subscribe(res => {
@@ -279,7 +295,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     if (channel.port == null) {
       return false;
     }
-    if (channel.poeInjector !=null && channel.poeInjector) {
+    if (channel.poeInjector != null && channel.poeInjector) {
       return false;
     }
     const ports = channel.switchId?.ports?.split(',');
@@ -287,7 +303,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     if (ports.find(ports => ports == port) as string) {
       return true;
     } else {
-      return  false;
+      return false;
     }
   }
 
@@ -307,7 +323,7 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     if (ports.find(ports => ports == port) as string) {
       return 3;
     } else {
-      return  2;
+      return 2;
     }
   }
 
@@ -327,4 +343,18 @@ export class CamerasComponent implements OnInit, AfterViewInit {
     this.searchParams.emit(this.channelSearchValues);
   }
 
+  showUsers(channel: Channel) {
+    if (channel && channel.guidChannel) {
+      this.usersValues = new UsersValues();
+      this.usersValues.channelGuid = channel.guidChannel;
+      this.usersService.find(this.usersValues).subscribe(uv => {
+        this.userChannels = uv;
+        this.getUsersFromChannel.emit(this.usersValues);//todo изменить или удалить(нужно в app? Строка или массив?)
+        this.dialog.open(ShowUserChannelsDialogComponent, {data: this.userChannels, autoFocus: false});
+      });
+
+    }
+
+
+  }
 }

@@ -38,6 +38,8 @@ import {LoginComponent} from './auth/login/login.component';
 import {AppRoutingModule} from "./app.routing.module";
 import {NavigationComponent} from "./layout/navigation/navigation.component";
 import {MatCardModule} from "@angular/material/card";
+import {USERS_URL_TOKEN} from "./data/implementation/UsersService";
+import {ShowUserChannelsDialogComponent} from "./dialog/show-user-channels-dialog/show-user-channels-dialog.component";
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import {MatCardModule} from "@angular/material/card";
     ConfirmDialogComponent,
     AfterConfirmRebootDialogComponent,
     LoginComponent,
-    NavigationComponent
+    NavigationComponent,
+    ShowUserChannelsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -75,13 +78,15 @@ import {MatCardModule} from "@angular/material/card";
     NgxSpinnerModule,
     MatSnackBarModule,
     AppRoutingModule, // импорт нашего созданного модуля с роутингом
-    MatCardModule
+    MatCardModule,
+
   ],
   providers: [
     EditChannelDialogComponent,
     EditCameraDialogComponent,
     ConfirmDialogComponent,
     AfterConfirmRebootDialogComponent,
+    ShowUserChannelsDialogComponent,
     // authInterceptorProviders,
     // authErrorInterceptorProviders,
     {
@@ -109,6 +114,10 @@ import {MatCardModule} from "@angular/material/card";
     {
       provide: REBOOT_URL_TOKEN,
       useValue: 'http://localhost:8080/reboot'
+    },
+    {
+      provide: USERS_URL_TOKEN,
+      useValue: 'http://localhost:8080/users'
     }
     // ,
     // {
@@ -126,7 +135,11 @@ import {MatCardModule} from "@angular/material/card";
     // {
     //   provide: REBOOT_URL_TOKEN,
     //   useValue: 'http://reboot:8080/rebooting-cameras/reboot'
-    // }
+    // },
+    //     {
+    //       provide: USERS_URL_TOKEN,
+    //       useValue: 'http://reboot:8080/rebooting-cameras/users'
+    //     }
 
   ],
   bootstrap: [AppComponent]
