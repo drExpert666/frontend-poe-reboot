@@ -47,14 +47,18 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.value.password,
     }).subscribe(data => { // получаем токен
 
-      this.tokenStorage.saveToken(data.token); // сохраняем токен
-      this.tokenStorage.saveUser(data); // сохраняем юзера
+        this.tokenStorage.saveToken(data.token); // сохраняем токен
+        this.tokenStorage.saveUser(data); // сохраняем юзера
 
-      this.notificationService.showSnack('Successfully logged in');
-      this.router.navigate(['']);
-      window.location.reload();
-    }, error => { // если была ошибка
-      this.notificationService.showSnack(error.message);
+      console.log(data.token);
+        this.notificationService.showSnack('Успешно!');
+        setTimeout(() => {
+          this.router.navigate(['']);
+          window.location.reload();
+        }, 1000);
+
+      }, error => { // если была ошибка
+        this.notificationService.showSnack("Неверный юзер/пароль!");
       }
     )
   }

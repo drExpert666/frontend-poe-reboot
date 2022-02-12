@@ -28,7 +28,9 @@ export class NavigationComponent implements OnInit {
       this.userService.getCurrentUser().subscribe(data => {
         this.user.username = data.username;
         this.user.password = data.password;
+        this.user.authorities = data.authorities;
         this.isDataLoaded = true;
+        console.log(this.user);
       });
     }
   }

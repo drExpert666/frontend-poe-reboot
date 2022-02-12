@@ -91,6 +91,9 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   @Input()
   totalChannelsFounded: number;
 
+  @Input()
+  isSuperAdmin: boolean;
+
   /** аутпут декораторы */
 
   @Output()

@@ -49,6 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   usersValues : UsersValues;
 
   isAuthorized = false;
+  isSuperAdmin = false;
 
 
   constructor(private authService: AuthService,
@@ -64,6 +65,20 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     if (this.tokenStorage.getUser()) // если пользоавтель аторизирован (есть токен)
     {
+
+      /* проверяем, есть ли в ролях у пользователя роль админа */
+      const jwt =  this.tokenStorage.getToken()?.split(' ')[1];
+      // @ts-ignore
+      let jwtData = jwt.split('.')[1];
+      let decodedJwtJsonData = window.atob(jwtData);
+      let decodedJwtData = JSON.parse(decodedJwtJsonData);
+      let authorities = decodedJwtData.authorities;
+      for (let item of authorities) {
+        if(item.authority.includes('ROLE_ADMIN')) {
+          this.isSuperAdmin = true;
+        }
+      }
+
       this.isAuthorized = true; // только после этого флага возможны обращения к БД (без него html с основными данными пустой)
 
       /* добавляем иконку и задаём ей имя, по которомы мы сможем обращаться к ней в html */

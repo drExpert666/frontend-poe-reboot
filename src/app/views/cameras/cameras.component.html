@@ -132,7 +132,7 @@
           *matCellDef="let channel"> {{channel.guidServer && channel.guidServer.serverName ? channel.guidServer.serverName : 'Нет информации'}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="name" *ngIf="isSuperAdmin">
       <th mat-header-cell mat-sort-header class="text-center" *matHeaderCellDef>Имя канала</th>
       <td mat-cell class="channel-title link"
           (click)="showUsers(channel)"
@@ -140,6 +140,15 @@
           [class.no-info-2]="channel.name == undefined || null"
           *matCellDef="let channel"> {{channel.name ? channel.name : 'Нет информации'}} </td>
     </ng-container>
+
+    <ng-container matColumnDef="name" *ngIf="!isSuperAdmin">
+      <th mat-header-cell mat-sort-header class="text-center" *matHeaderCellDef>Имя канала</th>
+      <td mat-cell class="channel-title"
+          [class.completed]="channel.lostChannel"
+          [class.no-info-2]="channel.name == undefined || null"
+          *matCellDef="let channel"> {{channel.name ? channel.name : 'Нет информации'}} </td>
+    </ng-container>
+
 
     <ng-container matColumnDef="signal">
       <th mat-header-cell mat-sort-header class="text-center"

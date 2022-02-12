@@ -1,3 +1,8 @@
 <div class="padding" *ngFor="let usersValues of tmpUsersValues">
   <p>{{usersValues ? usersValues: '...'}}</p>
 </div>
+
+<div mat-dialog-actions class="justify-content-center">
+
+  <button mat-raised-button (click)="close()">Ок</button>
+</div>
