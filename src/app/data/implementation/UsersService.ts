@@ -17,7 +17,7 @@ export class UsersService implements UsersRepo<UsersValues> {
   constructor(@Inject(USERS_URL_TOKEN) public baseUrl, private http: HttpClient) {
   }
 
-  find(t: UsersValues): Observable<UsersValues[]> {
-    return this.http.get<UsersValues[]>(this.baseUrl + '/find/' + t.channelGuid);
+  find(t: UsersValues): Observable<UsersValues> {
+    return this.http.post<UsersValues>(this.baseUrl + '/find', t);
   }
 }

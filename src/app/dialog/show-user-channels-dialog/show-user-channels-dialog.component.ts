@@ -10,7 +10,7 @@ import {UsersValues} from "../../data/search/search";
 export class ShowUserChannelsDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ShowUserChannelsDialogComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: UsersValues[]) {
+  @Inject(MAT_DIALOG_DATA) public data: UsersValues) {
 
     dialogRef.disableClose = false;
 
@@ -20,11 +20,15 @@ export class ShowUserChannelsDialogComponent implements OnInit {
       });
   }
 
-
-  tmpUsersValues: UsersValues[];
+  tmpUsersValues: UsersValues;
+  tmpChannelGuid: string;
+  tmpUsersFromChannel?: string[];
 
   ngOnInit(): void {
     this.tmpUsersValues = this.data;
+    this.tmpChannelGuid = this.tmpUsersValues.channelGuid;
+    this.tmpUsersFromChannel = this.tmpUsersValues.usersFromChannel;
+
     console.log(this.tmpUsersValues);
   }
 

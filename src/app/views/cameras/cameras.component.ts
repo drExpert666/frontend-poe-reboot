@@ -86,8 +86,6 @@ export class CamerasComponent implements OnInit, AfterViewInit {
   }
 
   usersValues: UsersValues;
-  userChannels: UsersValues[];
-
   @Input()
   totalChannelsFounded: number;
 
@@ -351,11 +349,11 @@ export class CamerasComponent implements OnInit, AfterViewInit {
       this.usersValues = new UsersValues();
       this.usersValues.channelGuid = channel.guidChannel;
       this.usersService.find(this.usersValues).subscribe(uv => {
-        this.userChannels = uv;
+        this.usersValues = uv;
+        this.usersValues.channelGuid = channel.name? channel.name : 'Неизвестное название канала';
         this.getUsersFromChannel.emit(this.usersValues);//todo изменить или удалить(нужно в app? Строка или массив?)
-        this.dialog.open(ShowUserChannelsDialogComponent, {data: this.userChannels, autoFocus: false});
+        this.dialog.open(ShowUserChannelsDialogComponent, {data: this.usersValues, autoFocus: false});
       });
-
     }
 
 

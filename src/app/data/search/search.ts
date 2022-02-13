@@ -44,5 +44,6 @@ export class RebootValues {
 }
 
 export class UsersValues {
-  channelGuid: string
+  channelGuid: string;
+  usersFromChannel?: string[];
 }

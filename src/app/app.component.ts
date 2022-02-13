@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   selectedServer: Server;
   tmpChannel: Channel;
 
-  usersValues : UsersValues;
+  usersValues : UsersValues; // передаём сюда данные по пользователям через Output декоратор(пока нигде не используем)
 
   isAuthorized = false;
   isSuperAdmin = false;
