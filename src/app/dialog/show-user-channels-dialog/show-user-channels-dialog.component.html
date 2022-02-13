@@ -1,8 +1,8 @@
 <h2>Список пользователей канала: {{tmpChannelGuid}}</h2>
 <h3>Сервер trassir-main:</h3>
 
-<div *ngFor="let user of tmpUsersFromChannel">
-  <p>{{user ? user : '...'}}</p>
+<div class="padding" *ngFor="let user of tmpUsersFromChannel">
+  <span>{{user ? user : '...'}}</span>
 </div>
 
 <div mat-dialog-actions class="justify-content-center">

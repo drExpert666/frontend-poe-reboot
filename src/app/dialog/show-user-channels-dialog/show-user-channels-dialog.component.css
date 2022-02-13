@@ -1,3 +1,12 @@
 .padding {
-
+  margin: 0!important;
 }
+::ng-deep .mat-typography span {
+  margin: 0 0 0px;
+}
+
+::ng-deep .mat-typography h3 {
+  margin: 0 0 2px;
+}
+
+
