@@ -1,9 +1,18 @@
-<h2>Список пользователей канала: {{tmpChannelGuid}}</h2>
-<h3>Сервер trassir-main:</h3>
+<h3>Список пользователей канала: {{tmpChannelGuid}}</h3>
 
-<div class="padding" *ngFor="let user of tmpUsersFromChannel">
+
+<h3 class="text-center">Сервер trassir-main:</h3>
+
+<div *ngFor="let user of tmpUsersFromTrassirMain">
   <span>{{user ? user : '...'}}</span>
 </div>
+<div class="line"></div>
+<h3 class="text-center">Сервер trassir2:</h3>
+
+<div *ngFor="let user of tmpUsersFromTrassir2">
+  <span>{{user ? user : '...'}}</span>
+</div>
+
 
 <div mat-dialog-actions class="justify-content-center">
 

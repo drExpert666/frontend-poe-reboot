@@ -45,5 +45,6 @@ export class RebootValues {
 
 export class UsersValues {
   channelGuid: string;
-  usersFromChannel?: string[];
+  usersFromTrassirMain?: string[];
+  usersFromTrassir2?: string[];
 }

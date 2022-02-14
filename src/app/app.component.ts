@@ -73,6 +73,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       let decodedJwtJsonData = window.atob(jwtData);
       let decodedJwtData = JSON.parse(decodedJwtJsonData);
       let authorities = decodedJwtData.authorities;
+      console.log(jwtData);
+      console.log(decodedJwtJsonData);
+      console.log(authorities);
       for (let item of authorities) {
         if(item.authority.includes('ROLE_ADMIN')) {
           this.isSuperAdmin = true;

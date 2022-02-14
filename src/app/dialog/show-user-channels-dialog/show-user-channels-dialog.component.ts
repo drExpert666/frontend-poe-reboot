@@ -22,12 +22,14 @@ export class ShowUserChannelsDialogComponent implements OnInit {
 
   tmpUsersValues: UsersValues;
   tmpChannelGuid: string;
-  tmpUsersFromChannel?: string[];
+  tmpUsersFromTrassirMain?: string[];
+  tmpUsersFromTrassir2?: string[];
 
   ngOnInit(): void {
     this.tmpUsersValues = this.data;
     this.tmpChannelGuid = this.tmpUsersValues.channelGuid;
-    this.tmpUsersFromChannel = this.tmpUsersValues.usersFromChannel;
+    this.tmpUsersFromTrassirMain = this.tmpUsersValues.usersFromTrassirMain;
+    this.tmpUsersFromTrassir2 = this.tmpUsersValues.usersFromTrassir2;
 
     console.log(this.tmpUsersValues);
   }
